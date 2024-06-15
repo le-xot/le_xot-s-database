@@ -1,0 +1,41 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATASOURSE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Record {
+  id      Int            @id @default(autoincrement())
+  title   String
+  user    String
+  status  PrismaStatuses
+  genre   PrismaGenres
+  grade   PrismaGrades?
+  comment String
+}
+
+enum PrismaStatuses {
+  QUEUE
+  DONE
+  PROGRESS
+  NOTFINISHED
+  DROP
+}
+
+enum PrismaGenres {
+  GAME
+  ANIME
+  MOVIE
+  CARTOON
+  SERIES
+}
+
+enum PrismaGrades {
+  RECOMMEND
+  LIKE
+  BEER
+  DISLIKE
+}
