@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { enviroment } from 'src/utils/enviroments';
+import env from 'src/utils/enviroments';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +12,6 @@ async function bootstrap() {
     customCss: `.swagger-ui .topbar { display: none } .version { display: none } .swagger-ui .info .title small.version-stamp { display: none } .swagger-ui .info .title small { display: none }`,
   });
 
-  await app.listen(enviroment.appPort);
+  await app.listen(env.appPort);
 }
 bootstrap();
