@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { RecordRepository } from './record.repository';
-import { PrismaService } from '../db/prisma.service';
+import { RecordRepo } from './record.repo';
+import { PrismaService } from '../../db/prisma.service';
 import { RecordEntity } from './record.entity';
 import { Record } from '@prisma/client';
 import { Genres, Grades, Statuses } from './record.entity.enums';
 
 @Injectable()
-export class RecordRepositoryPrisma implements RecordRepository {
+export class RecordRepoPrisma implements RecordRepo {
   constructor(private prisma: PrismaService) {}
 
   private convertRecord(record: Record): RecordEntity {
@@ -25,12 +25,12 @@ export class RecordRepositoryPrisma implements RecordRepository {
     return this.convertRecord(newRecord);
   }
 
+  async deleteRecord(id: number): Promise<void> {
+    await this.prisma.record.delete({ where: { id } });
+  }
+
   async getAllRecords(): Promise<RecordEntity[]> {
     const records = await this.prisma.record.findMany();
     return records.map((record) => this.convertRecord(record));
-  }
-
-  async deleteRecord(id: number): Promise<void> {
-    await this.prisma.record.delete({ where: { id } });
   }
 }

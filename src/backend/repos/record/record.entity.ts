@@ -7,5 +7,4 @@ export type RecordEntity = {
   status: Statuses;
   genre: Genres;
   grade?: Grades;
-  comment: string;
 };

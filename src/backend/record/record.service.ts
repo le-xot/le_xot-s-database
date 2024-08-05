@@ -1,16 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  RecordInjectSymbol,
-  RecordRepository,
-} from '../repositories/record.repository';
-import { RecordEntity } from '../repositories/record.entity';
-import { Genres, Grades, Statuses } from '../repositories/record.entity.enums';
+import { RecordInjectSymbol, RecordRepo } from '../repos/record/record.repo';
+import { RecordEntity } from '../repos/record/record.entity';
+import { Genres, Grades, Statuses } from '../repos/record/record.entity.enums';
 
 @Injectable()
 export class RecordServices {
-  constructor(
-    @Inject(RecordInjectSymbol) private recordRepository: RecordRepository,
-  ) {}
+  constructor(@Inject(RecordInjectSymbol) private recordRepo: RecordRepo) {}
 
   async createRecord(
     title: string,
@@ -18,25 +13,21 @@ export class RecordServices {
     status: Statuses,
     genre: Genres,
     grade: Grades,
-    comment: string,
   ): Promise<RecordEntity> {
-    const newRecord = await this.recordRepository.createRecord({
+    return await this.recordRepo.createRecord({
       title,
       user,
       status,
       genre,
       grade,
-      comment,
     });
-    return newRecord;
   }
 
   async deleteRecord(id: number): Promise<void> {
-    await this.recordRepository.deleteRecord(id);
+    await this.recordRepo.deleteRecord(id);
   }
 
   async getAllRecords(): Promise<RecordEntity[]> {
-    const records = await this.recordRepository.getAllRecords();
-    return records;
+    return await this.recordRepo.getAllRecords();
   }
 }

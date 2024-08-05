@@ -8,12 +8,24 @@ generator client {
 }
 
 model Record {
-  id      Int            @id @default(autoincrement())
-  title   String
-  user    String
-  status  PrismaStatuses
-  genre   PrismaGenres
-  grade   PrismaGrades?
+  id     Int            @id @default(autoincrement())
+  title  String
+  user   String
+  status PrismaStatuses
+  genre  PrismaGenres
+  grade  PrismaGrades?
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  role     Roles
+}
+
+enum Roles {
+  ADMIN
+  USER
 }
 
 enum PrismaStatuses {
