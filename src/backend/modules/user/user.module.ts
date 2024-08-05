@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from '../db/prisma.module';
-import { UserRepoPrisma } from '../repos/user/user.repo.prisma';
-import { UserInjectSymbol } from '../repos/user/user.repo';
+import { PrismaModule } from '../../database/prisma.module';
+import { UserRepoPrisma } from './user.repo.prisma';
+import { UserInjectSymbol } from './user.repo';
 import { UserController } from './user.controller';
 import { UserServices } from './user.service';
 

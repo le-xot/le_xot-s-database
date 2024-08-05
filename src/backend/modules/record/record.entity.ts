@@ -1,4 +1,4 @@
-import { Genres, Grades, Statuses } from './record.entity.enums';
+import { Genres, Grades, Statuses } from '../../common/enums/record.enum';
 
 export type RecordEntity = {
   id: number;

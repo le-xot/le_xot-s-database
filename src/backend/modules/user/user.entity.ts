@@ -1,4 +1,4 @@
-import { Roles } from './user.entity.enums';
+import { Roles } from '../../common/enums/user.enum';
 
 export type UserEntity = {
   id: number;

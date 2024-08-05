@@ -1,8 +1,8 @@
-import { PrismaService } from '../../db/prisma.service';
+import { PrismaService } from '../../database/prisma.service';
 import { UserRepo } from './user.repo';
 import { Injectable } from '@nestjs/common';
 import { UserEntity } from './user.entity';
-import { Roles } from './user.entity.enums';
+import { Roles } from '../../common/enums/user.enum';
 import { User } from '@prisma/client';
 
 @Injectable()

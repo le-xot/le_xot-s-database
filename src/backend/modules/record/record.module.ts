@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from '../db/prisma.module';
+import { PrismaModule } from '../../database/prisma.module';
 import { RecordController } from './record.controller';
-import { RecordInjectSymbol } from '../repos/record/record.repo';
-import { RecordRepoPrisma } from '../repos/record/record.repo.prisma';
+import { RecordInjectSymbol } from './record.repo';
+import { RecordRepoPrisma } from './record.repo.prisma';
 import { RecordServices } from './record.service';
 
 @Module({

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RecordInjectSymbol, RecordRepo } from '../repos/record/record.repo';
-import { RecordEntity } from '../repos/record/record.entity';
-import { Genres, Grades, Statuses } from '../repos/record/record.entity.enums';
+import { RecordInjectSymbol, RecordRepo } from './record.repo';
+import { RecordEntity } from './record.entity';
+import { Genres, Grades, Statuses } from '../../common/enums/record.enum';
 
 @Injectable()
 export class RecordServices {

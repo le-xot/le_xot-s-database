@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UserInjectSymbol, UserRepo } from '../repos/user/user.repo';
-import { Roles } from '../repos/user/user.entity.enums';
-import { UserEntity } from '../repos/user/user.entity';
+import { UserInjectSymbol, UserRepo } from './user.repo';
+import { Roles } from '../../common/enums/user.enum';
+import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserServices {

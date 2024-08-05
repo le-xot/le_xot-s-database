@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Genres, Grades, Statuses } from '../repos/record/record.entity.enums';
+import { Genres, Grades, Statuses } from '../enums/record.enum';
 
 export class CreateRecordDTO {
   @ApiProperty({ example: 'Dota 2' })

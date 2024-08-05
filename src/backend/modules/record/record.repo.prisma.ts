@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { RecordRepo } from './record.repo';
-import { PrismaService } from '../../db/prisma.service';
+import { PrismaService } from '../../database/prisma.service';
 import { RecordEntity } from './record.entity';
 import { Record } from '@prisma/client';
-import { Genres, Grades, Statuses } from './record.entity.enums';
+import { Genres, Grades, Statuses } from '../../common/enums/record.enum';
 
 @Injectable()
 export class RecordRepoPrisma implements RecordRepo {
