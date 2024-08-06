@@ -12,13 +12,16 @@ export class UserServices {
     password: string,
     role: Roles,
   ): Promise<UserEntity> {
-    const user = await this.userRepo.findUserByUsername(username);
-    console.log(user);
-    if (user) {
-      throw new Error('User already exists');
-    }
-
     return await this.userRepo.createUser({ username, password, role });
+  }
+
+  async updateUser(
+    id: number,
+    username: string,
+    password: string,
+    role: Roles,
+  ): Promise<UserEntity> {
+    return await this.userRepo.updateUser(id, username, password, role);
   }
 
   async deleteUser(id: number): Promise<void> {

@@ -11,3 +11,17 @@ export class CreateUserDTO {
   @ApiProperty({ example: Roles.USER })
   role: Roles;
 }
+
+export class UpdateUserDTO {
+  @ApiProperty({ example: 1 })
+  id: number;
+
+  @ApiProperty({ example: 'NotJoe' })
+  username: string;
+
+  @ApiProperty({ example: 'NotDoe' })
+  password: string;
+
+  @ApiProperty({ example: Roles.ADMIN })
+  role: Roles;
+}

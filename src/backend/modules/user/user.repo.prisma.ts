@@ -16,13 +16,6 @@ export class UserRepoPrisma implements UserRepo {
     };
   }
 
-  async createUser(user: Omit<UserEntity, 'id'>): Promise<UserEntity> {
-    const newUser = await this.prisma.user.create({
-      data: user,
-    });
-    return this.convertUser(newUser);
-  }
-
   async findUserById(id: number): Promise<UserEntity> {
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) {
@@ -43,9 +36,44 @@ export class UserRepoPrisma implements UserRepo {
     return this.convertUser(user);
   }
 
+  async createUser(user: Omit<UserEntity, 'id'>): Promise<UserEntity> {
+    const foundedUser = await this.findUserByUsername(user.username);
+    if (foundedUser) {
+      return;
+    }
+    const newUser = await this.prisma.user.create({
+      data: user,
+    });
+    return this.convertUser(newUser);
+  }
+
+  async updateUser(
+    id: number,
+    username: string,
+    password: string,
+    role: Roles,
+  ): Promise<UserEntity> {
+    const foundUser = await this.findUserById(id);
+    if (!foundUser) {
+      return;
+    }
+    const updatedUser = await this.prisma.user.update({
+      where: { id },
+      data: {
+        username,
+        password,
+        role,
+      },
+    });
+    if (!updatedUser) {
+      return;
+    }
+    return this.convertUser(updatedUser);
+  }
+
   async deleteUser(id: number): Promise<void> {
-    const user = await this.findUserById(id);
-    if (!user) {
+    const foundedUser = await this.findUserById(id);
+    if (!foundedUser) {
       return;
     }
     await this.prisma.user.delete({ where: { id } });

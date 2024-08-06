@@ -1,7 +1,7 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UserServices } from './user.service';
-import { CreateUserDTO } from '../../common/dtos/user.dto';
+import { CreateUserDTO, UpdateUserDTO } from '../../common/dtos/user.dto';
 import { UserEntity } from './user.entity';
 
 @ApiTags('users')
@@ -13,6 +13,12 @@ export class UserController {
   async createUser(@Body() user: CreateUserDTO): Promise<void> {
     const { username, password, role } = user;
     await this.userService.createUser(username, password, role);
+  }
+
+  @Post('update')
+  async updateUser(@Body() user: UpdateUserDTO): Promise<void> {
+    const { id, username, password, role } = user;
+    await this.userService.updateUser(id, username, password, role);
   }
 
   @Delete(':id')
