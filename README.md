@@ -1,19 +1,20 @@
 # Development
 
-## Requirements
-* [Node.js (20+)](https://nodejs.org/en)
-* [npm](https://www.npmjs.com/)
-* [Typescript](https://www.typescriptlang.org/)
-* [Docker](https://docs.docker.com/engine/)
-
 ## Cli
+
+* Install dependencies
+
+```bash
+pnpm i
+```
 
 * Run needed services (postgres)
 ```bash
 docker compose up -d
 ```
 
-* Install dependencies
+* Generate prisma schema and migrate dev database
 ```bash
-npm i
+npx prisma generate
+npx prisma migrate dev
 ```

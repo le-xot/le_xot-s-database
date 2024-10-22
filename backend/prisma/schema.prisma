@@ -1,0 +1,84 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATASOURCE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Game {
+  id       Int            @id @default(autoincrement())
+  title    String
+  personId Int
+  person   Person         @relation(fields: [personId], references: [id])
+  type     Type
+  status   PrismaStatuses @default(QUEUE)
+  grade    PrismaGrades?
+
+  @@map("games")
+}
+
+model Video {
+  id       Int            @id @default(autoincrement())
+  title    String
+  personId Int
+  person   Person         @relation(fields: [personId], references: [id])
+  type     Type
+  status   PrismaStatuses @default(QUEUE)
+  genre    PrismaGenres
+  grade    PrismaGrades?
+
+  @@map("videos")
+}
+
+model Person {
+  id           Int     @id @default(autoincrement())
+  name         String  @unique
+  RecordGames  Game[]
+  RecordMovies Video[]
+
+  @@map("persons")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  role     Roles
+
+  @@map("users")
+}
+
+enum Type {
+  PAID
+  FREE
+}
+
+enum Roles {
+  ADMIN
+  USER
+}
+
+enum PrismaStatuses {
+  QUEUE
+  DONE
+  PROGRESS
+  UNFINISHED
+  DROP
+}
+
+enum PrismaGenres {
+  ANIME
+  MOVIE
+  CARTOON
+  SERIES
+}
+
+enum PrismaGrades {
+  RECOMMEND
+  LIKE
+  BEER
+  DISLIKE
+  NOTGRADED
+}
