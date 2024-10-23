@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { PersonServices } from './person.service';
 import { CreatePersonDTO } from '../../common/dtos/person.dto';
-import { PersonEntity } from './person.entity';
+import { Person } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('persons')
@@ -34,19 +34,17 @@ export class PersonController {
   }
 
   @Get()
-  async getAllPersons(): Promise<PersonEntity[]> {
+  async getAllPersons(): Promise<Person[]> {
     return await this.personServices.getAllPersons();
   }
 
   @Get(':id')
-  async findPersonById(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<PersonEntity> {
+  async findPersonById(@Param('id', ParseIntPipe) id: number): Promise<Person> {
     return await this.personServices.findPersonById(id);
   }
 
   @Get(':name')
-  async findPersonByName(@Param('name') name: string): Promise<PersonEntity> {
+  async findPersonByName(@Param('name') name: string): Promise<Person> {
     return await this.personServices.findPersonByName(name);
   }
 }

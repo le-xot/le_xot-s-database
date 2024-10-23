@@ -1,18 +1,26 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { UserInjectSymbol, UserRepo } from './user.repo';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../database/prisma.service';
 import { Roles } from '../../common/enums/user.enum';
-import { UserEntity } from './user.entity';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserServices {
-  constructor(@Inject(UserInjectSymbol) private userRepo: UserRepo) {}
+  constructor(private prisma: PrismaService) {}
 
   async createUser(
     username: string,
     password: string,
     role: Roles,
-  ): Promise<UserEntity> {
-    return await this.userRepo.createUser({ username, password, role });
+  ): Promise<User> {
+    const foundUser = await this.prisma.user.findUnique({
+      where: { username },
+    });
+    if (foundUser) {
+      return;
+    }
+    return this.prisma.user.create({
+      data: { username, password, role },
+    });
   }
 
   async updateUser(
@@ -20,19 +28,26 @@ export class UserServices {
     username: string,
     password: string,
     role: Roles,
-  ): Promise<UserEntity> {
-    return await this.userRepo.updateUser(id, username, password, role);
+  ): Promise<User> {
+    const foundUser = await this.prisma.user.findUnique({ where: { id } });
+    if (!foundUser) {
+      return;
+    }
+    return this.prisma.user.update({
+      where: { id },
+      data: { username, password, role },
+    });
   }
 
   async deleteUser(id: number): Promise<void> {
-    const user = await this.userRepo.findUserById(id);
-    if (!user) {
+    const foundUser = await this.prisma.user.findUnique({ where: { id } });
+    if (!foundUser) {
       return;
     }
-    await this.userRepo.deleteUser(id);
+    await this.prisma.user.delete({ where: { id } });
   }
 
-  async getAllUsers(): Promise<UserEntity[]> {
-    return await this.userRepo.getAllUsers();
+  async getAllUsers(): Promise<User[]> {
+    return this.prisma.user.findMany();
   }
 }

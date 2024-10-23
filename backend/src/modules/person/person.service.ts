@@ -1,32 +1,46 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { PersonInjectSymbol, PersonRepo } from './person.repo';
-import { PersonEntity } from './person.entity';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../database/prisma.service';
+import { Person } from '@prisma/client';
 
 @Injectable()
 export class PersonServices {
-  constructor(@Inject(PersonInjectSymbol) private personRepo: PersonRepo) {}
+  constructor(private prisma: PrismaService) {}
 
-  async createPerson(name: string): Promise<PersonEntity> {
-    return await this.personRepo.createPerson({ name });
+  async createPerson(name: string): Promise<Person> {
+    const existingPerson = await this.findPersonByName(name);
+    if (existingPerson) {
+      return;
+    }
+    return this.prisma.person.create({
+      data: { name },
+    });
   }
 
   async deletePersonById(id: number): Promise<void> {
-    await this.personRepo.deletePersonById(id);
+    const person = await this.findPersonById(id);
+    if (!person) {
+      return;
+    }
+    await this.prisma.person.delete({ where: { id } });
   }
 
   async deletePersonByName(name: string): Promise<void> {
-    await this.personRepo.deletePersonByName(name);
+    const person = await this.findPersonByName(name);
+    if (!person) {
+      return;
+    }
+    await this.prisma.person.delete({ where: { name } });
   }
 
-  async findPersonById(id: number): Promise<PersonEntity> {
-    return await this.personRepo.findPersonById(id);
+  async findPersonById(id: number): Promise<Person> {
+    return this.prisma.person.findUnique({ where: { id } });
   }
 
-  async findPersonByName(name: string): Promise<PersonEntity> {
-    return await this.personRepo.findPersonByName(name);
+  async findPersonByName(name: string): Promise<Person> {
+    return this.prisma.person.findUnique({ where: { name } });
   }
 
-  async getAllPersons(): Promise<PersonEntity[]> {
-    return await this.personRepo.getAllPersons();
+  async getAllPersons(): Promise<Person[]> {
+    return this.prisma.person.findMany();
   }
 }

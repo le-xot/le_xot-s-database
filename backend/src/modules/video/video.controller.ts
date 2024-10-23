@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { VideoServices } from './video.service';
 import { CreateVideoDTO } from '../../common/dtos/video.dto';
-import { VideoEntity } from './video.entity';
+import { Video } from '@prisma/client'; // Используем типы Prisma
 
 @ApiTags('videos')
 @Controller('videos')
@@ -15,7 +15,7 @@ export class VideoController {
   }
 
   @Get(':id')
-  async findVideoById(@Param('id') id: string): Promise<VideoEntity> {
+  async findVideoById(@Param('id') id: string): Promise<Video> {
     return await this.videoServices.findVideoById(parseInt(id));
   }
 
@@ -25,7 +25,7 @@ export class VideoController {
   }
 
   @Get()
-  async getAllVideos(): Promise<VideoEntity[]> {
+  async getAllVideos(): Promise<Video[]> {
     return await this.videoServices.getAllVideos();
   }
 }

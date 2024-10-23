@@ -9,7 +9,7 @@ export enum Statuses {
 export enum Genres {
   ANIME = 'ANIME',
   MOVIE = 'MOVIE',
-  CARTOON = 'CARTOON',
+  CARTOON = '123',
   SERIES = 'SERIES',
 }
 

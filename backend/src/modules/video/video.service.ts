@@ -1,25 +1,27 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { VideoInjectSymbol, VideoRepo } from './video.repo';
-import { VideoEntity } from './video.entity';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../database/prisma.service';
+import { Video } from '@prisma/client'; // Используем типы Prisma
 import { CreateVideoDTO } from '../../common/dtos/video.dto';
 
 @Injectable()
 export class VideoServices {
-  constructor(@Inject(VideoInjectSymbol) private recordRepo: VideoRepo) {}
+  constructor(private prisma: PrismaService) {}
 
-  async createVideo(video: CreateVideoDTO): Promise<VideoEntity> {
-    return await this.recordRepo.createVideo(video);
+  async createVideo(video: CreateVideoDTO): Promise<Video> {
+    return this.prisma.video.create({
+      data: video,
+    });
   }
 
   async deleteVideo(id: number): Promise<void> {
-    await this.recordRepo.deleteVideo(id);
+    await this.prisma.video.delete({ where: { id } });
   }
 
-  async getAllVideos(): Promise<VideoEntity[]> {
-    return await this.recordRepo.getAllVideos();
+  async getAllVideos(): Promise<Video[]> {
+    return this.prisma.video.findMany();
   }
 
-  async findVideoById(id: number): Promise<VideoEntity> {
-    return await this.recordRepo.findVideoById(id);
+  async findVideoById(id: number): Promise<Video> {
+    return this.prisma.video.findUnique({ where: { id } });
   }
 }

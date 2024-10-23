@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UserServices } from './user.service';
 import { CreateUserDTO, UpdateUserDTO } from '../../common/dtos/user.dto';
-import { UserEntity } from './user.entity';
+import { User } from '@prisma/client';
 
 @ApiTags('users')
 @Controller('users')
@@ -35,7 +35,7 @@ export class UserController {
   }
 
   @Get()
-  async getAllUsers(): Promise<UserEntity[]> {
+  async getAllUsers(): Promise<User[]> {
     return await this.userService.getAllUsers();
   }
 }
