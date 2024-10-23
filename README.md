@@ -2,10 +2,15 @@
 
 ## Cli
 
-* Install dependencies
+* Install dependencies for **frontend** and **backend** folder separately
 
 ```bash
+cd frontend
 pnpm i
+cd ..
+cd backend
+pnpm i
+cd ..
 ```
 
 * Run needed services (postgres)
