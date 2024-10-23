@@ -18,7 +18,7 @@ export class VideoServices {
   }
 
   async getAllVideos(): Promise<Video[]> {
-    return this.prisma.video.findMany();
+    return this.prisma.video.findMany({ include: { person: true } });
   }
 
   async findVideoById(id: number): Promise<Video> {

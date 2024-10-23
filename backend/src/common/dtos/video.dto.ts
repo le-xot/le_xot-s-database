@@ -22,9 +22,6 @@ export class CreateVideoDTO {
 }
 
 export class PatchVideoDTO {
-  @ApiProperty({ example: 1 })
-  id: number;
-
   @ApiProperty({ example: 'Боб строитель' })
   title?: string;
 
