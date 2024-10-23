@@ -42,7 +42,7 @@ const tableColumns: DataTableColumns<Video> = [
   },
   {
     title: 'Person',
-    key: 'person',
+    key: 'person.name',
     align: 'center',
   },
   {
