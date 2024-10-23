@@ -2,12 +2,12 @@
 import { DataTableColumns, NDataTable } from 'naive-ui';
 import { h } from 'vue';
 import TableGrade from './TableGrade.vue';
-import { useVideos, Video } from '../composables/useVideos.ts';
+import { Game, useGames } from '../composables/useGames.ts';
 import TableStatus from './TableStatus.vue';
 
-const { videos } = useVideos();
+const { games } = useGames();
 
-const tableColumns: DataTableColumns<Video> = [
+const tableColumns: DataTableColumns<Game> = [
   {
     title: 'Name',
     key: 'title',
@@ -33,11 +33,6 @@ const tableColumns: DataTableColumns<Video> = [
     align: 'center',
   },
   {
-    title: 'Genre',
-    key: 'genre',
-    align: 'center',
-  },
-  {
     render(row) {
       return h(
         'div',
@@ -57,9 +52,9 @@ const tableColumns: DataTableColumns<Video> = [
 <template>
   <n-data-table
     :columns="tableColumns"
-    :data="videos"
+    :data="games"
     :single-line="false"
-    v-if="videos.length > 0"
+    v-if="games.length > 0"
   ></n-data-table>
 </template>
 
@@ -85,34 +80,6 @@ const tableColumns: DataTableColumns<Video> = [
 }
 
 .grade-cell.default {
-  background-color: gray;
-}
-
-.status {
-  text-align: center;
-}
-
-.status.drop {
-  background-color: rgb(110, 54, 48);
-}
-
-.status.progress {
-  background-color: rgb(137, 99, 42);
-}
-
-.status.done {
-  background-color: rgb(43, 89, 63);
-}
-
-.status.unfinished {
-  background-color: rgb(40, 69, 108);
-}
-
-.status.queue {
-  background-color: gray;
-}
-
-.status.default {
   background-color: gray;
 }
 </style>

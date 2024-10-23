@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 import { Video } from '@prisma/client';
-import { CreateVideoDTO } from '../../common/dtos/video.dto';
+import { CreateVideoDTO, PatchVideoDTO } from '../../common/dtos/video.dto';
 
 @Injectable()
 export class VideoServices {
@@ -9,6 +9,14 @@ export class VideoServices {
 
   async createVideo(video: CreateVideoDTO): Promise<Video> {
     return this.prisma.video.create({
+      data: video,
+    });
+  }
+
+  async patchVideo(id: number, video: PatchVideoDTO): Promise<Video> {
+    return this.prisma.video.update({
+      where: { id },
+      include: { person: true },
       data: video,
     });
   }

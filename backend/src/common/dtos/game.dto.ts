@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Genres, Grades, Statuses, Types } from '../enums/video.enum';
+import { Grades, Statuses, Types } from '../enums/video.enum';
 
-export class CreateVideoDTO {
-  @ApiProperty({ example: 'Мадагаскар' })
+export class CreateGameDTO {
+  @ApiProperty({ example: 'minecraft' })
   title: string;
 
   @ApiProperty({ example: 1 })
@@ -14,18 +14,15 @@ export class CreateVideoDTO {
   @ApiProperty({ example: Statuses.PROGRESS })
   status: Statuses;
 
-  @ApiProperty({ example: Genres.CARTOON })
-  genre: Genres;
-
-  @ApiProperty({ example: Grades.DISLIKE })
+  @ApiProperty({ example: Grades.LIKE })
   grade?: Grades;
 }
 
-export class PatchVideoDTO {
-  @ApiProperty({ example: 'Боб строитель' })
+export class PatchGameDTO {
+  @ApiProperty({ example: 'Dota 2' })
   title?: string;
 
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: 2 })
   personId?: number;
 
   @ApiProperty({ example: Types.FREE })
@@ -33,9 +30,6 @@ export class PatchVideoDTO {
 
   @ApiProperty({ example: Statuses.DONE })
   status?: Statuses;
-
-  @ApiProperty({ example: Genres.MOVIE })
-  genre?: Genres;
 
   @ApiProperty({ example: Grades.DISLIKE })
   grade?: Grades;
