@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { VideoServices } from './video.service';
 import { CreateVideoDTO } from '../../common/dtos/video.dto';
-import { Video } from '@prisma/client'; // Используем типы Prisma
+import { Video } from '@prisma/client';
 
 @ApiTags('videos')
 @Controller('videos')
