@@ -30,7 +30,7 @@ const tableColumns: DataTableColumns<VideoEntity> = [
   },
   {
     render(row) {
-      return h(h(TableStatus, { status: row.status }));
+      return h(TableStatus, { status: row.status });
     },
     title: 'Status',
     key: 'status',

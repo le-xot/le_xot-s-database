@@ -16,7 +16,8 @@ const { videosQueue } = useVideos();
   >
     <span style="font-size: 25px">Поиграть: {{ gamesQueue.length }}</span>
     <n-grid
-      :cols="4"
+      cols="1 s:1 m:2 l:3 xl:4"
+      responsive="screen"
       :x-gap="10"
       :y-gap="10"
       style="background-color: rgb(16, 16, 20); padding-top: 10px"
@@ -38,7 +39,8 @@ const { videosQueue } = useVideos();
   >
     <span style="font-size: 25px">Посмотреть: {{ videosQueue.length }}</span>
     <n-grid
-      :cols="4"
+      cols="1 s:1 m:2 l:3 xl:4"
+      responsive="screen"
       :x-gap="10"
       :y-gap="10"
       style="background-color: rgb(16, 16, 20); padding-top: 10px"

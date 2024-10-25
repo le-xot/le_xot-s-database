@@ -21,13 +21,7 @@ const tableColumns: DataTableColumns<GameEntity> = [
   },
   {
     render(row) {
-      return h(
-        'div',
-        {
-          class: `status ${row.status?.toLowerCase()}`,
-        },
-        [h(TableStatus, { status: row.status })],
-      );
+      return h(TableStatus, { status: row.status });
     },
     title: 'Status',
     key: 'status',
@@ -35,13 +29,7 @@ const tableColumns: DataTableColumns<GameEntity> = [
   },
   {
     render(row) {
-      return h(
-        'div',
-        {
-          class: `grade-cell ${row.grade?.toLowerCase()}`,
-        },
-        [h(TableGrade, { grade: row.grade })],
-      );
+      return h(TableGrade, { grade: row.grade });
     },
     title: 'Grade',
     key: 'grade',
@@ -58,29 +46,3 @@ const tableColumns: DataTableColumns<GameEntity> = [
     v-if="games.length > 0"
   ></n-data-table>
 </template>
-
-<style>
-.grade-cell {
-  text-align: center;
-}
-
-.grade-cell.dislike {
-  background-color: rgb(110, 54, 48);
-}
-
-.grade-cell.beer {
-  background-color: rgb(137, 99, 42);
-}
-
-.grade-cell.like {
-  background-color: rgb(43, 89, 63);
-}
-
-.grade-cell.recommend {
-  background-color: rgb(40, 69, 108);
-}
-
-.grade-cell.default {
-  background-color: gray;
-}
-</style>
