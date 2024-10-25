@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { PersonServices } from './person.service';
@@ -23,6 +24,11 @@ export class PersonController {
     await this.personServices.createPerson(name);
   }
 
+  @Get()
+  async getAllPersons(): Promise<Person[]> {
+    return await this.personServices.getAllPersons();
+  }
+
   @Delete(':id')
   async deletePersonById(@Param('id', ParseIntPipe) id: number): Promise<void> {
     await this.personServices.deletePersonById(id);
@@ -33,9 +39,12 @@ export class PersonController {
     await this.personServices.deletePersonByName(name);
   }
 
-  @Get()
-  async getAllPersons(): Promise<Person[]> {
-    return await this.personServices.getAllPersons();
+  @Patch(':id')
+  async patchPerson(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() person: CreatePersonDTO,
+  ): Promise<Person> {
+    return await this.personServices.patchPerson(id, person.name);
   }
 
   @Get(':id')

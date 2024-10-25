@@ -40,6 +40,13 @@ export class PersonServices {
     return this.prisma.person.findUnique({ where: { name } });
   }
 
+  async patchPerson(id: number, name: string): Promise<Person> {
+    return this.prisma.person.update({
+      where: { id },
+      data: { name },
+    });
+  }
+
   async getAllPersons(): Promise<Person[]> {
     return this.prisma.person.findMany();
   }
