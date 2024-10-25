@@ -3,3 +3,8 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
+# Custom
+/dataSources
+dataSources.xml
+dataSources.local.xml
