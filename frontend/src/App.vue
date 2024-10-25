@@ -10,11 +10,11 @@ import {
   NTabs,
 } from 'naive-ui';
 import AppHeader from './components/AppHeader.vue';
-import TableQueue from './components/DataTable/TableQueue.vue';
-import TableVideos from './components/DataTable/TableVideos.vue';
-import TableGames from './components/DataTable/TableGames.vue';
-import MainGrades from './components/MainGrades.vue';
-import MainStatuses from './components/MainStatuses.vue';
+import TableQueue from './components/dataTable/TableQueue.vue';
+import TableVideos from './components/dataTable/TableVideos.vue';
+import TableGames from './components/dataTable/TableGames.vue';
+import MainGrades from './components/info/MainGrades.vue';
+import MainStatuses from './components/info/MainStatuses.vue';
 </script>
 
 <template>
