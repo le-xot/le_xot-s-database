@@ -8,10 +8,11 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VideoServices } from './video.service';
-import { CreateVideoDTO, PatchVideoDTO } from '../../common/dtos/video.dto';
+import { CreateVideoDTO, PatchVideoDTO } from './video.dto';
 import { Video } from '@prisma/client';
+import { VideoEntity } from './video.entity';
 
 @ApiTags('videos')
 @Controller('videos')
@@ -42,6 +43,7 @@ export class VideoController {
   }
 
   @Get()
+  @ApiResponse({ status: 200, type: VideoEntity, isArray: true })
   async getAllVideos(): Promise<Video[]> {
     return await this.videoServices.getAllVideos();
   }

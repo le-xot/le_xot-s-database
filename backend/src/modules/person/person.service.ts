@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 import { Person } from '@prisma/client';
+import { PersonEntity } from './person.entity';
 
 @Injectable()
 export class PersonServices {
@@ -47,7 +48,7 @@ export class PersonServices {
     });
   }
 
-  async getAllPersons(): Promise<Person[]> {
+  async getAllPersons(): Promise<PersonEntity[]> {
     return this.prisma.person.findMany();
   }
 }

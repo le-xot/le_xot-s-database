@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { DataTableColumns, NDataTable } from 'naive-ui';
 import { h } from 'vue';
-import TableGrade from './TableGrade.vue';
-import { Game, useGames } from '../composables/useGames.ts';
-import TableStatus from './TableStatus.vue';
+import TableGrade from './props/TableGrade.vue';
+import { useGames } from '../../composables/useGames.ts';
+import TableStatus from './props/TableStatus.vue';
+import { GameEntity } from '../../types/api.ts';
 
 const { games } = useGames();
 
-const tableColumns: DataTableColumns<Game> = [
+const tableColumns: DataTableColumns<GameEntity> = [
   {
     title: 'Name',
     key: 'title',

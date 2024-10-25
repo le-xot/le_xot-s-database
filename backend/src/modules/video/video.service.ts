@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 import { Video } from '@prisma/client';
-import { CreateVideoDTO, PatchVideoDTO } from '../../common/dtos/video.dto';
+import { CreateVideoDTO, PatchVideoDTO } from './video.dto';
 
 @Injectable()
 export class VideoServices {

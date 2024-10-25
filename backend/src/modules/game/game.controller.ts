@@ -1,4 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
@@ -10,8 +10,9 @@ import {
   Post,
 } from '@nestjs/common';
 import { GameServices } from './game.service';
-import { CreateGameDTO, PatchGameDTO } from '../../common/dtos/game.dto';
+import { CreateGameDTO, PatchGameDTO } from './game.dto';
 import { Game } from '@prisma/client';
+import { GameEntity } from './game.entity';
 
 @ApiTags('games')
 @Controller('games')
@@ -42,6 +43,7 @@ export class GameController {
   }
 
   @Get()
+  @ApiResponse({ status: 200, type: GameEntity, isArray: true })
   async getAllGames(): Promise<Game[]> {
     return this.gameServices.getAllGames();
   }

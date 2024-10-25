@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Roles } from '../enums/user.enum';
+import { $Enums } from '@prisma/client';
 
 export class CreateUserDTO {
   @ApiProperty({ example: 'Joe' })
@@ -8,8 +8,8 @@ export class CreateUserDTO {
   @ApiProperty({ example: 'Doe' })
   password: string;
 
-  @ApiProperty({ example: Roles.USER })
-  role: Roles;
+  @ApiProperty({ example: $Enums.Roles.USER })
+  role: $Enums.Roles;
 }
 
 export class UpdateUserDTO {
@@ -22,6 +22,6 @@ export class UpdateUserDTO {
   @ApiProperty({ example: 'NotDoe' })
   password: string;
 
-  @ApiProperty({ example: Roles.ADMIN })
-  role: Roles;
+  @ApiProperty({ example: $Enums.Roles.ADMIN })
+  role: $Enums.Roles;
 }

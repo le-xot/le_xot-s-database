@@ -6,7 +6,7 @@ import { NGradientText } from 'naive-ui';
   <div align="center" style="background-color: rgb(24, 24, 28)">
     <n-gradient-text
       gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
-      font-size="85px"
+      font-size="65px"
       style="font-weight: 800"
     >
       Крутой сайт Лешота

@@ -1,19 +1,17 @@
 import { createGlobalState } from '@vueuse/core';
 import { computed, onMounted, ref } from 'vue';
-import { Grades, Statuses, Types } from '../utils/enums.ts';
+import { useApi } from './useApi.ts';
+import { GameEntity, StatusesEnum } from '../types/api.ts';
 
 export const useGames = createGlobalState(() => {
-  const games = ref<Game[]>([]);
+  const api = useApi();
+  const games = ref<GameEntity[]>([]);
 
   onMounted(async () => {
     if (games.value.length) return;
     try {
-      const response = await fetch('http://localhost:3000/games');
-      if (!response.ok) {
-        console.log('ERROR');
-        return;
-      }
-      games.value = await response.json();
+      const { data } = await api.games.gameControllerGetAllGames();
+      games.value = data;
     } catch {
       console.log('ERROR');
     }
@@ -22,19 +20,10 @@ export const useGames = createGlobalState(() => {
   const gamesQueue = computed(() => {
     return games.value.filter(
       (games) =>
-        games.status === Statuses.QUEUE || games.status === Statuses.PROGRESS,
+        games.status === StatusesEnum.QUEUE ||
+        games.status === StatusesEnum.PROGRESS,
     );
   });
 
   return { games, gamesQueue };
 });
-
-export interface Game {
-  id: number;
-  title: string;
-  person: { name: string };
-  personId: number;
-  type: Types;
-  status: Statuses;
-  grade: Grades;
-}

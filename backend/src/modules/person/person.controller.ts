@@ -9,7 +9,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { PersonServices } from './person.service';
-import { CreatePersonDTO } from '../../common/dtos/person.dto';
+import { CreatePersonDTO } from './person.dto';
 import { Person } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
 

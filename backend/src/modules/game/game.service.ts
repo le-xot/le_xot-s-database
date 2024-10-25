@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
-import { CreateGameDTO, PatchGameDTO } from '../../common/dtos/game.dto';
+import { CreateGameDTO, PatchGameDTO } from './game.dto';
 import { Game } from '@prisma/client';
+import { GameEntity } from './game.entity';
 
 @Injectable()
 export class GameServices {
@@ -23,7 +24,7 @@ export class GameServices {
     await this.prisma.game.delete({ where: { id } });
   }
 
-  async getAllGames(): Promise<Game[]> {
+  async getAllGames(): Promise<GameEntity[]> {
     return this.prisma.game.findMany({ include: { person: true } });
   }
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { useGames } from '../composables/useGames.ts';
-import { useVideos } from '../composables/useVideos.ts';
+import { useGames } from '../../composables/useGames.ts';
+import { useVideos } from '../../composables/useVideos.ts';
 import { NCard, NGrid, NGridItem } from 'naive-ui';
+import TableGenre from './props/TableGenre.vue';
 
 const { gamesQueue } = useGames();
 const { videosQueue } = useVideos();
@@ -44,7 +45,9 @@ const { videosQueue } = useVideos();
     >
       <n-grid-item v-for="(item, index) in videosQueue" :key="index">
         <n-card :title="item.title" size="huge">
-          <template #header-extra> {{ item.genre }}</template>
+          <template #header-extra>
+            <TableGenre :genre="item.genre" />
+          </template>
           <template #action>
             {{ item.person.name }}
           </template>

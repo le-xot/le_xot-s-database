@@ -4,26 +4,24 @@ import {
   NConfigProvider,
   NLayout,
   NLayoutContent,
-  NLayoutFooter,
   NLayoutHeader,
   NScrollbar,
   NTabPane,
   NTabs,
 } from 'naive-ui';
-import Videos from './components/Videos.vue';
-import Header from './components/Header.vue';
-import Games from './components/Games.vue';
-import Queue from './components/Queue.vue';
-import Footer from './components/Footer.vue';
+import AppHeader from './components/AppHeader.vue';
+import TableQueue from './components/DataTable/TableQueue.vue';
+import TableVideos from './components/DataTable/TableVideos.vue';
+import TableGames from './components/DataTable/TableGames.vue';
 </script>
 
 <template>
   <n-config-provider :theme="darkTheme">
     <n-layout style="height: 100%">
       <n-layout-header style="height: 10vh">
-        <Header />
+        <AppHeader />
       </n-layout-header>
-      <n-layout-content style="height: 85vh">
+      <n-layout-content style="height: 90vh">
         <n-scrollbar>
           <n-tabs
             style="background-color: rgb(24, 24, 28)"
@@ -31,20 +29,17 @@ import Footer from './components/Footer.vue';
             animated
           >
             <n-tab-pane name="queue" tab="Queue" display-directive="show">
-              <Queue />
+              <TableQueue />
             </n-tab-pane>
             <n-tab-pane name="videos" tab="Videos" display-directive="show">
-              <Videos />
+              <TableVideos />
             </n-tab-pane>
             <n-tab-pane name="games" tab="Games" display-directive="show">
-              <Games />
+              <TableGames />
             </n-tab-pane>
           </n-tabs>
         </n-scrollbar>
       </n-layout-content>
-      <n-layout-footer style="height: 5vh">
-        <Footer />
-      </n-layout-footer>
     </n-layout>
   </n-config-provider>
 </template>

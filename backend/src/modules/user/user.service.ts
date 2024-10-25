@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
-import { Roles } from '../../common/enums/user.enum';
-import { User } from '@prisma/client';
+import { $Enums, User } from '@prisma/client';
 
 @Injectable()
 export class UserServices {
@@ -10,7 +9,7 @@ export class UserServices {
   async createUser(
     username: string,
     password: string,
-    role: Roles,
+    role: $Enums.Roles,
   ): Promise<User> {
     const foundUser = await this.prisma.user.findUnique({
       where: { username },
@@ -27,7 +26,7 @@ export class UserServices {
     id: number,
     username: string,
     password: string,
-    role: Roles,
+    role: $Enums.Roles,
   ): Promise<User> {
     const foundUser = await this.prisma.user.findUnique({ where: { id } });
     if (!foundUser) {

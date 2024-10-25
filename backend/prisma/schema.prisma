@@ -80,5 +80,4 @@ enum PrismaGrades {
   LIKE
   BEER
   DISLIKE
-  NOTGRADED
 }

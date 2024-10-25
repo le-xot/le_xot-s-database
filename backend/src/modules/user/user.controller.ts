@@ -10,7 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { UserServices } from './user.service';
-import { CreateUserDTO, UpdateUserDTO } from '../../common/dtos/user.dto';
+import { CreateUserDTO, UpdateUserDTO } from './user.dto';
 import { User } from '@prisma/client';
 
 @ApiTags('users')
