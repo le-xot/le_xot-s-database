@@ -45,19 +45,19 @@ model User {
   id       Int    @id @default(autoincrement())
   username String @unique
   password String
-  role     Roles
+  role Roles @default(USER)
 
   @@map("users")
-}
-
-enum Type {
-  PAID
-  FREE
 }
 
 enum Roles {
   ADMIN
   USER
+}
+
+enum Type {
+  PAID
+  FREE
 }
 
 enum PrismaStatuses {

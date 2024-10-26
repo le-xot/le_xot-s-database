@@ -7,22 +7,19 @@ import {
   Param,
   ParseIntPipe,
   Patch,
-  Post,
+  UseGuards,
 } from '@nestjs/common';
 import { UserServices } from './user.service';
-import { CreateUserDTO, UpdateUserDTO } from './user.dto';
+import { UpdateUserDTO } from './user.dto';
 import { User } from '@prisma/client';
+import { AuthGuard } from '../auth/auth.guard';
+import { UserDecorator } from '../auth/auth.user.decorator';
 
 @ApiTags('users')
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private userService: UserServices) {}
-
-  @Post()
-  async createUser(@Body() user: CreateUserDTO): Promise<void> {
-    const { username, password, role } = user;
-    await this.userService.createUser(username, password, role);
-  }
 
   @Patch()
   async updateUser(@Body() user: UpdateUserDTO): Promise<void> {
@@ -32,11 +29,16 @@ export class UserController {
 
   @Delete(':id')
   async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    await this.userService.deleteUser(id);
+    await this.userService.deleteUserById(id);
   }
 
   @Get()
   async getAllUsers(): Promise<User[]> {
     return await this.userService.getAllUsers();
+  }
+
+  @Get('info')
+  async getInfo(@UserDecorator() user: User) {
+    return this.userService.findUserByName(user.username);
   }
 }
