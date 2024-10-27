@@ -1,6 +1,5 @@
 /* eslint-disable */
 /* tslint:disable */
-
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -155,22 +154,16 @@ export interface FullRequestParams extends Omit<RequestInit, 'body'> {
   cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  'body' | 'method' | 'query' | 'path'
->;
+export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
 
 export interface ApiConfig<SecurityDataType = unknown> {
   baseUrl?: string;
   baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>;
-  securityWorker?: (
-    securityData: SecurityDataType | null,
-  ) => Promise<RequestParams | void> | RequestParams | void;
+  securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void;
   customFetch?: typeof fetch;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown>
-  extends Response {
+export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
   data: D;
   error: E;
 }
@@ -189,8 +182,7 @@ export class HttpClient<SecurityDataType = unknown> {
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
   private abortControllers = new Map<CancelToken, AbortController>();
-  private customFetch = (...fetchParams: Parameters<typeof fetch>) =>
-    fetch(...fetchParams);
+  private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
     credentials: 'same-origin',
@@ -223,15 +215,9 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
     const query = rawQuery || {};
-    const keys = Object.keys(query).filter(
-      (key) => 'undefined' !== typeof query[key],
-    );
+    const keys = Object.keys(query).filter((key) => 'undefined' !== typeof query[key]);
     return keys
-      .map((key) =>
-        Array.isArray(query[key])
-          ? this.addArrayQueryParam(query, key)
-          : this.addQueryParam(query, key),
-      )
+      .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
       .join('&');
   }
 
@@ -242,13 +228,8 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string')
-        ? JSON.stringify(input)
-        : input,
-    [ContentType.Text]: (input: any) =>
-      input !== null && typeof input !== 'string'
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
+    [ContentType.Text]: (input: any) => (input !== null && typeof input !== 'string' ? JSON.stringify(input) : input),
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
@@ -265,10 +246,7 @@ export class HttpClient<SecurityDataType = unknown> {
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
   };
 
-  protected mergeRequestParams(
-    params1: RequestParams,
-    params2?: RequestParams,
-  ): RequestParams {
+  protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -281,9 +259,7 @@ export class HttpClient<SecurityDataType = unknown> {
     };
   }
 
-  protected createAbortSignal = (
-    cancelToken: CancelToken,
-  ): AbortSignal | undefined => {
+  protected createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
       const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
@@ -327,26 +303,15 @@ export class HttpClient<SecurityDataType = unknown> {
     const payloadFormatter = this.contentFormatters[type || ContentType.Json];
     const responseFormat = format || requestParams.format;
 
-    return this.customFetch(
-      `${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`,
-      {
-        ...requestParams,
-        headers: {
-          ...(requestParams.headers || {}),
-          ...(type && type !== ContentType.FormData
-            ? { 'Content-Type': type }
-            : {}),
-        },
-        signal:
-          (cancelToken
-            ? this.createAbortSignal(cancelToken)
-            : requestParams.signal) || null,
-        body:
-          typeof body === 'undefined' || body === null
-            ? null
-            : payloadFormatter(body),
+    return this.customFetch(`${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`, {
+      ...requestParams,
+      headers: {
+        ...(requestParams.headers || {}),
+        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
       },
-    ).then(async (response) => {
+      signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
+      body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
       const r = response.clone() as HttpResponse<T, E>;
       r.data = null as unknown as T;
       r.error = null as unknown as E;
@@ -397,10 +362,7 @@ export class Api<SecurityDataType extends unknown> {
      * @name AuthControllerRegisterUser
      * @request POST:/auth/register
      */
-    authControllerRegisterUser: (
-      data: CreateUserDTO,
-      params: RequestParams = {},
-    ) =>
+    authControllerRegisterUser: (data: CreateUserDTO, params: RequestParams = {}) =>
       this.http.request<void, void>({
         path: `/auth/register`,
         method: 'POST',
@@ -447,10 +409,7 @@ export class Api<SecurityDataType extends unknown> {
      * @name UserControllerUpdateUser
      * @request PATCH:/users
      */
-    userControllerUpdateUser: (
-      data: UpdateUserDTO,
-      params: RequestParams = {},
-    ) =>
+    userControllerUpdateUser: (data: UpdateUserDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/users`,
         method: 'PATCH',
@@ -498,285 +457,6 @@ export class Api<SecurityDataType extends unknown> {
       this.http.request<void, any>({
         path: `/users/info`,
         method: 'GET',
-        ...params,
-      }),
-  };
-  persons = {
-    /**
-     * No description
-     *
-     * @tags persons
-     * @name PersonControllerCreatePerson
-     * @request POST:/persons
-     */
-    personControllerCreatePerson: (
-      data: CreatePersonDTO,
-      params: RequestParams = {},
-    ) =>
-      this.http.request<void, any>({
-        path: `/persons`,
-        method: 'POST',
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags persons
-     * @name PersonControllerGetAllPersons
-     * @request GET:/persons
-     */
-    personControllerGetAllPersons: (params: RequestParams = {}) =>
-      this.http.request<void, any>({
-        path: `/persons`,
-        method: 'GET',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags persons
-     * @name PersonControllerDeletePersonById
-     * @request DELETE:/persons/{id}
-     */
-    personControllerDeletePersonById: (
-      id: number,
-      params: RequestParams = {},
-    ) =>
-      this.http.request<void, any>({
-        path: `/persons/${id}`,
-        method: 'DELETE',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags persons
-     * @name PersonControllerPatchPerson
-     * @request PATCH:/persons/{id}
-     */
-    personControllerPatchPerson: (
-      id: number,
-      data: CreatePersonDTO,
-      params: RequestParams = {},
-    ) =>
-      this.http.request<void, any>({
-        path: `/persons/${id}`,
-        method: 'PATCH',
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags persons
-     * @name PersonControllerFindPersonById
-     * @request GET:/persons/{id}
-     */
-    personControllerFindPersonById: (id: number, params: RequestParams = {}) =>
-      this.http.request<void, any>({
-        path: `/persons/${id}`,
-        method: 'GET',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags persons
-     * @name PersonControllerDeletePersonByName
-     * @request DELETE:/persons/{name}
-     */
-    personControllerDeletePersonByName: (
-      name: string,
-      params: RequestParams = {},
-    ) =>
-      this.http.request<void, any>({
-        path: `/persons/${name}`,
-        method: 'DELETE',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags persons
-     * @name PersonControllerFindPersonByName
-     * @request GET:/persons/{name}
-     */
-    personControllerFindPersonByName: (
-      name: string,
-      params: RequestParams = {},
-    ) =>
-      this.http.request<void, any>({
-        path: `/persons/${name}`,
-        method: 'GET',
-        ...params,
-      }),
-  };
-  videos = {
-    /**
-     * No description
-     *
-     * @tags videos
-     * @name VideoControllerCreateVideo
-     * @request POST:/videos
-     */
-    videoControllerCreateVideo: (
-      data: CreateVideoDTO,
-      params: RequestParams = {},
-    ) =>
-      this.http.request<void, any>({
-        path: `/videos`,
-        method: 'POST',
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags videos
-     * @name VideoControllerGetAllVideos
-     * @request GET:/videos
-     */
-    videoControllerGetAllVideos: (params: RequestParams = {}) =>
-      this.http.request<VideoEntity[], any>({
-        path: `/videos`,
-        method: 'GET',
-        format: 'json',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags videos
-     * @name VideoControllerFindVideoById
-     * @request GET:/videos/{id}
-     */
-    videoControllerFindVideoById: (id: number, params: RequestParams = {}) =>
-      this.http.request<void, any>({
-        path: `/videos/${id}`,
-        method: 'GET',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags videos
-     * @name VideoControllerPatchVideo
-     * @request PATCH:/videos/{id}
-     */
-    videoControllerPatchVideo: (
-      id: number,
-      data: PatchVideoDTO,
-      params: RequestParams = {},
-    ) =>
-      this.http.request<void, any>({
-        path: `/videos/${id}`,
-        method: 'PATCH',
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags videos
-     * @name VideoControllerDeleteVideo
-     * @request DELETE:/videos/{id}
-     */
-    videoControllerDeleteVideo: (id: number, params: RequestParams = {}) =>
-      this.http.request<void, any>({
-        path: `/videos/${id}`,
-        method: 'DELETE',
-        ...params,
-      }),
-  };
-  games = {
-    /**
-     * No description
-     *
-     * @tags games
-     * @name GameControllerCreateGame
-     * @request POST:/games
-     */
-    gameControllerCreateGame: (
-      data: CreateGameDTO,
-      params: RequestParams = {},
-    ) =>
-      this.http.request<void, any>({
-        path: `/games`,
-        method: 'POST',
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags games
-     * @name GameControllerGetAllGames
-     * @request GET:/games
-     */
-    gameControllerGetAllGames: (params: RequestParams = {}) =>
-      this.http.request<GameEntity[], any>({
-        path: `/games`,
-        method: 'GET',
-        format: 'json',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags games
-     * @name GameControllerFindGameById
-     * @request GET:/games/{id}
-     */
-    gameControllerFindGameById: (id: number, params: RequestParams = {}) =>
-      this.http.request<void, any>({
-        path: `/games/${id}`,
-        method: 'GET',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags games
-     * @name GameControllerPatchGame
-     * @request PATCH:/games/{id}
-     */
-    gameControllerPatchGame: (id: number, params: RequestParams = {}) =>
-      this.http.request<void, any>({
-        path: `/games/${id}`,
-        method: 'PATCH',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags games
-     * @name GameControllerDeleteGame
-     * @request DELETE:/games/{id}
-     */
-    gameControllerDeleteGame: (id: number, params: RequestParams = {}) =>
-      this.http.request<void, any>({
-        path: `/games/${id}`,
-        method: 'DELETE',
         ...params,
       }),
   };
@@ -841,6 +521,259 @@ export class Api<SecurityDataType extends unknown> {
         path: `/admin/users/${username}`,
         method: 'DELETE',
         query: query,
+        ...params,
+      }),
+  };
+  persons = {
+    /**
+     * No description
+     *
+     * @tags persons
+     * @name PersonControllerCreatePerson
+     * @request POST:/persons
+     */
+    personControllerCreatePerson: (data: CreatePersonDTO, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/persons`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags persons
+     * @name PersonControllerGetAllPersons
+     * @request GET:/persons
+     */
+    personControllerGetAllPersons: (params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/persons`,
+        method: 'GET',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags persons
+     * @name PersonControllerDeletePersonById
+     * @request DELETE:/persons/{id}
+     */
+    personControllerDeletePersonById: (id: number, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/persons/${id}`,
+        method: 'DELETE',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags persons
+     * @name PersonControllerPatchPerson
+     * @request PATCH:/persons/{id}
+     */
+    personControllerPatchPerson: (id: number, data: CreatePersonDTO, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/persons/${id}`,
+        method: 'PATCH',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags persons
+     * @name PersonControllerFindPersonById
+     * @request GET:/persons/{id}
+     */
+    personControllerFindPersonById: (id: number, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/persons/${id}`,
+        method: 'GET',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags persons
+     * @name PersonControllerDeletePersonByName
+     * @request DELETE:/persons/{name}
+     */
+    personControllerDeletePersonByName: (name: string, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/persons/${name}`,
+        method: 'DELETE',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags persons
+     * @name PersonControllerFindPersonByName
+     * @request GET:/persons/{name}
+     */
+    personControllerFindPersonByName: (name: string, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/persons/${name}`,
+        method: 'GET',
+        ...params,
+      }),
+  };
+  videos = {
+    /**
+     * No description
+     *
+     * @tags videos
+     * @name VideoControllerCreateVideo
+     * @request POST:/videos
+     */
+    videoControllerCreateVideo: (data: CreateVideoDTO, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/videos`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags videos
+     * @name VideoControllerGetAllVideos
+     * @request GET:/videos
+     */
+    videoControllerGetAllVideos: (params: RequestParams = {}) =>
+      this.http.request<VideoEntity[], any>({
+        path: `/videos`,
+        method: 'GET',
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags videos
+     * @name VideoControllerFindVideoById
+     * @request GET:/videos/{id}
+     */
+    videoControllerFindVideoById: (id: number, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/videos/${id}`,
+        method: 'GET',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags videos
+     * @name VideoControllerPatchVideo
+     * @request PATCH:/videos/{id}
+     */
+    videoControllerPatchVideo: (id: number, data: PatchVideoDTO, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/videos/${id}`,
+        method: 'PATCH',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags videos
+     * @name VideoControllerDeleteVideo
+     * @request DELETE:/videos/{id}
+     */
+    videoControllerDeleteVideo: (id: number, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/videos/${id}`,
+        method: 'DELETE',
+        ...params,
+      }),
+  };
+  games = {
+    /**
+     * No description
+     *
+     * @tags games
+     * @name GameControllerCreateGame
+     * @request POST:/games
+     */
+    gameControllerCreateGame: (data: CreateGameDTO, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/games`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags games
+     * @name GameControllerGetAllGames
+     * @request GET:/games
+     */
+    gameControllerGetAllGames: (params: RequestParams = {}) =>
+      this.http.request<GameEntity[], any>({
+        path: `/games`,
+        method: 'GET',
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags games
+     * @name GameControllerFindGameById
+     * @request GET:/games/{id}
+     */
+    gameControllerFindGameById: (id: number, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/games/${id}`,
+        method: 'GET',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags games
+     * @name GameControllerPatchGame
+     * @request PATCH:/games/{id}
+     */
+    gameControllerPatchGame: (id: number, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/games/${id}`,
+        method: 'PATCH',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags games
+     * @name GameControllerDeleteGame
+     * @request DELETE:/games/{id}
+     */
+    gameControllerDeleteGame: (id: number, params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/games/${id}`,
+        method: 'DELETE',
         ...params,
       }),
   };
