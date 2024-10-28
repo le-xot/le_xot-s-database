@@ -9,7 +9,7 @@ import {
   NInput,
   NModal,
 } from 'naive-ui';
-import { useApi } from '../composables/useApi.ts';
+import { useApi } from '../../composables/useApi.ts';
 
 const showModal = ref(false);
 
@@ -75,5 +75,3 @@ async function save(e: MouseEvent) {
     </n-card>
   </n-modal>
 </template>
-
-<style scoped></style>

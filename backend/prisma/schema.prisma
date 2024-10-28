@@ -9,7 +9,7 @@ generator client {
 
 model Game {
   id       Int            @id @default(autoincrement())
-  title    String
+  title String @unique
   personId Int
   person   Person         @relation(fields: [personId], references: [id])
   type     Type
@@ -21,7 +21,7 @@ model Game {
 
 model Video {
   id       Int            @id @default(autoincrement())
-  title    String
+  title String @unique
   personId Int
   person   Person         @relation(fields: [personId], references: [id])
   type     Type

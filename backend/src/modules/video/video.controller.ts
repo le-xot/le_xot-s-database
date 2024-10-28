@@ -7,14 +7,18 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VideoServices } from './video.service';
 import { CreateVideoDTO, PatchVideoDTO } from './video.dto';
-import { Video } from '@prisma/client';
+import { Roles, Video } from '@prisma/client';
 import { VideoEntity } from './video.entity';
+import { AuthGuard } from '../auth/auth.guard';
+import { RolesGuard } from '../auth/auth.roles.guard';
 
 @ApiTags('videos')
+@UseGuards(AuthGuard, new RolesGuard([Roles.ADMIN]))
 @Controller('videos')
 export class VideoController {
   constructor(private videoServices: VideoServices) {}

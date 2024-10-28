@@ -5,8 +5,8 @@ export class CreateGameDTO {
   @ApiProperty({ example: 'minecraft' })
   title: string;
 
-  @ApiProperty({ example: 1 })
-  personId: number;
+  @ApiProperty({ example: 'le_xot' })
+  personName: string;
 
   @ApiProperty({ example: $Enums.Type.FREE })
   type: $Enums.Type;
@@ -22,8 +22,8 @@ export class PatchGameDTO {
   @ApiProperty({ example: 'Dota 2' })
   title?: string;
 
-  @ApiProperty({ example: 2 })
-  personId?: number;
+  @ApiProperty({ example: 'le_xot' })
+  personName?: string;
 
   @ApiProperty({ example: $Enums.Type.FREE })
   type?: $Enums.Type;

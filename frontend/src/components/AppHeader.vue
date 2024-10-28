@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NGradientText } from 'naive-ui';
-import LoginForm from './LoginForm.vue';
+import LoginForm from './forms/LoginForm.vue';
 </script>
 
 <template>

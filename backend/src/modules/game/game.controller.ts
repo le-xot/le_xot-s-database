@@ -8,13 +8,17 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { GameServices } from './game.service';
 import { CreateGameDTO, PatchGameDTO } from './game.dto';
-import { Game } from '@prisma/client';
+import { Game, Roles } from '@prisma/client';
 import { GameEntity } from './game.entity';
+import { AuthGuard } from '../auth/auth.guard';
+import { RolesGuard } from '../auth/auth.roles.guard';
 
 @ApiTags('games')
+@UseGuards(AuthGuard, new RolesGuard([Roles.ADMIN]))
 @Controller('games')
 export class GameController {
   constructor(private gameServices: GameServices) {}
@@ -34,7 +38,7 @@ export class GameController {
     @Param('id', ParseIntPipe) id: number,
     game: PatchGameDTO,
   ): Promise<Game> {
-    return this.gameServices.patchGame(id, game);
+    return this.gameServices.patchGameById(id, game);
   }
 
   @Delete(':id')

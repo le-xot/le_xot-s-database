@@ -4,7 +4,7 @@ import env from '../../utils/enviroments';
 
 const RegisteredJwtModule = JwtModule.register({
   secret: env.jwtSecret,
-  signOptions: { expiresIn: '30m' },
+  signOptions: { expiresIn: '6h' },
 });
 
 @Module({
