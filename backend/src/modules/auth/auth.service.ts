@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Roles } from '@prisma/client';
+import bcrypt from 'bcrypt';
 import { UserServices } from '../user/user.service';
 
 @Injectable()
@@ -16,8 +16,6 @@ export class AuthService {
     password: string,
     role: Roles,
   ): Promise<void> {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const existingUser = await this.userServices.findUserByName(username);
     if (existingUser) {
       throw new HttpException(
@@ -26,7 +24,7 @@ export class AuthService {
       );
     }
 
-    await this.userServices.createUser(username, hashedPassword, role);
+    await this.userServices.createUser(username, password, role);
   }
 
   async login(username: string, password: string): Promise<string> {
