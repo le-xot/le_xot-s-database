@@ -36,9 +36,12 @@ export class UserServices {
     if (!foundUser) {
       return;
     }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     return this.prisma.user.update({
       where: { id },
-      data: { username, password, role },
+      data: { username, password: hashedPassword, role },
     });
   }
 
