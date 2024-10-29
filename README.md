@@ -1,16 +1,15 @@
 # Development
 
+* [Node.js: v20](https://nodejs.org/en)
+* [Pnpm: v9](https://pnpm.io/)
+* [Docker](https://docs.docker.com/engine/)
+
 ## Cli
 
-* Install dependencies for **frontend** and **backend** folder separately
+* Install dependencies for **frontend** and **backend** folder
 
 ```bash
-cd frontend
 pnpm i
-cd ..
-cd backend
-pnpm i
-cd ..
 ```
 
 * Run needed services (postgres)

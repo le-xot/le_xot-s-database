@@ -13,9 +13,7 @@ async function bootstrap() {
   app.enableCors();
   const config = new DocumentBuilder().setTitle('le_xot`s lists').build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document, {
-    customCss: `.swagger-ui .topbar { display: none } .version { display: none } .swagger-ui .info .title small.version-stamp { display: none } .swagger-ui .info .title small { display: none }`,
-  });
+  SwaggerModule.setup('api', app, document);
 
   app.use(
     '/reference',
@@ -27,7 +25,6 @@ async function bootstrap() {
   );
 
   await app.listen(env.appPort);
-  console.log(`Application\'s running on: http://localhost:${env.appPort}/api`);
   console.log(`http://localhost:3000/reference`);
 
   if (module.hot) {
