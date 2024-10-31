@@ -10,11 +10,12 @@ import {
   NModal,
   useMessage,
 } from 'naive-ui';
-import { useApi } from '../../composables/useApi.ts';
+
+import { useUser } from '../../composables/useUser.ts';
 
 const showModal = ref(false);
 
-const api = useApi();
+const { login } = useUser();
 
 const formRef = ref<FormInst | null>(null);
 const message = useMessage();
@@ -41,10 +42,8 @@ async function save(e: MouseEvent) {
 
   try {
     await formRef.value?.validate();
-    const req = await api.auth.authControllerLogin(formValue.value);
-    if (req.ok) {
-      showModal.value = false;
-    }
+    await login(formValue.value.username, formValue.value.password);
+    showModal.value = false;
   } catch (e) {
     message.error('Invalid');
   }

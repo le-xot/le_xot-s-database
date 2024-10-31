@@ -11,7 +11,7 @@ import LoginForm from './forms/LoginForm.vue';
       font-size="65px"
       style="font-weight: 800"
     >
-      Крутой сайт Лешота
+      Список игр и кинолент
     </n-gradient-text>
   </div>
 </template>

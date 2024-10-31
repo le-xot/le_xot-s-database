@@ -36,6 +36,18 @@ export interface UpdateUserDTO {
   role: string;
 }
 
+export enum RolesEnum {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
+export interface UserEntity {
+  id: number;
+  username: string;
+  password: string;
+  role: RolesEnum;
+}
+
 export interface CreatePersonDTO {
   /** @example "le_xot" */
   name: string;
@@ -431,9 +443,10 @@ export class Api<SecurityDataType extends unknown> {
      * @request GET:/users
      */
     userControllerGetAllUsers: (params: RequestParams = {}) =>
-      this.http.request<void, any>({
+      this.http.request<UserEntity[], any>({
         path: `/users`,
         method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -459,9 +472,10 @@ export class Api<SecurityDataType extends unknown> {
      * @request GET:/users/info
      */
     userControllerGetInfo: (params: RequestParams = {}) =>
-      this.http.request<void, any>({
+      this.http.request<UserEntity, any>({
         path: `/users/info`,
         method: 'GET',
+        format: 'json',
         ...params,
       }),
   };
