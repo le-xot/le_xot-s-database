@@ -10,7 +10,7 @@ export class UserServices {
   async createUser(
     username: string,
     password: string,
-    role: $Enums.Roles,
+    role: $Enums.PrismaRoles,
   ): Promise<User> {
     const foundUser = await this.prisma.user.findUnique({
       where: { username },
@@ -30,7 +30,7 @@ export class UserServices {
     id: number,
     username: string,
     password: string,
-    role: $Enums.Roles,
+    role: $Enums.PrismaRoles,
   ): Promise<User> {
     const foundUser = await this.prisma.user.findUnique({ where: { id } });
     if (!foundUser) {

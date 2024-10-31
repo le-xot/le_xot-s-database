@@ -13,10 +13,10 @@ import { UserServices } from '../user/user.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/auth.roles.guard';
-import { Roles, User } from '@prisma/client';
+import { PrismaRoles, User } from '@prisma/client';
 
 @ApiTags('admin')
-@UseGuards(AuthGuard, new RolesGuard([Roles.ADMIN]))
+@UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
 @Controller('admin/users')
 export class AdminController {
   constructor(private userServices: UserServices) {}

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Roles } from '@prisma/client';
+import { PrismaRoles } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { UserServices } from '../user/user.service';
 
@@ -14,7 +14,7 @@ export class AuthService {
   async registerUser(
     username: string,
     password: string,
-    role: Roles,
+    role: PrismaRoles,
   ): Promise<void> {
     const existingUser = await this.userServices.findUserByName(username);
     if (existingUser) {

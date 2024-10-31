@@ -12,8 +12,8 @@ export class GameEntity implements Game {
   person: PersonEntity;
   @ApiProperty()
   personId: number;
-  @ApiProperty({ enumName: TypesEnum, enum: $Enums.Type })
-  type: $Enums.Type;
+  @ApiProperty({ enumName: TypesEnum, enum: $Enums.PrismaTypes })
+  type: $Enums.PrismaTypes;
   @ApiProperty({ enumName: StatusesEnum, enum: $Enums.PrismaStatuses })
   status: $Enums.PrismaStatuses;
   @ApiProperty({ enumName: GradeEnum, enum: $Enums.PrismaGrades })

@@ -12,13 +12,13 @@ import {
 } from '@nestjs/common';
 import { GameServices } from './game.service';
 import { CreateGameDTO, PatchGameDTO } from './game.dto';
-import { Game, Roles } from '@prisma/client';
+import { Game, PrismaRoles } from '@prisma/client';
 import { GameEntity } from './game.entity';
 import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/auth.roles.guard';
 
 @ApiTags('games')
-@UseGuards(AuthGuard, new RolesGuard([Roles.ADMIN]))
+@UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
 @Controller('games')
 export class GameController {
   constructor(private gameServices: GameServices) {}

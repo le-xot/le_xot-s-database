@@ -11,13 +11,13 @@ import {
 } from '@nestjs/common';
 import { PersonServices } from './person.service';
 import { CreatePersonDTO } from './person.dto';
-import { Person, Roles } from '@prisma/client';
+import { Person, PrismaRoles } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/auth.roles.guard';
 
 @ApiTags('persons')
-@UseGuards(AuthGuard, new RolesGuard([Roles.ADMIN]))
+@UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
 @Controller('persons')
 export class PersonController {
   constructor(private personServices: PersonServices) {}

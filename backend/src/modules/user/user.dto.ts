@@ -8,8 +8,8 @@ export class CreateUserDTO {
   @ApiProperty({ example: 'Doe' })
   password: string;
 
-  @ApiProperty({ example: $Enums.Roles.USER })
-  role: $Enums.Roles;
+  @ApiProperty({ example: $Enums.PrismaRoles.USER })
+  role: $Enums.PrismaRoles;
 }
 
 export class UpdateUserDTO {
@@ -22,6 +22,6 @@ export class UpdateUserDTO {
   @ApiProperty({ example: 'NotDoe' })
   password: string;
 
-  @ApiProperty({ example: $Enums.Roles.ADMIN })
-  role: $Enums.Roles;
+  @ApiProperty({ example: $Enums.PrismaRoles.ADMIN })
+  role: $Enums.PrismaRoles;
 }

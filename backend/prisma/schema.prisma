@@ -8,25 +8,25 @@ generator client {
 }
 
 model Game {
-  id       Int            @id @default(autoincrement())
-  title String @unique
-  personId Int
-  person   Person         @relation(fields: [personId], references: [id])
-  type     Type
-  status   PrismaStatuses @default(QUEUE)
+  id       Int             @id @default(autoincrement())
+  title    String?         @unique
+  personId Int?
+  person   Person?         @relation(fields: [personId], references: [id])
+  type     PrismaTypes?
+  status   PrismaStatuses? @default(QUEUE)
   grade    PrismaGrades?
 
   @@map("games")
 }
 
 model Video {
-  id       Int            @id @default(autoincrement())
-  title String @unique
-  personId Int
-  person   Person         @relation(fields: [personId], references: [id])
-  type     Type
-  status   PrismaStatuses @default(QUEUE)
-  genre    PrismaGenres
+  id       Int             @id @default(autoincrement())
+  title    String?         @unique
+  personId Int?
+  person   Person?         @relation(fields: [personId], references: [id])
+  type     PrismaTypes?
+  status   PrismaStatuses? @default(QUEUE)
+  genre    PrismaGenres?
   grade    PrismaGrades?
 
   @@map("videos")
@@ -42,20 +42,20 @@ model Person {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique
+  id       Int         @id @default(autoincrement())
+  username String      @unique
   password String
-  role Roles @default(USER)
+  role     PrismaRoles @default(USER)
 
   @@map("users")
 }
 
-enum Roles {
+enum PrismaRoles {
   ADMIN
   USER
 }
 
-enum Type {
+enum PrismaTypes {
   PAID
   FREE
 }

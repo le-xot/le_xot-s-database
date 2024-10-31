@@ -8,8 +8,8 @@ export class CreateGameDTO {
   @ApiProperty({ example: 'le_xot' })
   personName: string;
 
-  @ApiProperty({ example: $Enums.Type.FREE })
-  type: $Enums.Type;
+  @ApiProperty({ example: $Enums.PrismaTypes.FREE })
+  type: $Enums.PrismaTypes;
 
   @ApiProperty({ example: $Enums.PrismaStatuses.PROGRESS })
   status: $Enums.PrismaStatuses;
@@ -25,8 +25,8 @@ export class PatchGameDTO {
   @ApiProperty({ example: 'le_xot' })
   personName?: string;
 
-  @ApiProperty({ example: $Enums.Type.FREE })
-  type?: $Enums.Type;
+  @ApiProperty({ example: $Enums.PrismaTypes.FREE })
+  type?: $Enums.PrismaTypes;
 
   @ApiProperty({ example: $Enums.PrismaStatuses.DONE })
   status?: $Enums.PrismaStatuses;

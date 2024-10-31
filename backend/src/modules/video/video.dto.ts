@@ -8,8 +8,8 @@ export class CreateVideoDTO {
   @ApiProperty({ example: 1 })
   personId: number;
 
-  @ApiProperty({ example: $Enums.Type.FREE })
-  type: $Enums.Type;
+  @ApiProperty({ example: $Enums.PrismaTypes.FREE })
+  type: $Enums.PrismaTypes;
 
   @ApiProperty({ example: $Enums.PrismaStatuses.PROGRESS })
   status: $Enums.PrismaStatuses;
@@ -28,8 +28,8 @@ export class PatchVideoDTO {
   @ApiProperty({ example: 1 })
   personId?: number;
 
-  @ApiProperty({ example: $Enums.Type.FREE })
-  type?: $Enums.Type;
+  @ApiProperty({ example: $Enums.PrismaTypes.FREE })
+  type?: $Enums.PrismaTypes;
 
   @ApiProperty({ example: $Enums.PrismaStatuses.DONE })
   status?: $Enums.PrismaStatuses;

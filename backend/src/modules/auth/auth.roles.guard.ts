@@ -1,9 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Roles } from '@prisma/client';
+import { PrismaRoles } from '@prisma/client';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private roles: Roles[]) {}
+  constructor(private roles: PrismaRoles[]) {}
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
