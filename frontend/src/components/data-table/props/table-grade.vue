@@ -1,34 +1,35 @@
 <script setup lang="ts">
-import { GradeEnum } from '../../../types/api.ts';
-import { NTag } from 'naive-ui';
+import { NTag } from 'naive-ui'
 
-defineProps<{ grade?: GradeEnum }>();
+import { GradeEnum } from '../../../types/api.ts'
+
+defineProps<{ grade?: GradeEnum }>()
 
 const gradeLabels: Record<
   GradeEnum,
   {
-    name: string;
-    variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning';
+    name: string
+    variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
   }
 > = {
   [GradeEnum.DISLIKE]: { name: '👎', variant: 'error' },
   [GradeEnum.BEER]: { name: '🍺', variant: 'warning' },
   [GradeEnum.LIKE]: { name: '👍', variant: 'success' },
   [GradeEnum.RECOMMEND]: { name: '🔥', variant: 'info' },
-};
+}
 </script>
 
 <template>
   <div class="table-grade">
-    <n-tag
+    <NTag
+      v-if="grade"
       class="table-grade-tag"
       :type="gradeLabels[grade].variant"
-      v-if="grade"
       round
       :bordered="false"
     >
       {{ gradeLabels[grade!].name }}
-    </n-tag>
+    </NTag>
   </div>
 </template>
 
@@ -38,6 +39,7 @@ const gradeLabels: Record<
   justify-content: center;
   align-items: center;
 }
+
 .table-grade-tag {
   display: flex;
   align-items: center;

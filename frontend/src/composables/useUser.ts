@@ -1,34 +1,35 @@
-import { createGlobalState } from '@vueuse/core';
-import { UserEntity } from '../types/api.ts';
-import { onMounted, ref } from 'vue';
-import { useApi } from './useApi.ts';
+import { createGlobalState } from '@vueuse/core'
+import { onMounted, ref } from 'vue'
+import { useApi } from './useApi.ts'
+import type { UserEntity } from '../types/api.ts'
 
 export const useUser = createGlobalState(() => {
-  const api = useApi();
-  const user = ref<UserEntity>();
+  const api = useApi()
+  const user = ref<UserEntity>()
 
   async function login(username: string, password: string) {
-    const req = await api.auth.authControllerLogin({ username, password });
+    const req = await api.auth.authControllerLogin({ username, password })
     if (!req.ok) {
-      throw new Error(await req.text());
+      throw new Error(await req.text())
     }
-    user.value = undefined;
-    await fetchProfile();
+    user.value = undefined
+    await fetchProfile()
   }
 
   async function fetchProfile() {
-    if (user.value) return;
+    if (user.value)
+      return
 
     try {
-      const { data } = await api.users.userControllerGetInfo();
-      user.value = data;
+      const { data } = await api.users.userControllerGetInfo()
+      user.value = data
     } catch {
-      console.log('ERROR');
+      console.log('ERROR')
     }
   }
 
   onMounted(async () => {
-    await fetchProfile();
-  });
-  return { user, login, fetchProfile };
-});
+    await fetchProfile()
+  })
+  return { user, login, fetchProfile }
+})

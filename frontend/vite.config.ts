@@ -1,7 +1,8 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import { generateApi } from 'swagger-typescript-api';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath } from 'node:url'
+
+import vue from '@vitejs/plugin-vue'
+import { generateApi } from 'swagger-typescript-api'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => {
@@ -13,7 +14,7 @@ export default defineConfig(async () => {
     httpClientType: 'fetch',
     singleHttpClient: true,
     extractEnums: true,
-  });
+  })
 
   return {
     plugins: [vue()],
@@ -27,5 +28,5 @@ export default defineConfig(async () => {
         },
       },
     },
-  };
-});
+  }
+})

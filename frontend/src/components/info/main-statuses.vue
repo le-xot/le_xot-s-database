@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { NH2 } from 'naive-ui';
+import { NH2 } from 'naive-ui'
 </script>
 
 <template>
   <div class="status">
-    <n-h2>📌 Статусы:</n-h2>
+    <NH2>📌 Статусы:</NH2>
     <p>
       <span style="color: var(--color-gray); text-decoration-line: underline">
         В очереди

@@ -1,8 +1,8 @@
 {
   "name": "frontend",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -11,6 +11,7 @@
   "dependencies": {
     "@antfu/eslint-config": "^3.8.0",
     "@vueuse/core": "^11.1.0",
+    "eslint": "^8.42.0",
     "lucide-vue-next": "^0.453.0",
     "naive-ui": "^2.40.1",
     "swagger-typescript-api": "13.0.22",
@@ -20,9 +21,9 @@
     "vue3-simple-icons": "^13.2.0"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^3.8.0",
     "@types/node": "^22.7.9",
     "@vitejs/plugin-vue": "^5.1.4",
-    "prettier": "3.3.3",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",
     "vue-tsc": "^2.1.6"

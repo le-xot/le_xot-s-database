@@ -1,34 +1,35 @@
 <script setup lang="ts">
-import { GenresEnum } from '../../../types/api.ts';
-import { NTag } from 'naive-ui';
+import { NTag } from 'naive-ui'
 
-defineProps<{ genre: GenresEnum }>();
+import { GenresEnum } from '../../../types/api.ts'
+
+defineProps<{ genre: GenresEnum }>()
 
 const genreLabels: Record<
   GenresEnum,
   {
-    name: string;
-    variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning';
+    name: string
+    variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
   }
 > = {
   [GenresEnum.MOVIE]: { name: 'Фильм', variant: 'success' },
   [GenresEnum.SERIES]: { name: 'Сериал', variant: 'info' },
   [GenresEnum.ANIME]: { name: 'Аниме', variant: 'error' },
   [GenresEnum.CARTOON]: { name: 'Мультфильм', variant: 'warning' },
-};
+}
 </script>
 
 <template>
   <div class="table-genre">
-    <n-tag
+    <NTag
+      v-if="genre"
       class="table-genre-tag"
       :type="genreLabels[genre].variant"
-      v-if="genre"
       round
       :bordered="false"
     >
       {{ genreLabels[genre].name }}
-    </n-tag>
+    </NTag>
   </div>
 </template>
 
@@ -38,6 +39,7 @@ const genreLabels: Record<
   justify-content: center;
   align-items: center;
 }
+
 .table-genre-tag {
   display: flex;
   align-items: center;

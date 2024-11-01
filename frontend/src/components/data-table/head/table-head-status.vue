@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { NPopover } from 'naive-ui';
-import { Info } from 'lucide-vue-next';
-import MainStatuses from '../../info/main-statuses.vue';
+import { Info } from 'lucide-vue-next'
+import { NPopover } from 'naive-ui'
+
+import MainStatuses from '../../info/main-statuses.vue'
 </script>
 
 <template>
   <div class="head-status">
     Статус
-    <n-popover raw trigger="hover">
+    <NPopover raw trigger="hover">
       <template #trigger>
         <Info style="width: 1rem; height: 1rem" />
       </template>
       <MainStatuses />
-    </n-popover>
+    </NPopover>
   </div>
 </template>
 

@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { StatusesEnum } from '../../../types/api.ts';
-import { NTag } from 'naive-ui';
+import { NTag } from 'naive-ui'
 
-defineProps<{ status?: StatusesEnum }>();
+import { StatusesEnum } from '../../../types/api.ts'
+
+defineProps<{ status?: StatusesEnum }>()
 
 const statusLabels: Record<
   StatusesEnum,
   {
-    name: string;
-    variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning';
+    name: string
+    variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
   }
 > = {
   [StatusesEnum.PROGRESS]: { name: 'В процессе', variant: 'warning' },
@@ -16,19 +17,20 @@ const statusLabels: Record<
   [StatusesEnum.DROP]: { name: 'Дроп', variant: 'error' },
   [StatusesEnum.QUEUE]: { name: 'В очереди', variant: 'default' },
   [StatusesEnum.UNFINISHED]: { name: 'Нет концовки', variant: 'info' },
-};
+}
 </script>
+
 <template>
   <div class="table-status">
-    <n-tag
+    <NTag
+      v-if="status"
       class="table-status-tag"
       :type="statusLabels[status].variant"
-      v-if="status"
       round
       :bordered="false"
     >
       {{ statusLabels[status].name }}
-    </n-tag>
+    </NTag>
   </div>
 </template>
 
@@ -38,6 +40,7 @@ const statusLabels: Record<
   justify-content: center;
   align-items: center;
 }
+
 .table-status-tag {
   display: flex;
   align-items: center;

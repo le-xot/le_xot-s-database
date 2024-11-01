@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import LoginForm from './forms/login-form.vue';
-import { NButton } from 'naive-ui';
+import { NButton } from 'naive-ui'
+
+import LoginForm from './forms/login-form.vue'
 
 const routes = [
   { name: 'Очередь', path: '/db/queue' },
   { name: 'Игры', path: '/db/games' },
   { name: 'Видео', path: '/db/videos' },
-];
+]
 </script>
 
 <template>
@@ -15,21 +16,21 @@ const routes = [
       <div class="header-nav">
         <div class="header-nav">
           <router-link
-            custom
-            v-slot="{ isActive, href, navigate }"
             v-for="route of routes"
+            v-slot="{ isActive, href, navigate }"
             :key="route.name"
+            custom
             :to="route.path"
           >
-            <n-button
+            <NButton
               tag="a"
               :href="href"
-              @click="navigate"
               secondary
               :type="isActive ? 'success' : 'default'"
+              @click="navigate"
             >
               {{ route.name }}
-            </n-button>
+            </NButton>
           </router-link>
         </div>
       </div>

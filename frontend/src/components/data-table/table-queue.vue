@@ -1,60 +1,61 @@
 <script setup lang="ts">
-import { useGames } from '../../composables/useGames.ts';
-import { useVideos } from '../../composables/useVideos.ts';
-import { NCard, NGrid, NGridItem } from 'naive-ui';
-import TableGenre from './props/table-genre.vue';
+import { NCard, NGrid, NGridItem } from 'naive-ui'
 
-const { gamesQueue } = useGames();
-const { videosQueue } = useVideos();
+import { useGames } from '../../composables/useGames.ts'
+import { useVideos } from '../../composables/useVideos.ts'
+import TableGenre from './props/table-genre.vue'
+
+const { gamesQueue } = useGames()
+const { videosQueue } = useVideos()
 </script>
 
 <template>
-  <n-card
+  <NCard
+    v-if="gamesQueue.length > 0"
     :bordered="false"
     style="background-color: rgb(24, 24, 28)"
-    v-if="gamesQueue.length > 0"
   >
     <span style="font-size: 25px">Поиграть: {{ gamesQueue.length }}</span>
-    <n-grid
+    <NGrid
       cols="1 s:1 m:2 l:3 xl:4"
       responsive="screen"
       :x-gap="10"
       :y-gap="10"
       style="background-color: rgb(24, 24, 28); padding-top: 10px"
     >
-      <n-grid-item v-for="(item, index) in gamesQueue" :key="index">
-        <n-card :title="item.title" size="huge" hoverable>
+      <NGridItem v-for="(item, index) in gamesQueue" :key="index">
+        <NCard :title="item.title" size="huge" hoverable>
           <template #action>
             {{ item.person.name }}
           </template>
-        </n-card>
-      </n-grid-item>
-    </n-grid>
-  </n-card>
+        </NCard>
+      </NGridItem>
+    </NGrid>
+  </NCard>
 
-  <n-card
+  <NCard
+    v-if="videosQueue.length > 0"
     :bordered="false"
     style="background-color: rgb(24, 24, 28)"
-    v-if="videosQueue.length > 0"
   >
     <span style="font-size: 25px">Посмотреть: {{ videosQueue.length }}</span>
-    <n-grid
+    <NGrid
       cols="1 s:1 m:2 l:3 xl:4"
       responsive="screen"
       :x-gap="10"
       :y-gap="10"
       style="background-color: rgb(24, 24, 28); padding-top: 10px"
     >
-      <n-grid-item v-for="(item, index) in videosQueue" :key="index">
-        <n-card :title="item.title" size="huge" hoverable>
+      <NGridItem v-for="(item, index) in videosQueue" :key="index">
+        <NCard :title="item.title" size="huge" hoverable>
           <template #header-extra>
             <TableGenre :genre="item.genre" />
           </template>
           <template #action>
             {{ item.person.name }}
           </template>
-        </n-card>
-      </n-grid-item>
-    </n-grid>
-  </n-card>
+        </NCard>
+      </NGridItem>
+    </NGrid>
+  </NCard>
 </template>

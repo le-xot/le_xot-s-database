@@ -4,23 +4,26 @@ import {
   NConfigProvider,
   NMessageProvider,
   NScrollbar,
-} from 'naive-ui';
-import AppHeader from './components/app-header.vue';
+} from 'naive-ui'
+
+import AppHeader from './components/app-header.vue'
 </script>
 
 <template>
-  <n-config-provider :theme="darkTheme">
-    <n-message-provider>
-      <div class="app"><AppHeader /></div>
+  <NConfigProvider :theme="darkTheme">
+    <NMessageProvider>
+      <div class="app">
+        <AppHeader />
+      </div>
       <div class="content">
         <div class="container">
-          <n-scrollbar>
+          <NScrollbar>
             <RouterView />
-          </n-scrollbar>
+          </NScrollbar>
         </div>
       </div>
-    </n-message-provider>
-  </n-config-provider>
+    </NMessageProvider>
+  </NConfigProvider>
 </template>
 
 <style scoped>
