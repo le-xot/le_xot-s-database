@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NPopover } from 'naive-ui';
 import { Info } from 'lucide-vue-next';
-import MainGrades from '../../info/MainGrades.vue';
+import MainGrades from '../../info/main-grades.vue';
 </script>
 
 <template>

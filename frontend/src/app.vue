@@ -5,7 +5,7 @@ import {
   NMessageProvider,
   NScrollbar,
 } from 'naive-ui';
-import AppHeader from './components/AppHeader.vue';
+import AppHeader from './components/app-header.vue';
 </script>
 
 <template>

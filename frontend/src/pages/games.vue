@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TableGames from '../components/dataTable/TableGames.vue';
+import TableGames from '../components/dataTable/table-games.vue';
 </script>
 
 <template>

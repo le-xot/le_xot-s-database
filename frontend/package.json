@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@antfu/eslint-config": "^3.8.0",
     "@vueuse/core": "^11.1.0",
     "lucide-vue-next": "^0.453.0",
     "naive-ui": "^2.40.1",

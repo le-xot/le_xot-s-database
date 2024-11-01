@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NPopover } from 'naive-ui';
 import { Info } from 'lucide-vue-next';
-import MainStatuses from '../../info/MainStatuses.vue';
+import MainStatuses from '../../info/main-statuses.vue';
 </script>
 
 <template>

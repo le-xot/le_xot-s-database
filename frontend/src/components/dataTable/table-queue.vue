@@ -2,7 +2,7 @@
 import { useGames } from '../../composables/useGames.ts';
 import { useVideos } from '../../composables/useVideos.ts';
 import { NCard, NGrid, NGridItem } from 'naive-ui';
-import TableGenre from './props/TableGenre.vue';
+import TableGenre from './props/table-genre.vue';
 
 const { gamesQueue } = useGames();
 const { videosQueue } = useVideos();
@@ -23,7 +23,7 @@ const { videosQueue } = useVideos();
       style="background-color: rgb(24, 24, 28); padding-top: 10px"
     >
       <n-grid-item v-for="(item, index) in gamesQueue" :key="index">
-        <n-card :title="item.title" size="huge">
+        <n-card :title="item.title" size="huge" hoverable>
           <template #action>
             {{ item.person.name }}
           </template>
@@ -46,7 +46,7 @@ const { videosQueue } = useVideos();
       style="background-color: rgb(24, 24, 28); padding-top: 10px"
     >
       <n-grid-item v-for="(item, index) in videosQueue" :key="index">
-        <n-card :title="item.title" size="huge">
+        <n-card :title="item.title" size="huge" hoverable>
           <template #header-extra>
             <TableGenre :genre="item.genre" />
           </template>
