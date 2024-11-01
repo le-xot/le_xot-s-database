@@ -1,28 +1,35 @@
-import { $Enums, Video } from '@prisma/client';
-import { ApiProperty } from '@nestjs/swagger';
-import { PersonEntity } from '../person/person.entity';
+import { ApiProperty } from '@nestjs/swagger'
+import { $Enums, Video } from '@prisma/client'
 import {
   GenresEnum,
   GradeEnum,
   StatusesEnum,
   TypesEnum,
-} from '../../enums/enums.names';
+} from '../../enums/enums.names'
+import { PersonEntity } from '../person/person.entity'
 
 export class VideoEntity implements Video {
   @ApiProperty()
-  id: number;
+  id: number
+
   @ApiProperty()
-  title: string;
+  title: string
+
   @ApiProperty({ type: PersonEntity })
-  person: PersonEntity;
+  person: PersonEntity
+
   @ApiProperty()
-  personId: number;
+  personId: number
+
   @ApiProperty({ enumName: TypesEnum, enum: $Enums.PrismaTypes })
-  type: $Enums.PrismaTypes;
+  type: $Enums.PrismaTypes
+
   @ApiProperty({ enumName: StatusesEnum, enum: $Enums.PrismaStatuses })
-  status: $Enums.PrismaStatuses;
+  status: $Enums.PrismaStatuses
+
   @ApiProperty({ enumName: GenresEnum, enum: $Enums.PrismaGenres })
-  genre: $Enums.PrismaGenres;
+  genre: $Enums.PrismaGenres
+
   @ApiProperty({ enumName: GradeEnum, enum: $Enums.PrismaGrades })
-  grade: $Enums.PrismaGrades;
+  grade: $Enums.PrismaGrades
 }

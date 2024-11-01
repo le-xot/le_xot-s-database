@@ -5,6 +5,7 @@ export default antfu({
   markdown: true,
   yaml: true,
   rules: {
+    'ts/consistent-type-imports': 'off',
     'antfu/no-top-level-await': 'off',
     'curly': 'off',
     'no-console': 'off',
@@ -42,6 +43,7 @@ export default antfu({
   },
   stylistic: {
     overrides: {
+
       'style/brace-style': ['warn', '1tbs'],
       'style/arrow-parens': 'off',
     },

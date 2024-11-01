@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../database/prisma.service';
-import { CreateGameDTO, PatchGameDTO } from './game.dto';
-import { Game } from '@prisma/client';
-import { GameEntity } from './game.entity';
+import { Injectable } from '@nestjs/common'
+import { Game } from '@prisma/client'
+import { PrismaService } from '../../database/prisma.service'
+import { CreateGameDTO, PatchGameDTO } from './game.dto'
+import { GameEntity } from './game.entity'
 
 @Injectable()
 export class GameServices {
@@ -11,10 +11,10 @@ export class GameServices {
   async createGame(game: CreateGameDTO): Promise<Game> {
     const foundedPerson = await this.prisma.person.findUnique({
       where: { name: game.personName },
-    });
+    })
 
     if (!foundedPerson) {
-      throw new Error('Person not found');
+      throw new Error('Person not found')
     }
 
     return this.prisma.game.create({
@@ -25,7 +25,7 @@ export class GameServices {
         status: game.status,
         grade: game.grade,
       },
-    });
+    })
   }
 
   async patchGameById(id: number, game: PatchGameDTO): Promise<Game> {
@@ -33,7 +33,7 @@ export class GameServices {
       where: { id },
       include: { person: true },
       data: game,
-    });
+    })
   }
 
   // async patchGameByTitle(name: string, game: PatchGameDTO): Promise<Game> {
@@ -57,14 +57,14 @@ export class GameServices {
   // }
 
   async deleteGame(id: number): Promise<void> {
-    await this.prisma.game.delete({ where: { id } });
+    await this.prisma.game.delete({ where: { id } })
   }
 
   async getAllGames(): Promise<GameEntity[]> {
-    return this.prisma.game.findMany({ include: { person: true } });
+    return this.prisma.game.findMany({ include: { person: true } })
   }
 
   async findGameById(id: number): Promise<Game> {
-    return this.prisma.game.findUnique({ where: { id } });
+    return this.prisma.game.findUnique({ where: { id } })
   }
 }

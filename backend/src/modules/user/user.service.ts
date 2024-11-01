@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../database/prisma.service';
-import { $Enums, User } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import { Injectable } from '@nestjs/common'
+import { $Enums, User } from '@prisma/client'
+import bcrypt from 'bcrypt'
+import { PrismaService } from '../../database/prisma.service'
 
 @Injectable()
 export class UserServices {
@@ -14,16 +14,16 @@ export class UserServices {
   ): Promise<User> {
     const foundUser = await this.prisma.user.findUnique({
       where: { username },
-    });
+    })
     if (foundUser) {
-      return;
+      return
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10)
 
     return this.prisma.user.create({
       data: { username, password: hashedPassword, role },
-    });
+    })
   }
 
   async updateUser(
@@ -32,48 +32,48 @@ export class UserServices {
     password: string,
     role: $Enums.PrismaRoles,
   ): Promise<User> {
-    const foundUser = await this.prisma.user.findUnique({ where: { id } });
+    const foundUser = await this.prisma.user.findUnique({ where: { id } })
     if (!foundUser) {
-      return;
+      return
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10)
 
     return this.prisma.user.update({
       where: { id },
       data: { username, password: hashedPassword, role },
-    });
+    })
   }
 
   async deleteUserById(id: number): Promise<void> {
-    const foundUser = await this.prisma.user.findUnique({ where: { id } });
+    const foundUser = await this.prisma.user.findUnique({ where: { id } })
     if (!foundUser) {
-      return;
+      return
     }
-    await this.prisma.user.delete({ where: { id } });
+    await this.prisma.user.delete({ where: { id } })
   }
 
   async deleteUserByName(username: string): Promise<void> {
-    const user = await this.prisma.user.findUnique({ where: { username } });
+    const user = await this.prisma.user.findUnique({ where: { username } })
     if (!user) {
-      return;
+      return
     }
-    await this.prisma.user.delete({ where: { username } });
+    await this.prisma.user.delete({ where: { username } })
   }
 
   async getAllUsers(): Promise<User[]> {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany()
   }
 
   async findUserById(id: number): Promise<User> {
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({ where: { id } })
   }
 
   async findUserByName(username: string): Promise<User> {
-    return this.prisma.user.findUnique({ where: { username } });
+    return this.prisma.user.findUnique({ where: { username } })
   }
 
   async deleteAll(): Promise<void> {
-    this.prisma.user.deleteMany({});
+    this.prisma.user.deleteMany({})
   }
 }

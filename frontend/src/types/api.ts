@@ -37,8 +37,8 @@ export interface UpdateUserDTO {
 }
 
 export enum RolesEnum {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
+  ADMIN = "ADMIN",
+  USER = "USER",
 }
 
 export interface UserEntity {
@@ -89,30 +89,30 @@ export interface PersonEntity {
 }
 
 export enum TypesEnum {
-  PAID = 'PAID',
-  FREE = 'FREE',
+  PAID = "PAID",
+  FREE = "FREE",
 }
 
 export enum StatusesEnum {
-  QUEUE = 'QUEUE',
-  DONE = 'DONE',
-  PROGRESS = 'PROGRESS',
-  UNFINISHED = 'UNFINISHED',
-  DROP = 'DROP',
+  QUEUE = "QUEUE",
+  DONE = "DONE",
+  PROGRESS = "PROGRESS",
+  UNFINISHED = "UNFINISHED",
+  DROP = "DROP",
 }
 
 export enum GenresEnum {
-  ANIME = 'ANIME',
-  MOVIE = 'MOVIE',
-  CARTOON = 'CARTOON',
-  SERIES = 'SERIES',
+  ANIME = "ANIME",
+  MOVIE = "MOVIE",
+  CARTOON = "CARTOON",
+  SERIES = "SERIES",
 }
 
 export enum GradeEnum {
-  RECOMMEND = 'RECOMMEND',
-  LIKE = 'LIKE',
-  BEER = 'BEER',
-  DISLIKE = 'DISLIKE',
+  RECOMMEND = "RECOMMEND",
+  LIKE = "LIKE",
+  BEER = "BEER",
+  DISLIKE = "DISLIKE",
 }
 
 export interface VideoEntity {
@@ -150,9 +150,9 @@ export interface GameEntity {
 }
 
 export type QueryParamsType = Record<string | number, any>;
-export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
+export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
-export interface FullRequestParams extends Omit<RequestInit, 'body'> {
+export interface FullRequestParams extends Omit<RequestInit, "body"> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -171,11 +171,11 @@ export interface FullRequestParams extends Omit<RequestInit, 'body'> {
   cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
+export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
 
 export interface ApiConfig<SecurityDataType = unknown> {
   baseUrl?: string;
-  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>;
+  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
   securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void;
   customFetch?: typeof fetch;
 }
@@ -188,24 +188,24 @@ export interface HttpResponse<D extends unknown, E extends unknown = unknown> ex
 type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = 'application/json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded',
-  Text = 'text/plain',
+  Json = "application/json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
+  Text = "text/plain",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = '';
+  public baseUrl: string = "";
   private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
+  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
   private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
-    credentials: 'same-origin',
+    credentials: "same-origin",
     headers: {},
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
   };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
@@ -218,7 +218,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected encodeQueryParam(key: string, value: any) {
     const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`;
+    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
@@ -227,26 +227,26 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
     const value = query[key];
-    return value.map((v: any) => this.encodeQueryParam(key, v)).join('&');
+    return value.map((v: any) => this.encodeQueryParam(key, v)).join("&");
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
     const query = rawQuery || {};
-    const keys = Object.keys(query).filter((key) => 'undefined' !== typeof query[key]);
+    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
     return keys
       .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
-      .join('&');
+      .join("&");
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
     const queryString = this.toQueryString(rawQuery);
-    return queryString ? `?${queryString}` : '';
+    return queryString ? `?${queryString}` : "";
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
-    [ContentType.Text]: (input: any) => (input !== null && typeof input !== 'string' ? JSON.stringify(input) : input),
+      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
+    [ContentType.Text]: (input: any) => (input !== null && typeof input !== "string" ? JSON.stringify(input) : input),
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
@@ -254,7 +254,7 @@ export class HttpClient<SecurityDataType = unknown> {
           key,
           property instanceof Blob
             ? property
-            : typeof property === 'object' && property !== null
+            : typeof property === "object" && property !== null
               ? JSON.stringify(property)
               : `${property}`,
         );
@@ -311,7 +311,7 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
     const secureParams =
-      ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
+      ((typeof secure === "boolean" ? secure : this.baseApiParams.secure) &&
         this.securityWorker &&
         (await this.securityWorker(this.securityData))) ||
       {};
@@ -320,14 +320,14 @@ export class HttpClient<SecurityDataType = unknown> {
     const payloadFormatter = this.contentFormatters[type || ContentType.Json];
     const responseFormat = format || requestParams.format;
 
-    return this.customFetch(`${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`, {
+    return this.customFetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
       ...requestParams,
       headers: {
         ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
+        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
       },
       signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
-      body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
+      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
     }).then(async (response) => {
       const r = response.clone() as HttpResponse<T, E>;
       r.data = null as unknown as T;
@@ -382,7 +382,7 @@ export class Api<SecurityDataType extends unknown> {
     authControllerRegisterUser: (data: CreateUserDTO, params: RequestParams = {}) =>
       this.http.request<void, void>({
         path: `/auth/register`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -398,7 +398,7 @@ export class Api<SecurityDataType extends unknown> {
     authControllerLogin: (data: LoginDTO, params: RequestParams = {}) =>
       this.http.request<void, void>({
         path: `/auth/login`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -414,7 +414,7 @@ export class Api<SecurityDataType extends unknown> {
     authControllerLogout: (params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/auth/logout`,
-        method: 'POST',
+        method: "POST",
         ...params,
       }),
   };
@@ -429,7 +429,7 @@ export class Api<SecurityDataType extends unknown> {
     userControllerUpdateUser: (data: UpdateUserDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/users`,
-        method: 'PATCH',
+        method: "PATCH",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -445,8 +445,8 @@ export class Api<SecurityDataType extends unknown> {
     userControllerGetAllUsers: (params: RequestParams = {}) =>
       this.http.request<UserEntity[], any>({
         path: `/users`,
-        method: 'GET',
-        format: 'json',
+        method: "GET",
+        format: "json",
         ...params,
       }),
 
@@ -460,7 +460,7 @@ export class Api<SecurityDataType extends unknown> {
     userControllerDeleteUser: (id: number, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/users/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
         ...params,
       }),
 
@@ -474,8 +474,8 @@ export class Api<SecurityDataType extends unknown> {
     userControllerGetInfo: (params: RequestParams = {}) =>
       this.http.request<UserEntity, any>({
         path: `/users/info`,
-        method: 'GET',
-        format: 'json',
+        method: "GET",
+        format: "json",
         ...params,
       }),
   };
@@ -490,7 +490,7 @@ export class Api<SecurityDataType extends unknown> {
     adminControllerFindAll: (params: RequestParams = {}) =>
       this.http.request<void, void>({
         path: `/admin/users`,
-        method: 'GET',
+        method: "GET",
         ...params,
       }),
 
@@ -504,7 +504,7 @@ export class Api<SecurityDataType extends unknown> {
     adminControllerDeleteAll: (params: RequestParams = {}) =>
       this.http.request<void, void>({
         path: `/admin/users`,
-        method: 'DELETE',
+        method: "DELETE",
         ...params,
       }),
 
@@ -518,7 +518,7 @@ export class Api<SecurityDataType extends unknown> {
     adminControllerFindOne: (username: string, params: RequestParams = {}) =>
       this.http.request<void, void>({
         path: `/admin/users/${username}`,
-        method: 'GET',
+        method: "GET",
         ...params,
       }),
 
@@ -538,7 +538,7 @@ export class Api<SecurityDataType extends unknown> {
     ) =>
       this.http.request<void, void>({
         path: `/admin/users/${username}`,
-        method: 'DELETE',
+        method: "DELETE",
         query: query,
         ...params,
       }),
@@ -554,7 +554,7 @@ export class Api<SecurityDataType extends unknown> {
     personControllerCreatePerson: (data: CreatePersonDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/persons`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -570,7 +570,7 @@ export class Api<SecurityDataType extends unknown> {
     personControllerGetAllPersons: (params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/persons`,
-        method: 'GET',
+        method: "GET",
         ...params,
       }),
 
@@ -584,7 +584,7 @@ export class Api<SecurityDataType extends unknown> {
     personControllerDeletePersonById: (id: number, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/persons/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
         ...params,
       }),
 
@@ -598,7 +598,7 @@ export class Api<SecurityDataType extends unknown> {
     personControllerPatchPerson: (id: number, data: CreatePersonDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/persons/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -614,7 +614,7 @@ export class Api<SecurityDataType extends unknown> {
     personControllerFindPersonById: (id: number, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/persons/${id}`,
-        method: 'GET',
+        method: "GET",
         ...params,
       }),
 
@@ -628,7 +628,7 @@ export class Api<SecurityDataType extends unknown> {
     personControllerDeletePersonByName: (name: string, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/persons/${name}`,
-        method: 'DELETE',
+        method: "DELETE",
         ...params,
       }),
 
@@ -642,7 +642,7 @@ export class Api<SecurityDataType extends unknown> {
     personControllerFindPersonByName: (name: string, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/persons/${name}`,
-        method: 'GET',
+        method: "GET",
         ...params,
       }),
   };
@@ -657,7 +657,7 @@ export class Api<SecurityDataType extends unknown> {
     videoControllerCreateVideo: (data: CreateVideoDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/videos`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -673,8 +673,8 @@ export class Api<SecurityDataType extends unknown> {
     videoControllerGetAllVideos: (params: RequestParams = {}) =>
       this.http.request<VideoEntity[], any>({
         path: `/videos`,
-        method: 'GET',
-        format: 'json',
+        method: "GET",
+        format: "json",
         ...params,
       }),
 
@@ -688,7 +688,7 @@ export class Api<SecurityDataType extends unknown> {
     videoControllerFindVideoById: (id: number, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/videos/${id}`,
-        method: 'GET',
+        method: "GET",
         ...params,
       }),
 
@@ -702,7 +702,7 @@ export class Api<SecurityDataType extends unknown> {
     videoControllerPatchVideo: (id: number, data: PatchVideoDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/videos/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -718,7 +718,7 @@ export class Api<SecurityDataType extends unknown> {
     videoControllerDeleteVideo: (id: number, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/videos/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
         ...params,
       }),
   };
@@ -733,7 +733,7 @@ export class Api<SecurityDataType extends unknown> {
     gameControllerCreateGame: (data: CreateGameDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/games`,
-        method: 'POST',
+        method: "POST",
         body: data,
         type: ContentType.Json,
         ...params,
@@ -749,8 +749,8 @@ export class Api<SecurityDataType extends unknown> {
     gameControllerGetAllGames: (params: RequestParams = {}) =>
       this.http.request<GameEntity[], any>({
         path: `/games`,
-        method: 'GET',
-        format: 'json',
+        method: "GET",
+        format: "json",
         ...params,
       }),
 
@@ -764,7 +764,7 @@ export class Api<SecurityDataType extends unknown> {
     gameControllerFindGameById: (id: number, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/games/${id}`,
-        method: 'GET',
+        method: "GET",
         ...params,
       }),
 
@@ -778,7 +778,7 @@ export class Api<SecurityDataType extends unknown> {
     gameControllerPatchGame: (id: number, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/games/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
         ...params,
       }),
 
@@ -792,7 +792,7 @@ export class Api<SecurityDataType extends unknown> {
     gameControllerDeleteGame: (id: number, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/games/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
         ...params,
       }),
   };

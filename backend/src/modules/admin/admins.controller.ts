@@ -7,13 +7,13 @@ import {
   Param,
   Query,
   UseGuards,
-} from '@nestjs/common';
+} from '@nestjs/common'
 
-import { UserServices } from '../user/user.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '../auth/auth.guard';
-import { RolesGuard } from '../auth/auth.roles.guard';
-import { PrismaRoles, User } from '@prisma/client';
+import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { PrismaRoles, User } from '@prisma/client'
+import { AuthGuard } from '../auth/auth.guard'
+import { RolesGuard } from '../auth/auth.roles.guard'
+import { UserServices } from '../user/user.service'
 
 @ApiTags('admin')
 @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
@@ -27,7 +27,7 @@ export class AdminController {
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden' })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Users not found' })
   async findAll(): Promise<User[]> {
-    return this.userServices.getAllUsers();
+    return this.userServices.getAllUsers()
   }
 
   @Delete()
@@ -36,7 +36,7 @@ export class AdminController {
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden' })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Users not found' })
   async deleteAll(): Promise<void> {
-    return this.userServices.deleteAll();
+    return this.userServices.deleteAll()
   }
 
   @Get(':username')
@@ -45,7 +45,7 @@ export class AdminController {
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden' })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
   async findOne(@Param('username') username: string): Promise<User> {
-    return this.userServices.findUserByName(username);
+    return this.userServices.findUserByName(username)
   }
 
   @Delete(':username')
@@ -54,6 +54,6 @@ export class AdminController {
   @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden' })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
   async deleteUser(@Query('username') username: string): Promise<void> {
-    return this.userServices.deleteUserByName(username);
+    return this.userServices.deleteUserByName(username)
   }
 }

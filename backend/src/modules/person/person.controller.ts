@@ -8,13 +8,13 @@ import {
   Patch,
   Post,
   UseGuards,
-} from '@nestjs/common';
-import { PersonServices } from './person.service';
-import { CreatePersonDTO } from './person.dto';
-import { Person, PrismaRoles } from '@prisma/client';
-import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '../auth/auth.guard';
-import { RolesGuard } from '../auth/auth.roles.guard';
+} from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
+import { Person, PrismaRoles } from '@prisma/client'
+import { AuthGuard } from '../auth/auth.guard'
+import { RolesGuard } from '../auth/auth.roles.guard'
+import { CreatePersonDTO } from './person.dto'
+import { PersonServices } from './person.service'
 
 @ApiTags('persons')
 @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
@@ -24,23 +24,23 @@ export class PersonController {
 
   @Post()
   async createPerson(@Body() person: CreatePersonDTO): Promise<void> {
-    const { name } = person;
-    await this.personServices.createPerson(name);
+    const { name } = person
+    await this.personServices.createPerson(name)
   }
 
   @Get()
   async getAllPersons(): Promise<Person[]> {
-    return await this.personServices.getAllPersons();
+    return await this.personServices.getAllPersons()
   }
 
   @Delete(':id')
   async deletePersonById(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    await this.personServices.deletePersonById(id);
+    await this.personServices.deletePersonById(id)
   }
 
   @Delete(':name')
   async deletePersonByName(@Param('name') name: string): Promise<void> {
-    await this.personServices.deletePersonByName(name);
+    await this.personServices.deletePersonByName(name)
   }
 
   @Patch(':id')
@@ -48,16 +48,16 @@ export class PersonController {
     @Param('id', ParseIntPipe) id: number,
     @Body() person: CreatePersonDTO,
   ): Promise<Person> {
-    return await this.personServices.patchPerson(id, person.name);
+    return await this.personServices.patchPerson(id, person.name)
   }
 
   @Get(':id')
   async findPersonById(@Param('id', ParseIntPipe) id: number): Promise<Person> {
-    return await this.personServices.findPersonById(id);
+    return await this.personServices.findPersonById(id)
   }
 
   @Get(':name')
   async findPersonByName(@Param('name') name: string): Promise<Person> {
-    return await this.personServices.findPersonByName(name);
+    return await this.personServices.findPersonByName(name)
   }
 }

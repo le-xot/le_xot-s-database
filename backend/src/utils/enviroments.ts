@@ -1,7 +1,8 @@
-import Joi from 'joi';
-import dotenv from 'dotenv';
+import process from 'node:process'
+import dotenv from 'dotenv'
+import Joi from 'joi'
 
-dotenv.config();
+dotenv.config()
 
 const schema = Joi.object({
   DATASOURCE_URL: Joi.string().uri().required().label('DATASOURCE_URL'),
@@ -12,24 +13,24 @@ const schema = Joi.object({
     .max(65535)
     .required()
     .label('APP_PORT'),
-}).unknown(true);
+}).unknown(true)
 
-const { error, value: envVars } = schema.validate(process.env);
+const { error, value: envVars } = schema.validate(process.env)
 
 if (error) {
-  throw new Error(`Config validation error: ${error.message}`);
+  throw new Error(`Config validation error: ${error.message}`)
 }
 
 interface Config {
-  datasourceUrl: string;
-  jwtSecret: string;
-  appPort: number;
+  datasourceUrl: string
+  jwtSecret: string
+  appPort: number
 }
 
 const env: Config = {
   datasourceUrl: envVars.DATASOURCE_URL,
   jwtSecret: envVars.JWT_SECRET,
   appPort: envVars.APP_PORT,
-};
+}
 
-export default env;
+export default env

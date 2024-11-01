@@ -1,42 +1,42 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { $Enums } from '@prisma/client';
+import { ApiProperty } from '@nestjs/swagger'
+import { $Enums } from '@prisma/client'
 
 export class CreateVideoDTO {
   @ApiProperty({ example: 'Мадагаскар' })
-  title: string;
+  title: string
 
   @ApiProperty({ example: 1 })
-  personId: number;
+  personId: number
 
   @ApiProperty({ example: $Enums.PrismaTypes.FREE })
-  type: $Enums.PrismaTypes;
+  type: $Enums.PrismaTypes
 
   @ApiProperty({ example: $Enums.PrismaStatuses.PROGRESS })
-  status: $Enums.PrismaStatuses;
+  status: $Enums.PrismaStatuses
 
   @ApiProperty({ example: $Enums.PrismaGenres.CARTOON })
-  genre: $Enums.PrismaGenres;
+  genre: $Enums.PrismaGenres
 
   @ApiProperty({ example: $Enums.PrismaGrades.DISLIKE })
-  grade?: $Enums.PrismaGrades;
+  grade?: $Enums.PrismaGrades
 }
 
 export class PatchVideoDTO {
   @ApiProperty({ example: 'Боб строитель' })
-  title?: string;
+  title?: string
 
   @ApiProperty({ example: 1 })
-  personId?: number;
+  personId?: number
 
   @ApiProperty({ example: $Enums.PrismaTypes.FREE })
-  type?: $Enums.PrismaTypes;
+  type?: $Enums.PrismaTypes
 
   @ApiProperty({ example: $Enums.PrismaStatuses.DONE })
-  status?: $Enums.PrismaStatuses;
+  status?: $Enums.PrismaStatuses
 
   @ApiProperty({ example: $Enums.PrismaGenres.MOVIE })
-  genre?: $Enums.PrismaGenres;
+  genre?: $Enums.PrismaGenres
 
   @ApiProperty({ example: $Enums.PrismaGrades.DISLIKE })
-  grade?: $Enums.PrismaGrades;
+  grade?: $Enums.PrismaGrades
 }

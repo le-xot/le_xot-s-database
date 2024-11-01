@@ -1,10 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaRoles } from '@prisma/client';
-import bcrypt from 'bcrypt';
-import { UserServices } from '../user/user.service';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { PrismaRoles } from '@prisma/client'
+import bcrypt from 'bcrypt'
+import { UserServices } from '../user/user.service'
 
 @Injectable()
+
 export class AuthService {
   constructor(
     private jwtService: JwtService,
@@ -16,38 +17,38 @@ export class AuthService {
     password: string,
     role: PrismaRoles,
   ): Promise<void> {
-    const existingUser = await this.userServices.findUserByName(username);
+    const existingUser = await this.userServices.findUserByName(username)
     if (existingUser) {
       throw new HttpException(
         'User with username already exists',
         HttpStatus.CONFLICT,
-      );
+      )
     }
 
-    await this.userServices.createUser(username, password, role);
+    await this.userServices.createUser(username, password, role)
   }
 
   async login(username: string, password: string): Promise<string> {
-    const user = await this.userServices.findUserByName(username);
+    const user = await this.userServices.findUserByName(username)
 
     if (!user) {
       throw new HttpException(
         'Invalid username or password',
         HttpStatus.UNAUTHORIZED,
-      );
+      )
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password)
 
     if (!isPasswordValid) {
       throw new HttpException(
         'Invalid username or password',
         HttpStatus.UNAUTHORIZED,
-      );
+      )
     }
 
-    const { password: _, ...payload } = user;
+    const { password: _, ...payload } = user
 
-    return await this.jwtService.signAsync(payload);
+    return await this.jwtService.signAsync(payload)
   }
 }

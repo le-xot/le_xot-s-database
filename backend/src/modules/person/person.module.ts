@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { PrismaModule } from '../../database/prisma.module';
-import { PersonServices } from './person.service';
-import { PersonController } from './person.controller';
-import { CustomJwtModule } from '../jwt/jwt.module';
+import { Module } from '@nestjs/common'
+import { PrismaModule } from '../../database/prisma.module'
+import { CustomJwtModule } from '../jwt/jwt.module'
+import { PersonController } from './person.controller'
+import { PersonServices } from './person.service'
 
 @Module({
   imports: [CustomJwtModule, PrismaModule],
