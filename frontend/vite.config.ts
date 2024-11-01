@@ -18,6 +18,7 @@ export default defineConfig(async () => {
   return {
     plugins: [vue()],
     server: {
+      host: true,
       proxy: {
         '/api': {
           target: 'http://localhost:3000',

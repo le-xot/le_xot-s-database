@@ -15,7 +15,7 @@ import { useUser } from '../../composables/useUser.ts';
 
 const showModal = ref(false);
 
-const { login } = useUser();
+const { login, user } = useUser();
 
 const formRef = ref<FormInst | null>(null);
 const message = useMessage();

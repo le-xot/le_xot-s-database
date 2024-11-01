@@ -16,26 +16,7 @@ import AppHeader from './components/AppHeader.vue';
       <div class="content">
         <div class="container">
           <n-scrollbar>
-            <n-tabs
-              style="background-color: rgb(24, 24, 28)"
-              type="segment"
-              animated
-              default-value="queue"
-            >
-              <n-tab-pane name="info" tab="Инфо" display-directive="show">
-                <MainStatuses />
-                <MainGrades />
-              </n-tab-pane>
-              <n-tab-pane name="queue" tab="Очередь" display-directive="show">
-                <TableQueue />
-              </n-tab-pane>
-              <n-tab-pane name="videos" tab="Кино" display-directive="show">
-                <TableVideos />
-              </n-tab-pane>
-              <n-tab-pane name="games" tab="Игры" display-directive="show">
-                <TableGames />
-              </n-tab-pane>
-            </n-tabs>
+            <RouterView />
           </n-scrollbar>
         </div>
       </div>
