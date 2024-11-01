@@ -6,17 +6,19 @@ import { useVideos } from '../../composables/useVideos.ts';
 import TableStatus from './props/TableStatus.vue';
 import { VideoEntity } from '../../types/api.ts';
 import TableGenre from './props/TableGenre.vue';
+import TableHeadStatus from './head/TableHeadStatus.vue';
+import TableHeadGrade from './head/TableHeadGrade.vue';
 
 const { videos } = useVideos();
 
 const tableColumns: DataTableColumns<VideoEntity> = [
   {
-    title: 'Name',
+    title: 'Название',
     key: 'title',
     align: 'center',
   },
   {
-    title: 'Person',
+    title: 'Заказчик',
     key: 'person.name',
     align: 'center',
   },
@@ -24,7 +26,7 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     render(row) {
       return h(TableGenre, { genre: row.genre });
     },
-    title: 'Genre',
+    title: 'Жанр',
     key: 'genre',
     align: 'center',
   },
@@ -32,7 +34,9 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     render(row) {
       return h(TableStatus, { status: row.status });
     },
-    title: 'Status',
+    title() {
+      return h(TableHeadStatus);
+    },
     key: 'status',
     align: 'center',
   },
@@ -40,7 +44,9 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     render(row) {
       return h(TableGrade, { grade: row.grade });
     },
-    title: 'Grade',
+    title() {
+      return h(TableHeadGrade);
+    },
     key: 'grade',
     align: 'center',
   },
@@ -49,6 +55,8 @@ const tableColumns: DataTableColumns<VideoEntity> = [
 
 <template>
   <n-data-table
+    :bordered="false"
+    :bottom-bordered="false"
     :columns="tableColumns"
     :data="videos"
     :single-line="false"

@@ -2,30 +2,19 @@
 import {
   darkTheme,
   NConfigProvider,
-  NLayout,
-  NLayoutContent,
-  NLayoutHeader,
   NMessageProvider,
   NScrollbar,
-  NTabPane,
-  NTabs,
 } from 'naive-ui';
 import AppHeader from './components/AppHeader.vue';
-import TableQueue from './components/dataTable/TableQueue.vue';
-import TableVideos from './components/dataTable/TableVideos.vue';
-import TableGames from './components/dataTable/TableGames.vue';
-import MainGrades from './components/info/MainGrades.vue';
-import MainStatuses from './components/info/MainStatuses.vue';
 </script>
 
 <template>
   <n-config-provider :theme="darkTheme">
     <n-message-provider>
-      <n-layout style="height: 100%">
-        <n-layout-header style="height: 15dvh">
-          <AppHeader />
-        </n-layout-header>
-        <n-layout-content style="height: 85dvh">
+      <div class="app"><AppHeader /></div>
+
+      <div class="content">
+        <div class="container">
           <n-scrollbar>
             <n-tabs
               style="background-color: rgb(24, 24, 28)"
@@ -48,8 +37,29 @@ import MainStatuses from './components/info/MainStatuses.vue';
               </n-tab-pane>
             </n-tabs>
           </n-scrollbar>
-        </n-layout-content>
-      </n-layout>
+        </div>
+      </div>
     </n-message-provider>
   </n-config-provider>
 </template>
+
+<style scoped>
+.app {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  width: 100%;
+  height: calc(100dvh - var(--header-height));
+  background-color: rgb(24, 24, 28);
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 2rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+</style>

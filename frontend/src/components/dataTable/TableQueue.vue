@@ -11,7 +11,7 @@ const { videosQueue } = useVideos();
 <template>
   <n-card
     :bordered="false"
-    style="background-color: rgb(16, 16, 20)"
+    style="background-color: rgb(24, 24, 28)"
     v-if="gamesQueue.length > 0"
   >
     <span style="font-size: 25px">Поиграть: {{ gamesQueue.length }}</span>
@@ -20,7 +20,7 @@ const { videosQueue } = useVideos();
       responsive="screen"
       :x-gap="10"
       :y-gap="10"
-      style="background-color: rgb(16, 16, 20); padding-top: 10px"
+      style="background-color: rgb(24, 24, 28); padding-top: 10px"
     >
       <n-grid-item v-for="(item, index) in gamesQueue" :key="index">
         <n-card :title="item.title" size="huge">
@@ -34,7 +34,7 @@ const { videosQueue } = useVideos();
 
   <n-card
     :bordered="false"
-    style="background-color: rgb(16, 16, 20)"
+    style="background-color: rgb(24, 24, 28)"
     v-if="videosQueue.length > 0"
   >
     <span style="font-size: 25px">Посмотреть: {{ videosQueue.length }}</span>
@@ -43,7 +43,7 @@ const { videosQueue } = useVideos();
       responsive="screen"
       :x-gap="10"
       :y-gap="10"
-      style="background-color: rgb(16, 16, 20); padding-top: 10px"
+      style="background-color: rgb(24, 24, 28); padding-top: 10px"
     >
       <n-grid-item v-for="(item, index) in videosQueue" :key="index">
         <n-card :title="item.title" size="huge">
@@ -57,6 +57,4 @@ const { videosQueue } = useVideos();
       </n-grid-item>
     </n-grid>
   </n-card>
-
-  <div></div>
 </template>

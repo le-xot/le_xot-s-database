@@ -1,44 +1,36 @@
 <script setup lang="ts">
 import { StatusesEnum } from '../../../types/api.ts';
+import { NTag } from 'naive-ui';
 
 defineProps<{ status?: StatusesEnum }>();
 
-const statusLabels: Record<StatusesEnum, string> = {
-  [StatusesEnum.PROGRESS]: 'В процессе',
-  [StatusesEnum.DONE]: 'Готово',
-  [StatusesEnum.DROP]: 'Дроп',
-  [StatusesEnum.QUEUE]: 'В очереди',
-  [StatusesEnum.UNFINISHED]: 'Нет концовки',
+const statusLabels: Record<
+  StatusesEnum,
+  {
+    name: string;
+    variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning';
+  }
+> = {
+  [StatusesEnum.PROGRESS]: { name: 'В процессе', variant: 'warning' },
+  [StatusesEnum.DONE]: { name: 'Готово', variant: 'success' },
+  [StatusesEnum.DROP]: { name: 'Дроп', variant: 'error' },
+  [StatusesEnum.QUEUE]: { name: 'В очереди', variant: 'default' },
+  [StatusesEnum.UNFINISHED]: { name: 'Нет концовки', variant: 'info' },
 };
 </script>
 <template>
-  <div v-if="status" :class="[status.toLowerCase(), 'status']">
-    {{ statusLabels[status] ?? '' }}
-  </div>
+  <n-tag
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 125px;
+    "
+    :type="statusLabels[status].variant"
+    v-if="status"
+    round
+    :bordered="false"
+  >
+    {{ statusLabels[status].name }}
+  </n-tag>
 </template>
-
-<style scoped>
-.status {
-  text-align: center;
-}
-
-.drop {
-  background-color: var(--color-red);
-}
-
-.progress {
-  background-color: var(--color-yellow);
-}
-
-.done {
-  background-color: var(--color-green);
-}
-
-.unfinished {
-  background-color: var(--color-blue);
-}
-
-.queue {
-  background-color: var(--color-gray);
-}
-</style>

@@ -51,7 +51,10 @@ async function save(e: MouseEvent) {
 </script>
 
 <template>
-  <n-button @click="showModal = true">Login</n-button>
+  <div v-if="user" style="color: white">
+    {{ user.username }}
+  </div>
+  <n-button v-else type="error" @click="showModal = true">Login</n-button>
   <n-modal v-model:show="showModal">
     <n-card
       style="width: 600px"

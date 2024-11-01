@@ -5,17 +5,19 @@ import TableGrade from './props/TableGrade.vue';
 import { useGames } from '../../composables/useGames.ts';
 import TableStatus from './props/TableStatus.vue';
 import { GameEntity } from '../../types/api.ts';
+import TableHeadStatus from './head/TableHeadStatus.vue';
+import TableHeadGrade from './head/TableHeadGrade.vue';
 
 const { games } = useGames();
 
 const tableColumns: DataTableColumns<GameEntity> = [
   {
-    title: 'Name',
+    title: 'Название',
     key: 'title',
     align: 'center',
   },
   {
-    title: 'Person',
+    title: 'Заказчик',
     key: 'person.name',
     align: 'center',
   },
@@ -23,15 +25,21 @@ const tableColumns: DataTableColumns<GameEntity> = [
     render(row) {
       return h(TableStatus, { status: row.status });
     },
-    title: 'Status',
+    title() {
+      return h(TableHeadStatus);
+    },
     key: 'status',
     align: 'center',
   },
   {
     render(row) {
-      return h(TableGrade, { grade: row.grade });
+      return h(TableGrade, {
+        grade: row.grade,
+      });
     },
-    title: 'Grade',
+    title() {
+      return h(TableHeadGrade);
+    },
     key: 'grade',
     align: 'center',
   },
@@ -40,6 +48,8 @@ const tableColumns: DataTableColumns<GameEntity> = [
 
 <template>
   <n-data-table
+    :bordered="false"
+    :bottom-bordered="false"
     :columns="tableColumns"
     :data="games"
     :single-line="false"

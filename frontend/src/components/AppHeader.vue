@@ -1,17 +1,63 @@
 <script setup lang="ts">
-import { NGradientText } from 'naive-ui';
 import LoginForm from './forms/LoginForm.vue';
+import { NButton } from 'naive-ui';
+
+const routes = [
+  { name: 'Очередь', path: '/db/queue' },
+  { name: 'Игры', path: '/db/games' },
+  { name: 'Видео', path: '/db/videos' },
+];
 </script>
 
 <template>
-  <LoginForm />
-  <div align="center" style="background-color: rgb(24, 24, 28)">
-    <n-gradient-text
-      gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
-      font-size="65px"
-      style="font-weight: 800"
-    >
-      Список игр и кинолент
-    </n-gradient-text>
+  <div class="header">
+    <div class="header-container">
+      <div class="header-nav">
+        <div class="header-nav">
+          <router-link
+            custom
+            v-slot="{ isActive, href, navigate }"
+            v-for="route of routes"
+            :key="route.name"
+            :to="route.path"
+          >
+            <n-button
+              tag="a"
+              :href="href"
+              @click="navigate"
+              secondary
+              :type="isActive ? 'success' : 'default'"
+            >
+              {{ route.name }}
+            </n-button>
+          </router-link>
+        </div>
+      </div>
+      <LoginForm />
+    </div>
   </div>
 </template>
+
+<style scoped>
+.header {
+  display: flex;
+  height: var(--header-height);
+  width: 100%;
+  background-color: #0c0c0c;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+.header-nav {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+</style>
