@@ -1,8 +1,8 @@
 import { createGlobalState } from '@vueuse/core'
 import { computed, onMounted, ref } from 'vue'
 
+import { StatusesEnum, VideoEntity } from './api.ts'
 import { useApi } from './useApi.ts'
-import type { StatusesEnum, VideoEntity } from '../types/api.ts'
 
 export const useVideos = createGlobalState(() => {
   const api = useApi()

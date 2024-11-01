@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import {
+  FormInst,
   NButton,
   NCard,
   NForm,
   NFormItem,
   NInput,
   NModal,
+
   useMessage,
 } from 'naive-ui'
 
 import { ref } from 'vue'
-import { useUser } from '../../composables/useUser.ts'
-import type {
-  FormInst,
-} from 'naive-ui'
+import { useUser } from './useUser.ts'
 
 const showModal = ref(false)
 

@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt'
 import { UserServices } from '../user/user.service'
 
 @Injectable()
-
 export class AuthService {
   constructor(
     private jwtService: JwtService,
@@ -30,23 +29,19 @@ export class AuthService {
 
   async login(username: string, password: string): Promise<string> {
     const user = await this.userServices.findUserByName(username)
-
     if (!user) {
       throw new HttpException(
         'Invalid username or password',
         HttpStatus.UNAUTHORIZED,
       )
     }
-
     const isPasswordValid = await bcrypt.compare(password, user.password)
-
     if (!isPasswordValid) {
       throw new HttpException(
         'Invalid username or password',
         HttpStatus.UNAUTHORIZED,
       )
     }
-
     const { password: _, ...payload } = user
 
     return await this.jwtService.signAsync(payload)

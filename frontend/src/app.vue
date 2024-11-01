@@ -6,7 +6,7 @@ import {
   NScrollbar,
 } from 'naive-ui'
 
-import AppHeader from './components/app-header.vue'
+import AppHeader from './app-header.vue'
 </script>
 
 <template>

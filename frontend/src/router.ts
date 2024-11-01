@@ -5,19 +5,19 @@ export const router = createRouter({
   routes: [
     {
       path: '/db',
-      component: () => import('../src/pages/queue.vue'),
+      component: () => import('./queue.vue'),
     },
     {
       path: '/db/queue',
-      component: () => import('../src/pages/queue.vue'),
+      component: () => import('./queue.vue'),
     },
     {
       path: '/db/videos',
-      component: () => import('../src/pages/videos.vue'),
+      component: () => import('./videos.vue'),
     },
     {
       path: '/db/games',
-      component: () => import('../src/pages/games.vue'),
+      component: () => import('./games.vue'),
     },
   ],
 })

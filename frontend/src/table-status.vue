@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NTag } from 'naive-ui'
 
-import { StatusesEnum } from '../../../types/api.ts'
+import { StatusesEnum } from './api.ts'
 
 defineProps<{ status?: StatusesEnum }>()
 

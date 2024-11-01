@@ -2,23 +2,23 @@
 import { Info } from 'lucide-vue-next'
 import { NPopover } from 'naive-ui'
 
-import MainGrades from '../../info/main-grades.vue'
+import MainStatuses from './main-statuses.vue'
 </script>
 
 <template>
-  <div class="grade">
-    Оценка
+  <div class="head-status">
+    Статус
     <NPopover raw trigger="hover">
       <template #trigger>
         <Info style="width: 1rem; height: 1rem" />
       </template>
-      <MainGrades />
+      <MainStatuses />
     </NPopover>
   </div>
 </template>
 
 <style scoped>
-.grade {
+.head-status {
   display: flex;
   gap: 0.5rem;
   align-items: center;

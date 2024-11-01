@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NTag } from 'naive-ui'
 
-import { GradeEnum } from '../../../types/api.ts'
+import { GradeEnum } from './api.ts'
 
 defineProps<{ grade?: GradeEnum }>()
 
