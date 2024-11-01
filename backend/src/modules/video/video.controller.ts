@@ -18,22 +18,24 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/auth.roles.guard';
 
 @ApiTags('videos')
-@UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
 @Controller('videos')
 export class VideoController {
   constructor(private videoServices: VideoServices) {}
 
   @Post()
+  @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async createVideo(@Body() video: CreateVideoDTO): Promise<void> {
     await this.videoServices.createVideo(video);
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async findVideoById(@Param('id', ParseIntPipe) id: number): Promise<Video> {
     return await this.videoServices.findVideoById(id);
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async patchVideo(
     @Param('id', ParseIntPipe) id: number,
     @Body() video: PatchVideoDTO,
@@ -42,6 +44,7 @@ export class VideoController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async deleteVideo(@Param('id', ParseIntPipe) id: number): Promise<void> {
     await this.videoServices.deleteVideo(id);
   }

@@ -23,13 +23,16 @@ const tableColumns: DataTableColumns<GameEntity> = [
   },
   {
     render(row) {
-      return h(TableStatus, { status: row.status });
+      return h(TableStatus, {
+        status: row.status,
+      });
     },
     title() {
       return h(TableHeadStatus);
     },
     key: 'status',
     align: 'center',
+    width: 200,
   },
   {
     render(row) {
@@ -42,6 +45,7 @@ const tableColumns: DataTableColumns<GameEntity> = [
     },
     key: 'grade',
     align: 'center',
+    width: 200,
   },
 ];
 </script>

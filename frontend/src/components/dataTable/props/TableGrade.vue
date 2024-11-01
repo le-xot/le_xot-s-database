@@ -19,18 +19,29 @@ const gradeLabels: Record<
 </script>
 
 <template>
-  <n-tag
-    style="
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 125px;
-    "
-    :type="gradeLabels[grade].variant"
-    v-if="grade"
-    round
-    :bordered="false"
-  >
-    {{ gradeLabels[grade!].name }}
-  </n-tag>
+  <div class="table-grade">
+    <n-tag
+      class="table-grade-tag"
+      :type="gradeLabels[grade].variant"
+      v-if="grade"
+      round
+      :bordered="false"
+    >
+      {{ gradeLabels[grade!].name }}
+    </n-tag>
+  </div>
 </template>
+
+<style scoped>
+.table-grade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-grade-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+}
+</style>

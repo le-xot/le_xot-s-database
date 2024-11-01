@@ -19,18 +19,29 @@ const genreLabels: Record<
 </script>
 
 <template>
-  <n-tag
-    style="
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 125px;
-    "
-    :type="genreLabels[genre].variant"
-    v-if="genre"
-    round
-    :bordered="false"
-  >
-    {{ genreLabels[genre].name }}
-  </n-tag>
+  <div class="table-genre">
+    <n-tag
+      class="table-genre-tag"
+      :type="genreLabels[genre].variant"
+      v-if="genre"
+      round
+      :bordered="false"
+    >
+      {{ genreLabels[genre].name }}
+    </n-tag>
+  </div>
 </template>
+
+<style scoped>
+.table-genre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-genre-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+}
+</style>

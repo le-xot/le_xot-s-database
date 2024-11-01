@@ -29,6 +29,7 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     title: 'Жанр',
     key: 'genre',
     align: 'center',
+    width: 200,
   },
   {
     render(row) {
@@ -39,6 +40,7 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     },
     key: 'status',
     align: 'center',
+    width: 200,
   },
   {
     render(row) {
@@ -49,6 +51,7 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     },
     key: 'grade',
     align: 'center',
+    width: 200,
   },
 ];
 </script>

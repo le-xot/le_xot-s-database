@@ -19,18 +19,29 @@ const statusLabels: Record<
 };
 </script>
 <template>
-  <n-tag
-    style="
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 125px;
-    "
-    :type="statusLabels[status].variant"
-    v-if="status"
-    round
-    :bordered="false"
-  >
-    {{ statusLabels[status].name }}
-  </n-tag>
+  <div class="table-status">
+    <n-tag
+      class="table-status-tag"
+      :type="statusLabels[status].variant"
+      v-if="status"
+      round
+      :bordered="false"
+    >
+      {{ statusLabels[status].name }}
+    </n-tag>
+  </div>
 </template>
+
+<style scoped>
+.table-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-status-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+}
+</style>

@@ -18,22 +18,24 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/auth.roles.guard';
 
 @ApiTags('games')
-@UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
 @Controller('games')
 export class GameController {
   constructor(private gameServices: GameServices) {}
 
   @Post()
+  @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async createGame(@Body() game: CreateGameDTO): Promise<Game> {
     return this.gameServices.createGame(game);
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async findGameById(@Param('id', ParseIntPipe) id: number): Promise<Game> {
     return this.gameServices.findGameById(id);
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async patchGame(
     @Param('id', ParseIntPipe) id: number,
     game: PatchGameDTO,
@@ -42,6 +44,7 @@ export class GameController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async deleteGame(@Param('id', ParseIntPipe) id: number): Promise<void> {
     await this.gameServices.deleteGame(id);
   }

@@ -12,7 +12,6 @@ import AppHeader from './components/AppHeader.vue';
   <n-config-provider :theme="darkTheme">
     <n-message-provider>
       <div class="app"><AppHeader /></div>
-
       <div class="content">
         <div class="container">
           <n-scrollbar>
@@ -37,6 +36,7 @@ import AppHeader from './components/AppHeader.vue';
 }
 
 .container {
+  width: 75dvw;
   margin-right: auto;
   margin-left: auto;
   padding-top: 2rem;

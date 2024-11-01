@@ -48,13 +48,19 @@ async function save(e: MouseEvent) {
     message.error('Invalid');
   }
 }
+
+async function logout() {
+  message.success('Logged out successfully');
+}
 </script>
 
 <template>
-  <div v-if="user" style="color: white">
-    {{ user.username }}
-  </div>
-  <n-button v-else type="error" @click="showModal = true">Login</n-button>
+  <n-button v-if="user" quaternary type="error" @click="logout">
+    Logout
+  </n-button>
+  <n-button v-else quaternary type="primary" @click="showModal = true"
+    >Login</n-button
+  >
   <n-modal v-model:show="showModal">
     <n-card
       style="width: 600px"
