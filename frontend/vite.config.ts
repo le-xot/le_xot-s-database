@@ -17,6 +17,14 @@ export default defineConfig(async () => {
   })
 
   return {
+    base: './',
+    resolve: {
+      alias: {
+        'vue': 'vue/dist/vue.esm-bundler.js',
+        '@src': fileURLToPath(new URL('./src', import.meta.url)),
+        '@utils': fileURLToPath(new URL('./src/components/utils', import.meta.url)),
+      },
+    },
     plugins: [vue()],
     server: {
       host: true,
