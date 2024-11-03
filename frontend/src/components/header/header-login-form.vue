@@ -14,7 +14,7 @@ import { ref } from 'vue'
 
 const showModal = ref(false)
 
-const { login, user } = useUser()
+const { login, logout, user } = useUser()
 
 const formRef = ref<FormInst | null>(null)
 const message = useMessage()
@@ -36,25 +36,31 @@ const rules = {
   },
 }
 
-async function save(e: MouseEvent) {
+async function saveCookie(e: MouseEvent) {
   e.preventDefault()
 
   try {
     await formRef.value?.validate()
     await login(formValue.value.username, formValue.value.password)
     showModal.value = false
+    message.success('Login success')
   } catch {
     message.error('Invalid')
   }
 }
 
-async function logout() {
-  message.success('Logged out successfully')
+async function deleteCookie() {
+  try {
+    await logout()
+    message.success('Logout success')
+  } catch {
+    message.error('Logout error')
+  }
 }
 </script>
 
 <template>
-  <NButton v-if="user" quaternary type="error" @click="logout">
+  <NButton v-if="user" quaternary type="error" @click="deleteCookie">
     Logout
   </NButton>
   <NButton v-else quaternary type="primary" @click="showModal = true">
@@ -83,7 +89,7 @@ async function logout() {
           <NInput v-model:value="formValue.password" placeholder="Password" />
         </NFormItem>
         <NFormItem>
-          <NButton @click="save">
+          <NButton @click="saveCookie">
             Save
           </NButton>
         </NFormItem>

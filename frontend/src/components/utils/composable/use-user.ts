@@ -16,6 +16,14 @@ export const useUser = createGlobalState(() => {
     await fetchProfile()
   }
 
+  async function logout() {
+    const req = await api.auth.authControllerLogout()
+    if (!req.ok) {
+      throw new Error(await req.text())
+    }
+    user.value = undefined
+  }
+
   async function fetchProfile() {
     if (user.value)
       return
@@ -31,5 +39,5 @@ export const useUser = createGlobalState(() => {
   onMounted(async () => {
     await fetchProfile()
   })
-  return { user, login, fetchProfile }
+  return { user, login, logout, fetchProfile }
 })
