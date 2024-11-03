@@ -2,7 +2,7 @@
 import { Info } from 'lucide-vue-next'
 import { NPopover } from 'naive-ui'
 
-import MainStatuses from '../../info/main-statuses.vue'
+import MainStatuses from './table-header-statuses-tooltip.vue'
 </script>
 
 <template>

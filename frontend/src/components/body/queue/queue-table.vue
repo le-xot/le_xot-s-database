@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { useGames } from '@utils/composable/use-games.ts'
+import { useVideos } from '@utils/composable/use-videos.ts'
+import TableGenre from '@utils/table-cell/table-cell-genre.vue'
 import { NCard, NGrid, NGridItem } from 'naive-ui'
-
-import { useGames } from '../../composables/useGames.ts'
-import { useVideos } from '../../composables/useVideos.ts'
-import TableGenre from './props/table-genre.vue'
 
 const { gamesQueue } = useGames()
 const { videosQueue } = useVideos()

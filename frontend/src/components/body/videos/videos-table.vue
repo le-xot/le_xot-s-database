@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { NDataTable } from 'naive-ui'
+import { VideoEntity } from '@src/api.ts'
+import { useVideos } from '@utils/composable/use-videos.ts'
+import TableGenre from '@utils/table-cell/table-cell-genre.vue'
+import TableGrade from '@utils/table-cell/table-cell-grade.vue'
+import TableStatus from '@utils/table-cell/table-cell-status.vue'
+import TableHeadGrade from '@utils/table-header/table-header-grades.vue'
+import TableHeadStatus from '@utils/table-header/table-header-statuses.vue'
+import { DataTableColumns, NDataTable } from 'naive-ui'
 import { h } from 'vue'
-import { useVideos } from '../../composables/useVideos.ts'
-import TableHeadGrade from './head/table-head-grade.vue'
-import TableHeadStatus from './head/table-head-status.vue'
-import TableGenre from './props/table-genre.vue'
-import TableGrade from './props/table-grade.vue'
-import TableStatus from './props/table-status.vue'
-import type { DataTableColumns } from 'naive-ui'
-import type { VideoEntity } from '../../types/api.ts'
 
 const { videos } = useVideos()
 

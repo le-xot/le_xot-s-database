@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import AppHeader from '@src/components/header/header.vue'
 import {
   darkTheme,
   NConfigProvider,
   NMessageProvider,
   NScrollbar,
 } from 'naive-ui'
-
-import AppHeader from './components/app-header.vue'
 </script>
 
 <template>

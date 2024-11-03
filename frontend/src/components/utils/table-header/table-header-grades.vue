@@ -2,7 +2,7 @@
 import { Info } from 'lucide-vue-next'
 import { NPopover } from 'naive-ui'
 
-import MainGrades from '../../info/main-grades.vue'
+import MainGrades from './table-header-grades-tooltip.vue'
 </script>
 
 <template>
