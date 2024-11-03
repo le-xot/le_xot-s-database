@@ -1,17 +1,16 @@
 <script setup lang="ts">
+import { GameEntity } from '@src/api.ts'
+import { useGames } from '@utils/composable/use-games.ts'
+import TableGrade from '@utils/table-cell/table-cell-grade.vue'
+import TableStatus from '@utils/table-cell/table-cell-status.vue'
+import TableHeadGrade from '@utils/table-header/table-header-grades.vue'
+import TableHeadStatus from '@utils/table-header/table-header-statuses.vue'
 import { DataTableColumns, NDataTable } from 'naive-ui'
 import { h } from 'vue'
-import { VideoEntity } from './api.ts'
-import TableGenre from './table-genre.vue'
-import TableGrade from './table-grade.vue'
-import TableHeadGrade from './table-head-grade.vue'
-import TableHeadStatus from './table-head-status.vue'
-import TableStatus from './table-status.vue'
-import { useVideos } from './useVideos.ts'
 
-const { videos } = useVideos()
+const { games } = useGames()
 
-const tableColumns: DataTableColumns<VideoEntity> = [
+const tableColumns: DataTableColumns<GameEntity> = [
   {
     title: 'Название',
     key: 'title',
@@ -24,16 +23,9 @@ const tableColumns: DataTableColumns<VideoEntity> = [
   },
   {
     render(row) {
-      return h(TableGenre, { genre: row.genre })
-    },
-    title: 'Жанр',
-    key: 'genre',
-    align: 'center',
-    width: 200,
-  },
-  {
-    render(row) {
-      return h(TableStatus, { status: row.status })
+      return h(TableStatus, {
+        status: row.status,
+      })
     },
     title() {
       return h(TableHeadStatus)
@@ -44,7 +36,9 @@ const tableColumns: DataTableColumns<VideoEntity> = [
   },
   {
     render(row) {
-      return h(TableGrade, { grade: row.grade })
+      return h(TableGrade, {
+        grade: row.grade,
+      })
     },
     title() {
       return h(TableHeadGrade)
@@ -58,11 +52,11 @@ const tableColumns: DataTableColumns<VideoEntity> = [
 
 <template>
   <NDataTable
-    v-if="videos.length > 0"
+    v-if="games.length > 0"
     :bordered="false"
     :bottom-bordered="false"
     :columns="tableColumns"
-    :data="videos"
+    :data="games"
     :single-line="false"
   />
 </template>

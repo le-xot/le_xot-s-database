@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TableGames from './table-games.vue'
+import TableGames from './games-table.vue'
 </script>
 
 <template>

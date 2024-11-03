@@ -12,6 +12,15 @@
     "module": "ESNext",
     /* Bundler mode */
     "moduleResolution": "bundler",
+    "paths": {
+      "@utils/*": [
+        "./src/components/utils/*"
+      ],
+      "@src/*": [
+        "./src/*"
+      ]
+    },
+    "basePath": "./",
     "allowImportingTsExtensions": true,
     /* Linting */
     "strict": true,

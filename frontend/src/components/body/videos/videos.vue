@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TableVideos from './table-videos.vue'
+import TableVideos from './videos-table.vue'
 </script>
 
 <template>

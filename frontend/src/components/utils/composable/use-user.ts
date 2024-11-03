@@ -1,7 +1,7 @@
+import { UserEntity } from '@src/api.ts'
 import { createGlobalState } from '@vueuse/core'
 import { onMounted, ref } from 'vue'
-import { UserEntity } from './api.ts'
-import { useApi } from './useApi.ts'
+import { useApi } from './use-api.ts'
 
 export const useUser = createGlobalState(() => {
   const api = useApi()

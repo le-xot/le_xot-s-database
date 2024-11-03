@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TableQueue from './table-queue.vue'
+import TableQueue from './queue-table.vue'
 </script>
 
 <template>

@@ -1,7 +1,7 @@
+import { GameEntity, StatusesEnum } from '@src/api.ts'
 import { createGlobalState } from '@vueuse/core'
 import { computed, onMounted, ref } from 'vue'
-import { GameEntity, StatusesEnum } from './api.ts'
-import { useApi } from './useApi.ts'
+import { useApi } from './use-api.ts'
 
 export const useGames = createGlobalState(() => {
   const api = useApi()

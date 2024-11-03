@@ -1,6 +1,5 @@
+import { Api, HttpClient } from '@src/api.ts'
 import { createGlobalState } from '@vueuse/core'
-
-import { Api, HttpClient } from './api.ts'
 
 export const useApi = createGlobalState(() => {
   const httpClient = new HttpClient({
