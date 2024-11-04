@@ -6,18 +6,51 @@ import { CreateVideoDTO, PatchVideoDTO } from './video.dto'
 @Injectable()
 export class VideoServices {
   constructor(private prisma: PrismaService) {}
-
   async createVideo(video: CreateVideoDTO): Promise<Video> {
+    const foundedPerson = await this.prisma.person.findUnique({
+      where: { name: video.personName },
+    })
+
+    if (!foundedPerson) {
+      throw new Error('Person not found')
+    }
+
     return this.prisma.video.create({
-      data: video,
+      data: {
+        personId: foundedPerson.id,
+        title: video.title,
+        type: video.type,
+        status: video.status,
+        genre: video.genre,
+        grade: video.grade,
+      },
     })
   }
 
-  async patchVideo(id: number, video: PatchVideoDTO): Promise<Video> {
+  async patchVideo(
+    id: number,
+    video: PatchVideoDTO,
+  ): Promise<Video> {
+    const foundedVideo = await this.prisma.video.findUnique({
+      where: { id },
+    })
+    if (!foundedVideo) {
+      throw new Error('Video not found')
+    }
+    let personId: number
+    if (video.personName) {
+      const foundedPerson = await this.prisma.person.findUnique({
+        where: { name: video.personName },
+      })
+      if (!foundedPerson) {
+        throw new Error('Person not found')
+      }
+      personId = foundedPerson.id
+    }
     return this.prisma.video.update({
       where: { id },
       include: { person: true },
-      data: video,
+      data: { ...foundedVideo, ...video, personId },
     })
   }
 

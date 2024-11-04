@@ -139,6 +139,19 @@ export interface CreateGameDTO {
   grade: string;
 }
 
+export interface PatchGameDTO {
+  /** @example "Dota 2" */
+  title: string;
+  /** @example "le_xot" */
+  personName: string;
+  /** @example "FREE" */
+  type: string;
+  /** @example "DONE" */
+  status: string;
+  /** @example "DISLIKE" */
+  grade: string;
+}
+
 export interface GameEntity {
   id: number;
   title: string;
@@ -775,10 +788,12 @@ export class Api<SecurityDataType extends unknown> {
      * @name GameControllerPatchGame
      * @request PATCH:/games/{id}
      */
-    gameControllerPatchGame: (id: number, params: RequestParams = {}) =>
+    gameControllerPatchGame: (id: number, data: PatchGameDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/games/${id}`,
         method: "PATCH",
+        body: data,
+        type: ContentType.Json,
         ...params,
       }),
 

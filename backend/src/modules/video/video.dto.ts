@@ -5,8 +5,8 @@ export class CreateVideoDTO {
   @ApiProperty({ example: 'Мадагаскар' })
   title: string
 
-  @ApiProperty({ example: 1 })
-  personId: number
+  @ApiProperty({ example: 'le_xot' })
+  personName: string
 
   @ApiProperty({ example: $Enums.PrismaTypes.FREE })
   type: $Enums.PrismaTypes
@@ -25,8 +25,8 @@ export class PatchVideoDTO {
   @ApiProperty({ example: 'Боб строитель' })
   title?: string
 
-  @ApiProperty({ example: 1 })
-  personId?: number
+  @ApiProperty({ example: 'le_xot' })
+  personName?: string
 
   @ApiProperty({ example: $Enums.PrismaTypes.FREE })
   type?: $Enums.PrismaTypes

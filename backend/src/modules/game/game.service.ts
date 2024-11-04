@@ -28,33 +28,29 @@ export class GameServices {
     })
   }
 
-  async patchGameById(id: number, game: PatchGameDTO): Promise<Game> {
+  async patchGame(id: number, game: PatchGameDTO): Promise<Game> {
+    const foundedGame = await this.prisma.game.findUnique({
+      where: { id },
+    })
+    if (!foundedGame) {
+      throw new Error('Game not found')
+    }
+    let personId: number
+    if (game.personName) {
+      const foundedPerson = await this.prisma.person.findUnique({
+        where: { name: game.personName },
+      })
+      if (!foundedPerson) {
+        throw new Error('Person not found')
+      }
+      personId = foundedPerson.id
+    }
     return this.prisma.game.update({
       where: { id },
       include: { person: true },
-      data: game,
+      data: { ...foundedGame, ...game, personId },
     })
   }
-
-  // async patchGameByTitle(name: string, game: PatchGameDTO): Promise<Game> {
-  //   const foundedPerson = await this.prisma.person.findUnique({
-  //     where: { name: game.personName },
-  //   });
-  //
-  //   if (!foundedPerson) {
-  //     throw new Error('Person not found');
-  //   }
-  //
-  //   const foundedGame = await this.prisma.game.findUnique({
-  //     where: { title: game.title },
-  //   });
-  //
-  //   return this.prisma.game.update({
-  //     where: { title: game.title },
-  //     include: { person: true },
-  //     data: game,
-  //   });
-  // }
 
   async deleteGame(id: number): Promise<void> {
     await this.prisma.game.delete({ where: { id } })
