@@ -9,7 +9,7 @@ export default defineConfig(async () => {
   await generateApi({
     name: 'api.ts',
     url: 'http://localhost:3000/api-json',
-    output: fileURLToPath(new URL(`./src`, import.meta.url)),
+    output: fileURLToPath(new URL(`./src/libs`, import.meta.url)),
     generateClient: true,
     httpClientType: 'fetch',
     singleHttpClient: true,

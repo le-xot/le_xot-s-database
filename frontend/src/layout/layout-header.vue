@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import LoginForm from '@src/component/form/login-form.vue'
 import { NButton } from 'naive-ui'
-import LoginForm from './header-login-form.vue'
 
 const routes = [
   { name: 'Очередь', path: '/db/queue' },

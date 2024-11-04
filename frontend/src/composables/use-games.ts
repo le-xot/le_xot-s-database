@@ -1,4 +1,4 @@
-import { GameEntity, StatusesEnum } from '@src/api.ts'
+import { GameEntity, StatusesEnum } from '@src/libs/api.ts'
 import { createGlobalState } from '@vueuse/core'
 import { computed, onMounted, ref } from 'vue'
 import { useApi } from './use-api.ts'

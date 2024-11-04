@@ -1,4 +1,4 @@
-import { UserEntity } from '@src/api.ts'
+import { UserEntity } from '@src/libs/api.ts'
 import { createGlobalState } from '@vueuse/core'
 import { onMounted, ref } from 'vue'
 import { useApi } from './use-api.ts'

@@ -1,24 +1,23 @@
 <script setup lang="ts">
+import MainGrades from '@src/component/tooltips/tooltip-grade.vue'
 import { Info } from 'lucide-vue-next'
 import { NPopover } from 'naive-ui'
-
-import MainStatuses from './table-header-statuses-tooltip.vue'
 </script>
 
 <template>
-  <div class="head-status">
-    Статус
+  <div class="grade">
+    Оценка
     <NPopover raw trigger="hover">
       <template #trigger>
         <Info style="width: 1rem; height: 1rem" />
       </template>
-      <MainStatuses />
+      <MainGrades />
     </NPopover>
   </div>
 </template>
 
 <style scoped>
-.head-status {
+.grade {
   display: flex;
   gap: 0.5rem;
   align-items: center;

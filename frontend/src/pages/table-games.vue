@@ -1,16 +1,32 @@
 <script setup lang="ts">
-import { GameEntity } from '@src/api.ts'
-import { useGames } from '@utils/composable/use-games.ts'
-import TableGrade from '@utils/table-cell/table-cell-grade.vue'
-import TableStatus from '@utils/table-cell/table-cell-status.vue'
-import TableHeadGrade from '@utils/table-header/table-header-grades.vue'
-import TableHeadStatus from '@utils/table-header/table-header-statuses.vue'
-import { DataTableColumns, NDataTable } from 'naive-ui'
+import TableGrade from '@src/component/table/table-cell-grade.vue'
+import TableStatus from '@src/component/table/table-cell-status.vue'
+import TableHeadGrade from '@src/component/table/table-col-grade.vue'
+import TableHeadStatus from '@src/component/table/table-col-status.vue'
+import { useGames } from '@src/composables/use-games.ts'
+import { GameEntity } from '@src/libs/api.ts'
+import { DataTableColumns, NDataTable, useMessage } from 'naive-ui'
 import { h } from 'vue'
 
 const { games } = useGames()
+const message = useMessage()
+
+function rowProps(games: GameEntity) {
+  return {
+    style: 'cursor: pointer;',
+    onClick: () => {
+      message.info(`Игра с id ${games.id}`)
+    },
+  }
+}
 
 const tableColumns: DataTableColumns<GameEntity> = [
+  {
+    title: 'Id',
+    key: 'id',
+    align: 'center',
+    width: 50,
+  },
   {
     title: 'Название',
     key: 'title',
@@ -58,5 +74,6 @@ const tableColumns: DataTableColumns<GameEntity> = [
     :columns="tableColumns"
     :data="games"
     :single-line="false"
+    :row-props="rowProps"
   />
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GenresEnum } from '@src/api.ts'
+import { GenresEnum } from '@src/libs/api.ts'
 import { NTag } from 'naive-ui'
 
 defineProps<{ genre: GenresEnum }>()

@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import { VideoEntity } from '@src/api.ts'
-import { useVideos } from '@utils/composable/use-videos.ts'
-import TableGenre from '@utils/table-cell/table-cell-genre.vue'
-import TableGrade from '@utils/table-cell/table-cell-grade.vue'
-import TableStatus from '@utils/table-cell/table-cell-status.vue'
-import TableHeadGrade from '@utils/table-header/table-header-grades.vue'
-import TableHeadStatus from '@utils/table-header/table-header-statuses.vue'
+import TableGenre from '@src/component/table/table-cell-genre.vue'
+import TableGrade from '@src/component/table/table-cell-grade.vue'
+import TableStatus from '@src/component/table/table-cell-status.vue'
+import TableHeadGrade from '@src/component/table/table-col-grade.vue'
+import TableHeadStatus from '@src/component/table/table-col-status.vue'
+import { useVideos } from '@src/composables/use-videos.ts'
+import { VideoEntity } from '@src/libs/api.ts'
 import { DataTableColumns, NDataTable } from 'naive-ui'
 import { h } from 'vue'
 
 const { videos } = useVideos()
 
 const tableColumns: DataTableColumns<VideoEntity> = [
+  {
+    title: 'Id',
+    key: 'id',
+    align: 'center',
+    width: 50,
+  },
   {
     title: 'Название',
     key: 'title',

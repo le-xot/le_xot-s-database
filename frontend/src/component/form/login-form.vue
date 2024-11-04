@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUser } from '@utils/composable/use-user.ts'
+import { useUser } from '@src/composables/use-user.ts'
 import {
   FormInst,
   NButton,
@@ -13,9 +13,7 @@ import {
 import { ref } from 'vue'
 
 const showModal = ref(false)
-
 const { login, logout, user } = useUser()
-
 const formRef = ref<FormInst | null>(null)
 const message = useMessage()
 const formValue = ref({
