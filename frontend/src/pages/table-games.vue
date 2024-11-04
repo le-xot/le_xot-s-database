@@ -11,57 +11,84 @@ import { h } from 'vue'
 const { games } = useGames()
 const message = useMessage()
 
-function rowProps(games: GameEntity) {
-  return {
-    style: 'cursor: pointer;',
-    onClick: () => {
-      message.info(`Игра с id ${games.id}`)
-    },
-  }
-}
-
 const tableColumns: DataTableColumns<GameEntity> = [
-  {
-    title: 'Id',
-    key: 'id',
-    align: 'center',
-    width: 50,
-  },
   {
     title: 'Название',
     key: 'title',
     align: 'center',
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по ячейке "Название" для игры с id ${row.id}`)
+          },
+        },
+        row.title,
+      )
+    },
   },
   {
     title: 'Заказчик',
     key: 'person.name',
     align: 'center',
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по ячейке "Заказчик" для игры с id ${row.id}`)
+          },
+        },
+        row.person.name,
+      )
+    },
   },
   {
-    render(row) {
-      return h(TableStatus, {
-        status: row.status,
-      })
-    },
     title() {
       return h(TableHeadStatus)
     },
     key: 'status',
     align: 'center',
     width: 200,
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по статусу для игры с id ${row.id}`)
+          },
+        },
+        h(TableStatus, {
+          status: row.status,
+        }),
+      )
+    },
   },
   {
-    render(row) {
-      return h(TableGrade, {
-        grade: row.grade,
-      })
-    },
     title() {
       return h(TableHeadGrade)
     },
     key: 'grade',
     align: 'center',
     width: 200,
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по оценке для игры с id ${row.id}`)
+          },
+        },
+        h(TableGrade, {
+          grade: row.grade,
+        }),
+      )
+    },
   },
 ]
 </script>
@@ -74,6 +101,5 @@ const tableColumns: DataTableColumns<GameEntity> = [
     :columns="tableColumns"
     :data="games"
     :single-line="false"
-    :row-props="rowProps"
   />
 </template>

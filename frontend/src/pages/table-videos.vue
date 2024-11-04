@@ -6,58 +6,104 @@ import TableHeadGrade from '@src/components/table/table-col-grade.vue'
 import TableHeadStatus from '@src/components/table/table-col-status.vue'
 import { useVideos } from '@src/composables/use-videos.ts'
 import { VideoEntity } from '@src/libs/api.ts'
-import { DataTableColumns, NDataTable } from 'naive-ui'
+import { DataTableColumns, NDataTable, useMessage } from 'naive-ui'
 import { h } from 'vue'
 
 const { videos } = useVideos()
+const message = useMessage()
 
 const tableColumns: DataTableColumns<VideoEntity> = [
-  {
-    title: 'Id',
-    key: 'id',
-    align: 'center',
-    width: 50,
-  },
   {
     title: 'Название',
     key: 'title',
     align: 'center',
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по ячейке "Название" для игры с id ${row.id}`)
+          },
+        },
+        row.title,
+      )
+    },
   },
   {
     title: 'Заказчик',
     key: 'person.name',
     align: 'center',
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по ячейке "Заказчик" для игры с id ${row.id}`)
+          },
+        },
+        row.person.name,
+      )
+    },
   },
   {
-    render(row) {
-      return h(TableGenre, { genre: row.genre })
-    },
     title: 'Жанр',
     key: 'genre',
     align: 'center',
     width: 200,
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по жанру для видео с id ${row.id}`)
+          },
+        },
+        h(TableGenre, { genre: row.genre }),
+      )
+    },
   },
   {
-    render(row) {
-      return h(TableStatus, { status: row.status })
-    },
     title() {
       return h(TableHeadStatus)
     },
     key: 'status',
     align: 'center',
     width: 200,
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по статусу для видео с id ${row.id}`)
+          },
+        },
+        h(TableStatus, { status: row.status }),
+      )
+    },
   },
   {
-    render(row) {
-      return h(TableGrade, { grade: row.grade })
-    },
     title() {
       return h(TableHeadGrade)
     },
     key: 'grade',
     align: 'center',
     width: 200,
+    render(row) {
+      return h(
+        'div',
+        {
+          style: 'cursor: pointer;',
+          onClick: () => {
+            message.info(`Клик по оценке для видео с id ${row.id}`)
+          },
+        },
+        h(TableGrade, { grade: row.grade }),
+      )
+    },
   },
 ]
 </script>

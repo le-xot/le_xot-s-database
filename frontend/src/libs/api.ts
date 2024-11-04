@@ -56,8 +56,8 @@ export interface CreatePersonDTO {
 export interface CreateVideoDTO {
   /** @example "Мадагаскар" */
   title: string;
-  /** @example 1 */
-  personId: number;
+  /** @example "le_xot" */
+  personName: string;
   /** @example "FREE" */
   type: string;
   /** @example "PROGRESS" */
@@ -71,8 +71,8 @@ export interface CreateVideoDTO {
 export interface PatchVideoDTO {
   /** @example "Боб строитель" */
   title: string;
-  /** @example 1 */
-  personId: number;
+  /** @example "le_xot" */
+  personName: string;
   /** @example "FREE" */
   type: string;
   /** @example "DONE" */
