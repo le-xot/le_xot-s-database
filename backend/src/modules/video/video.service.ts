@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { Video } from '@prisma/client'
 import { PrismaService } from '../../database/prisma.service'
 import { CreateVideoDTO, PatchVideoDTO } from './video.dto'
+import { VideoEntity } from './video.entity'
 
 @Injectable()
 export class VideoServices {
@@ -62,7 +63,7 @@ export class VideoServices {
     return this.prisma.video.findMany({ include: { person: true } })
   }
 
-  async findVideoById(id: number): Promise<Video> {
-    return this.prisma.video.findUnique({ where: { id } })
+  async findVideoById(id: number): Promise<VideoEntity> {
+    return this.prisma.video.findUnique({ where: { id }, include: { person: true } })
   }
 }

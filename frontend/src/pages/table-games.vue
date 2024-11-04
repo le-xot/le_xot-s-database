@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import TableGrade from '@src/components/table/table-cell-grade.vue'
-import TableStatus from '@src/components/table/table-cell-status.vue'
-import TableHeadGrade from '@src/components/table/table-col-grade.vue'
-import TableHeadStatus from '@src/components/table/table-col-status.vue'
+import TableGrade from '@src/components/table/table-cell/table-cell-grade.vue'
+import TableStatus from '@src/components/table/table-cell/table-cell-status.vue'
+import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
+import TableHeadGrade from '@src/components/table/table-header/table-header-grade.vue'
+import TableHeadStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useGames } from '@src/composables/use-games.ts'
 import { GameEntity } from '@src/libs/api.ts'
 import { DataTableColumns, NDataTable, useMessage } from 'naive-ui'
 import { h } from 'vue'
 
-const { games } = useGames()
+const { games, update } = useGames()
 const message = useMessage()
 
 const tableColumns: DataTableColumns<GameEntity> = [
@@ -17,16 +18,10 @@ const tableColumns: DataTableColumns<GameEntity> = [
     key: 'title',
     align: 'center',
     render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по ячейке "Название" для игры с id ${row.id}`)
-          },
-        },
-        row.title,
-      )
+      return h(TableColTitle, {
+        title: row.title,
+        onTitleUpdate: (title: string) => update(row.id, { title }),
+      })
     },
   },
   {

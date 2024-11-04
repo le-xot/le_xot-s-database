@@ -39,7 +39,6 @@ import { NButton } from 'naive-ui'
   height: var(--header-height);
   background-color: #0c0c0c;
   width: 100%;
-  height: 100%;
 }
 
 .header-container {

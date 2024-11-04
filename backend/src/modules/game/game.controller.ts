@@ -51,7 +51,7 @@ export class GameController {
 
   @Get()
   @ApiResponse({ status: 200, type: GameEntity, isArray: true })
-  async getAllGames(): Promise<Game[]> {
+  async getAllGames(): Promise<GameEntity[]> {
     return this.gameServices.getAllGames()
   }
 }

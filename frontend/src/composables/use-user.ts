@@ -32,7 +32,7 @@ export const useUser = createGlobalState(() => {
       const { data } = await api.users.userControllerGetInfo()
       user.value = data
     } catch {
-      console.log('ERROR')
+      user.value = undefined
     }
   }
 

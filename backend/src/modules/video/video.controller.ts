@@ -51,7 +51,7 @@ export class VideoController {
 
   @Get()
   @ApiResponse({ status: 200, type: VideoEntity, isArray: true })
-  async getAllVideos(): Promise<Video[]> {
+  async getAllVideos(): Promise<VideoEntity[]> {
     return await this.videoServices.getAllVideos()
   }
 }
