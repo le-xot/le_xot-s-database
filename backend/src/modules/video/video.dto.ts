@@ -22,21 +22,21 @@ export class CreateVideoDTO {
 }
 
 export class PatchVideoDTO {
-  @ApiProperty({ example: 'Боб строитель' })
+  @ApiProperty({ example: 'Боб строитель', required: false })
   title?: string
 
-  @ApiProperty({ example: 'le_xot' })
-  personName?: string
+  @ApiProperty({ example: 1, required: false })
+  personId?: number
 
-  @ApiProperty({ example: $Enums.PrismaTypes.FREE })
+  @ApiProperty({ example: $Enums.PrismaTypes.FREE, required: false })
   type?: $Enums.PrismaTypes
 
-  @ApiProperty({ example: $Enums.PrismaStatuses.DONE })
+  @ApiProperty({ example: $Enums.PrismaStatuses.DONE, required: false })
   status?: $Enums.PrismaStatuses
 
-  @ApiProperty({ example: $Enums.PrismaGenres.MOVIE })
+  @ApiProperty({ example: $Enums.PrismaGenres.MOVIE, required: false })
   genre?: $Enums.PrismaGenres
 
-  @ApiProperty({ example: $Enums.PrismaGrades.DISLIKE })
+  @ApiProperty({ example: $Enums.PrismaGrades.DISLIKE, required: false })
   grade?: $Enums.PrismaGrades
 }

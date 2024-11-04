@@ -10,7 +10,7 @@ import { VideoEntity } from '@src/libs/api.ts'
 import { DataTableColumns, NDataTable, useMessage } from 'naive-ui'
 import { h } from 'vue'
 
-const { videos } = useVideos()
+const { videos, update } = useVideos()
 const message = useMessage()
 
 const tableColumns: DataTableColumns<VideoEntity> = [
@@ -19,16 +19,10 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     key: 'title',
     align: 'center',
     render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по ячейке "Название" для игры с id ${row.id}`)
-          },
-        },
-        row.title,
-      )
+      return h(TableColName, {
+        title: row.title,
+        onTitleUpdate: (title: string) => update(row.id, { title }),
+      })
     },
   },
   {

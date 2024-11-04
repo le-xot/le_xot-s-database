@@ -70,17 +70,17 @@ export interface CreateVideoDTO {
 
 export interface PatchVideoDTO {
   /** @example "Боб строитель" */
-  title: string;
-  /** @example "le_xot" */
-  personName: string;
+  title?: string;
+  /** @example 1 */
+  personId?: number;
   /** @example "FREE" */
-  type: string;
+  type?: string;
   /** @example "DONE" */
-  status: string;
+  status?: string;
   /** @example "MOVIE" */
-  genre: string;
+  genre?: string;
   /** @example "DISLIKE" */
-  grade: string;
+  grade?: string;
 }
 
 export interface PersonEntity {
@@ -141,15 +141,15 @@ export interface CreateGameDTO {
 
 export interface PatchGameDTO {
   /** @example "Dota 2" */
-  title: string;
-  /** @example "le_xot" */
-  personName: string;
+  title?: string;
+  /** @example 1 */
+  personId?: number;
   /** @example "FREE" */
-  type: string;
+  type?: string;
   /** @example "DONE" */
-  status: string;
+  status?: string;
   /** @example "DISLIKE" */
-  grade: string;
+  grade?: string;
 }
 
 export interface GameEntity {

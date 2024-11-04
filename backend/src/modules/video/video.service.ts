@@ -38,20 +38,10 @@ export class VideoServices {
     if (!foundedVideo) {
       throw new Error('Video not found')
     }
-    let personId: number
-    if (video.personName) {
-      const foundedPerson = await this.prisma.person.findUnique({
-        where: { name: video.personName },
-      })
-      if (!foundedPerson) {
-        throw new Error('Person not found')
-      }
-      personId = foundedPerson.id
-    }
     return this.prisma.video.update({
       where: { id },
       include: { person: true },
-      data: { ...foundedVideo, ...video, personId },
+      data: { ...foundedVideo, ...video },
     })
   }
 
@@ -59,8 +49,13 @@ export class VideoServices {
     await this.prisma.video.delete({ where: { id } })
   }
 
-  async getAllVideos(): Promise<Video[]> {
-    return this.prisma.video.findMany({ include: { person: true } })
+  async getAllVideos(): Promise<VideoEntity[]> {
+    return this.prisma.video.findMany({
+      include: { person: true },
+      orderBy: {
+        id: 'desc',
+      },
+    })
   }
 
   async findVideoById(id: number): Promise<VideoEntity> {

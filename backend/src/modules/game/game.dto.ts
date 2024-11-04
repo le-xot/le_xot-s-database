@@ -19,18 +19,18 @@ export class CreateGameDTO {
 }
 
 export class PatchGameDTO {
-  @ApiProperty({ example: 'Dota 2' })
+  @ApiProperty({ example: 'Dota 2', required: false })
   title?: string
 
-  @ApiProperty({ example: 'le_xot' })
-  personName?: string
+  @ApiProperty({ example: 1, required: false })
+  personId?: number
 
-  @ApiProperty({ example: $Enums.PrismaTypes.FREE })
+  @ApiProperty({ example: $Enums.PrismaTypes.FREE, required: false })
   type?: $Enums.PrismaTypes
 
-  @ApiProperty({ example: $Enums.PrismaStatuses.DONE })
+  @ApiProperty({ example: $Enums.PrismaStatuses.DONE, required: false })
   status?: $Enums.PrismaStatuses
 
-  @ApiProperty({ example: $Enums.PrismaGrades.DISLIKE })
+  @ApiProperty({ example: $Enums.PrismaGrades.DISLIKE, required: false })
   grade?: $Enums.PrismaGrades
 }
