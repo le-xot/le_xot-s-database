@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import TableGrade from '@src/component/table/table-cell-grade.vue'
-import TableStatus from '@src/component/table/table-cell-status.vue'
-import TableHeadGrade from '@src/component/table/table-col-grade.vue'
-import TableHeadStatus from '@src/component/table/table-col-status.vue'
+import TableGrade from '@src/components/table/table-cell-grade.vue'
+import TableStatus from '@src/components/table/table-cell-status.vue'
+import TableHeadGrade from '@src/components/table/table-col-grade.vue'
+import TableHeadStatus from '@src/components/table/table-col-status.vue'
 import { useGames } from '@src/composables/use-games.ts'
 import { GameEntity } from '@src/libs/api.ts'
 import { DataTableColumns, NDataTable, useMessage } from 'naive-ui'

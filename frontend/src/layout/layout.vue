@@ -7,15 +7,8 @@ import { darkTheme, NConfigProvider, NMessageProvider } from 'naive-ui'
 <template>
   <NConfigProvider :theme="darkTheme">
     <NMessageProvider>
-      <LayoutHeader class="app" />
+      <LayoutHeader />
       <LayoutBody />
     </NMessageProvider>
   </NConfigProvider>
 </template>
-
-<style scoped>
-.app {
-  width: 100%;
-  height: 100%;
-}
-</style>

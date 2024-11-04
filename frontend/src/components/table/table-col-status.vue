@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MainStatuses from '@src/component/tooltips/tooltip-status.vue'
+import MainStatuses from '@src/components/tooltips/tooltip-status.vue'
 import { Info } from 'lucide-vue-next'
 import { NPopover } from 'naive-ui'
 </script>
