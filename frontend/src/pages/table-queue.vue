@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TableGenre from '@src/component/table/table-cell-genre.vue'
+import TableGenre from '@src/components/table/table-cell-genre.vue'
 import { useGames } from '@src/composables/use-games.ts'
 import { useVideos } from '@src/composables/use-videos.ts'
 import { NCard, NGrid, NGridItem } from 'naive-ui'

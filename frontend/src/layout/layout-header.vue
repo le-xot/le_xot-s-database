@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import LoginForm from '@src/component/form/login-form.vue'
+import LoginForm from '@src/components/form/login-form.vue'
+import { ROUTES_PATHS } from '@src/libs/router/router-paths'
 import { NButton } from 'naive-ui'
-
-const routes = [
-  { name: 'Очередь', path: '/db/queue' },
-  { name: 'Игры', path: '/db/games' },
-  { name: 'Видео', path: '/db/videos' },
-]
 </script>
 
 <template>
@@ -15,7 +10,7 @@ const routes = [
       <div class="header-nav">
         <div class="header-nav">
           <router-link
-            v-for="route of routes"
+            v-for="route of ROUTES_PATHS"
             v-slot="{ isActive, href, navigate }"
             :key="route.name"
             custom
@@ -42,8 +37,9 @@ const routes = [
 .header {
   display: flex;
   height: var(--header-height);
-  width: 100%;
   background-color: #0c0c0c;
+  width: 100%;
+  height: 100%;
 }
 
 .header-container {

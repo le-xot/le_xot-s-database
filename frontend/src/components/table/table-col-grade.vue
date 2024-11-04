@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MainGrades from '@src/component/tooltips/tooltip-grade.vue'
+import MainGrades from '@src/components/tooltips/tooltip-grade.vue'
 import { Info } from 'lucide-vue-next'
 import { NPopover } from 'naive-ui'
 </script>

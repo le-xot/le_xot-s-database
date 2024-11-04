@@ -9,18 +9,13 @@
     ],
     "moduleDetection": "force",
     "useDefineForClassFields": true,
+    "baseUrl": "./",
     "module": "ESNext",
     /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
-      "@utils/*": [
-        "./src/components/utils/*"
-      ],
-      "@src/*": [
-        "./src/*"
-      ]
+      "@src/*": ["./src/*"]
     },
-    "basePath": "./",
     "allowImportingTsExtensions": true,
     /* Linting */
     "strict": true,
