@@ -24,11 +24,17 @@ const target = ref<HTMLDivElement | null>(null)
 onClickOutside(target, () => {
   save()
 })
+
+function handleClick() {
+  if (!user.value) return
+
+  isEdit.value = true
+}
 </script>
 
 <template>
   <div ref="target" style="padding: 0">
-    <p v-if="!isEdit && user" class="title" @click="isEdit = true">
+    <p v-if="!isEdit" class="title" @click="handleClick">
       {{ model }}
     </p>
     <NInput v-else-if="user" v-model:value="model" class="input no-padding" size="small" @keydown.enter="save" />
