@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TableCellGenre from '@src/components/table/table-cell/table-cell-genre.vue'
+import TableColGenre from '@src/components/table/table-col/table-col-genre.vue'
 import { useGames } from '@src/composables/use-games.ts'
 import { useVideos } from '@src/composables/use-videos.ts'
 import { NCard, NGrid, NGridItem } from 'naive-ui'
@@ -69,7 +69,7 @@ const { videosQueue } = useVideos()
                 {{ item.person.name }}
               </div>
               <div>
-                <TableCellGenre style="justify-content: flex-start" :genre="item.genre" />
+                <TableColGenre style="justify-content: flex-start" :genre="item.genre" />
               </div>
             </div>
           </template>
