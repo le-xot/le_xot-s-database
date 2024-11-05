@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import { useUser } from '@src/composables/use-user.ts'
-import { GradeEnum } from '@src/libs/api.ts'
+import { StatusesEnum } from '@src/libs/api.ts'
 import { onClickOutside } from '@vueuse/core'
 import { NSelect, NTag, NText, SelectOption } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
 
-const props = defineProps<{ grade?: GradeEnum }>()
+const props = defineProps<{ status?: StatusesEnum }>()
 const emit = defineEmits<{ update: [string] }>()
 const isEdit = ref(false)
 const model = ref()
 const { user } = useUser()
 
 onMounted(() => {
-  model.value = props.grade
+  model.value = props.status
 })
 
 async function save() {
   isEdit.value = false
-  if (model.value === props.grade) return
+  if (model.value === props.status) return
   emit('update', model.value)
 }
 
@@ -27,20 +27,20 @@ onClickOutside(target, () => {
   save()
 })
 
-const gradeLabels: Record<
-  GradeEnum,
+const statusLabels: Record<
+  StatusesEnum,
   {
     name: string
     variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
   }
 > = {
-  [GradeEnum.RECOMMEND]: { name: '🔥', variant: 'info' },
-  [GradeEnum.LIKE]: { name: '👍', variant: 'success' },
-  [GradeEnum.BEER]: { name: '🍺', variant: 'warning' },
-  [GradeEnum.DISLIKE]: { name: '👎', variant: 'error' },
+  [StatusesEnum.QUEUE]: { name: 'В очереди', variant: 'default' },
+  [StatusesEnum.UNFINISHED]: { name: 'Нет концовки', variant: 'info' },
+  [StatusesEnum.DONE]: { name: 'Готово', variant: 'success' },
+  [StatusesEnum.PROGRESS]: { name: 'В процессе', variant: 'warning' },
+  [StatusesEnum.DROP]: { name: 'Дроп', variant: 'error' },
 }
-
-const selectOptions = Object.entries(gradeLabels).map(([key, value]) => {
+const selectOptions = Object.entries(statusLabels).map(([key, value]) => {
   return {
     label: value.name,
     value: key,
@@ -50,8 +50,8 @@ const selectOptions = Object.entries(gradeLabels).map(([key, value]) => {
 function renderLabel(option: SelectOption) {
   if (!option.value) return
   return h(NText, {
-    style: 'display: flex; justify-content: center',
-    type: gradeLabels[option.value as GradeEnum].variant,
+    style: 'align-items: center',
+    type: statusLabels[option.value as StatusesEnum].variant,
   }, { default: () => option.label })
 }
 
@@ -63,17 +63,17 @@ function handleClick() {
 
 <template>
   <div ref="target" style="padding: 0">
-    <p v-if="!isEdit" class="grades table-tag" @click="handleClick">
+    <p v-if="!isEdit" class="status table-tag" @click="handleClick">
       <NTag
-        v-if="grade"
+        v-if="status"
         style="width: 125px;   display: flex;
           justify-content: center;
           align-items: center "
-        :type="gradeLabels[grade].variant"
+        :type="statusLabels[status].variant"
         round
         :bordered="false"
       >
-        {{ gradeLabels[grade].name }}
+        {{ statusLabels[status].name }}
       </NTag>
     </p>
     <NSelect
@@ -81,7 +81,6 @@ function handleClick() {
       v-model:value="model"
       :show-arrow="false"
       :show-checkmark="false"
-      style="display: flex; justify-content: center"
       size="small"
       :options="selectOptions"
       :show="true"
@@ -98,7 +97,7 @@ function handleClick() {
   justify-content: center;
   width: 125px;
 }
-.grades {
+.status {
   width: 100%;
   margin: auto 0;
 }

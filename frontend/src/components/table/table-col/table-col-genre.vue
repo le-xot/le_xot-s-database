@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import { useUser } from '@src/composables/use-user.ts'
-import { GradeEnum } from '@src/libs/api.ts'
+import { GenresEnum } from '@src/libs/api.ts'
 import { onClickOutside } from '@vueuse/core'
 import { NSelect, NTag, NText, SelectOption } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
 
-const props = defineProps<{ grade?: GradeEnum }>()
+const props = defineProps<{ genre?: GenresEnum }>()
 const emit = defineEmits<{ update: [string] }>()
 const isEdit = ref(false)
 const model = ref()
 const { user } = useUser()
 
 onMounted(() => {
-  model.value = props.grade
+  model.value = props.genre
 })
 
 async function save() {
   isEdit.value = false
-  if (model.value === props.grade) return
+  if (model.value === props.genre) return
   emit('update', model.value)
 }
 
@@ -27,20 +27,19 @@ onClickOutside(target, () => {
   save()
 })
 
-const gradeLabels: Record<
-  GradeEnum,
+const genreLabels: Record<
+  GenresEnum,
   {
     name: string
     variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
   }
 > = {
-  [GradeEnum.RECOMMEND]: { name: '🔥', variant: 'info' },
-  [GradeEnum.LIKE]: { name: '👍', variant: 'success' },
-  [GradeEnum.BEER]: { name: '🍺', variant: 'warning' },
-  [GradeEnum.DISLIKE]: { name: '👎', variant: 'error' },
+  [GenresEnum.MOVIE]: { name: 'Фильм', variant: 'success' },
+  [GenresEnum.SERIES]: { name: 'Сериал', variant: 'info' },
+  [GenresEnum.ANIME]: { name: 'Аниме', variant: 'error' },
+  [GenresEnum.CARTOON]: { name: 'Мультфильм', variant: 'warning' },
 }
-
-const selectOptions = Object.entries(gradeLabels).map(([key, value]) => {
+const selectOptions = Object.entries(genreLabels).map(([key, value]) => {
   return {
     label: value.name,
     value: key,
@@ -50,8 +49,8 @@ const selectOptions = Object.entries(gradeLabels).map(([key, value]) => {
 function renderLabel(option: SelectOption) {
   if (!option.value) return
   return h(NText, {
-    style: 'display: flex; justify-content: center',
-    type: gradeLabels[option.value as GradeEnum].variant,
+    style: 'align-items: center',
+    type: genreLabels[option.value as GenresEnum].variant,
   }, { default: () => option.label })
 }
 
@@ -63,17 +62,17 @@ function handleClick() {
 
 <template>
   <div ref="target" style="padding: 0">
-    <p v-if="!isEdit" class="grades table-tag" @click="handleClick">
+    <p v-if="!isEdit" class="status table-tag" @click="handleClick">
       <NTag
-        v-if="grade"
+        v-if="genre"
         style="width: 125px;   display: flex;
           justify-content: center;
           align-items: center "
-        :type="gradeLabels[grade].variant"
+        :type="genreLabels[genre].variant"
         round
         :bordered="false"
       >
-        {{ gradeLabels[grade].name }}
+        {{ genreLabels[genre].name }}
       </NTag>
     </p>
     <NSelect
@@ -81,7 +80,6 @@ function handleClick() {
       v-model:value="model"
       :show-arrow="false"
       :show-checkmark="false"
-      style="display: flex; justify-content: center"
       size="small"
       :options="selectOptions"
       :show="true"
@@ -98,7 +96,7 @@ function handleClick() {
   justify-content: center;
   width: 125px;
 }
-.grades {
+.status {
   width: 100%;
   margin: auto 0;
 }

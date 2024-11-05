@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TableGrade from '@src/components/table/table-cell/table-cell-grade.vue'
-import TableStatus from '@src/components/table/table-cell/table-cell-status.vue'
+import TableColGrade from '@src/components/table/table-col/table-col-grade.vue'
+import TableColStatus from '@src/components/table/table-col/table-col-status.vue'
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
 import TableHeadGrade from '@src/components/table/table-header/table-header-grade.vue'
 import TableHeadStatus from '@src/components/table/table-header/table-header-status.vue'
@@ -20,7 +20,7 @@ const tableColumns: DataTableColumns<GameEntity> = [
     render(row) {
       return h(TableColTitle, {
         title: row.title,
-        onTitleUpdate: (title: string) => update(row.id, { title }),
+        onUpdate: (title: string) => update(row.id, { title }),
       })
     },
   },
@@ -28,6 +28,7 @@ const tableColumns: DataTableColumns<GameEntity> = [
     title: 'Заказчик',
     key: 'person.name',
     align: 'center',
+    width: 300,
     render(row) {
       return h(
         'div',
@@ -49,18 +50,12 @@ const tableColumns: DataTableColumns<GameEntity> = [
     align: 'center',
     width: 200,
     render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по статусу для игры с id ${row.id}`)
-          },
+      return h(TableColStatus, {
+        status: row.status,
+        onUpdate: (value: string) => {
+          update(row.id, { status: value })
         },
-        h(TableStatus, {
-          status: row.status,
-        }),
-      )
+      })
     },
   },
   {
@@ -71,18 +66,12 @@ const tableColumns: DataTableColumns<GameEntity> = [
     align: 'center',
     width: 200,
     render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по оценке для игры с id ${row.id}`)
-          },
+      return h(TableColGrade, {
+        grade: row.grade,
+        onUpdate: (value: string) => {
+          update(row.id, { grade: value })
         },
-        h(TableGrade, {
-          grade: row.grade,
-        }),
-      )
+      })
     },
   },
 ]

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import TableGenre from '@src/components/table/table-cell/table-cell-genre.vue'
-import TableGrade from '@src/components/table/table-cell/table-cell-grade.vue'
-import TableStatus from '@src/components/table/table-cell/table-cell-status.vue'
+import TableColGenre from '@src/components/table/table-col/table-col-genre.vue'
+import TableColGrade from '@src/components/table/table-col/table-col-grade.vue'
+import TableColStatus from '@src/components/table/table-col/table-col-status.vue'
 import TableColName from '@src/components/table/table-col/table-col-title.vue'
 import TableHeadGrade from '@src/components/table/table-header/table-header-grade.vue'
 import TableHeadStatus from '@src/components/table/table-header/table-header-status.vue'
@@ -29,6 +29,7 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     title: 'Заказчик',
     key: 'person.name',
     align: 'center',
+    width: 300,
     render(row) {
       return h(
         'div',
@@ -48,16 +49,12 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     align: 'center',
     width: 200,
     render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по жанру для видео с id ${row.id}`)
-          },
+      return h(TableColGenre, {
+        genre: row.genre,
+        onUpdate: (value: string) => {
+          update(row.id, { genre: value })
         },
-        h(TableGenre, { genre: row.genre }),
-      )
+      })
     },
   },
   {
@@ -68,18 +65,15 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     align: 'center',
     width: 200,
     render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по статусу для видео с id ${row.id}`)
-          },
+      return h(TableColStatus, {
+        status: row.status,
+        onUpdate: (value: string) => {
+          update(row.id, { status: value })
         },
-        h(TableStatus, { status: row.status }),
-      )
+      })
     },
   },
+
   {
     title() {
       return h(TableHeadGrade)
@@ -88,16 +82,12 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     align: 'center',
     width: 200,
     render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по оценке для видео с id ${row.id}`)
-          },
+      return h(TableColGrade, {
+        grade: row.grade,
+        onUpdate: (value: string) => {
+          update(row.id, { grade: value })
         },
-        h(TableGrade, { grade: row.grade }),
-      )
+      })
     },
   },
 ]

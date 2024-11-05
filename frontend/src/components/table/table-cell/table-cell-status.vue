@@ -23,7 +23,7 @@ const statusLabels: Record<
   <div class="table-status">
     <NTag
       v-if="status"
-      class="table-status-tag"
+      class="table-tag"
       :type="statusLabels[status].variant"
       round
       :bordered="false"
@@ -40,7 +40,7 @@ const statusLabels: Record<
   align-items: center;
 }
 
-.table-status-tag {
+.table-tag {
   display: flex;
   align-items: center;
   justify-content: center;

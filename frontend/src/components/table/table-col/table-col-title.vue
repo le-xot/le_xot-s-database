@@ -5,7 +5,7 @@ import { NInput } from 'naive-ui'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps<{ title: string }>()
-const emit = defineEmits<{ 'title-update': [string] }>()
+const emit = defineEmits<{ update: [string] }>()
 const isEdit = ref(false)
 const model = ref()
 const { user } = useUser()
@@ -17,7 +17,7 @@ onMounted(() => {
 async function save() {
   isEdit.value = false
   if (model.value === props.title) return
-  emit('title-update', model.value)
+  emit('update', model.value)
 }
 const target = ref<HTMLDivElement | null>(null)
 
