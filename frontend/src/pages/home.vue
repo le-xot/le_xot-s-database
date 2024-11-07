@@ -1,45 +1,51 @@
 <template>
-  <div class="card-container">
-    <NCard title="Моя Визитка" size="large" class="card">
-      <NSpace vertical align="center">
-        <NButton
+  <div class="container">
+    <h4 class="title">
+      Ссылочки Лешота
+    </h4>
+    <div class="container__items">
+      <img class="logo" src="/images/lexot.jpg" alt="Пажилой енот на своей даче под Рублевкой">
+      <div class="buttons">
+        <button
           v-for="link in links"
           :key="link.name"
-          type="primary"
-          ghost
-          size="large"
-          class="link-button"
+          :style="{ backgroundColor: link.color }"
+          class="button"
           @click="() => openLink(link.url)"
         >
-          <NIcon class="icon">
-            <component :is="link.icon" size="30" />
-          </NIcon>
-          <span class="link-text">{{ link.name }}</span>
-        </NButton>
-      </NSpace>
-    </NCard>
+          <component
+            :is="link.icon"
+            class="button__logo"
+            size="32px"
+          />
+          <span class="button__text">{{ link.name }}</span>
+        </button>
+      </div>
+      <button class="button button--large">
+        Подвальчик Лешотика!
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Gamepad2, Github, MessageCircle, Send, Twitch, Youtube } from 'lucide-vue-next'
-import { NButton, NCard, NIcon, NSpace } from 'naive-ui'
-import { ref } from 'vue'
+import { DiscordIcon, GitHubIcon, SteamIcon, TelegramIcon, TwitchIcon, YouTubeIcon } from 'vue3-simple-icons'
 
 interface Link {
   name: string
   icon: any
+  color: string
   url: string
 }
 
-const links = ref<Link[]>([
-  { name: 'GitHub', icon: Github, url: 'https://github.com/your-username' },
-  { name: 'Telegram', icon: Send, url: 'https://t.me/your-username' },
-  { name: 'Steam', icon: Gamepad2, url: 'https://steamcommunity.com/id/your-username' },
-  { name: 'YouTube', icon: Youtube, url: 'https://www.youtube.com/c/your-channel' },
-  { name: 'Twitch', icon: Twitch, url: 'https://www.twitch.tv/your-username' },
-  { name: 'Discord', icon: MessageCircle, url: 'https://discordapp.com/users/your-username' },
-])
+const links: Link[] = [
+  { name: 'Telegram', icon: TelegramIcon, color: '#26A5E4', url: 'https://t.me/your-username' },
+  { name: 'Discord', icon: DiscordIcon, color: '#5865F2', url: 'https://discordapp.com/users/your-username' },
+  { name: 'YouTube', icon: YouTubeIcon, color: '#FF0000', url: 'https://www.youtube.com/c/your-channel' },
+  { name: 'Twitch', icon: TwitchIcon, color: '#9146FF', url: 'https://www.twitch.tv/your-username' },
+  { name: 'GitHub', icon: GitHubIcon, color: '#181717', url: 'https://github.com/you-pidor' },
+  { name: 'Steam', icon: SteamIcon, color: '#000000', url: 'https://steamcommunity.com/id/your-username' },
+]
 
 function openLink(url: string) {
   window.open(url, '_blank')
@@ -47,41 +53,88 @@ function openLink(url: string) {
 </script>
 
 <style scoped>
-.card-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #f0f2f5, #dbe0e4);
-}
+  button{
+    display: block;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+  }
 
-.card {
-  max-width: 500px;
-  padding: 30px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-}
+  .container{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
 
-.link-button {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
 
-.link-button:hover {
-  background-color: #f5f7fa;
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
+    color: #ffffff;
+  }
 
-.icon {
-  color: #007bff;
-}
+  .container__items{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 25rem;
+  }
 
-.link-text {
-  color: #333;
-}
+  .title{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .logo{
+    border-radius: 2rem;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .buttons{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .button{
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    fill: #ffffff;
+
+    padding: .5rem 1rem;
+
+    background: #7c1eae;
+
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .025em;
+    text-align: center;
+
+    border-radius: .5rem;
+    border: 2px solid #ffffff3e;
+
+    transition: .3s ease-in-out;
+  }
+
+  .button:hover{
+    filter: brightness(85%);
+  }
+
+  .button--large{
+    width: 100%;
+  }
+
+  .button__text{
+    font-size: 1rem;
+    text-align: center;
+  }
 </style>
