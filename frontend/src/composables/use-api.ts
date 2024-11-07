@@ -1,9 +1,14 @@
-import { Api, HttpClient } from '@src/libs/api.ts'
-import { createGlobalState } from '@vueuse/core'
+import { Api, HttpClient } from '@src/libs/api'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
-export const useApi = createGlobalState(() => {
+export const useApi = defineStore('globals/use-api', () => {
   const httpClient = new HttpClient({
     baseUrl: '/api',
   })
-  return new Api(httpClient)
+  const api = new Api(httpClient)
+  return api
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useApi, import.meta.hot))
+}

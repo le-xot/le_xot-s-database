@@ -2,17 +2,31 @@
 
 @import url('variables.css');
 
-#app, body, html {
-    height: 100%;
-    background-color: rgb(24, 24, 28);
-}
-
-body{
-    font-family: "Comfortaa", sans-serif;
-}
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+body {
+  background-color: rgb(24, 24, 28);
+  font-family: "Comfortaa", sans-serif;
+  height: 100%;
+  background-color: var(--bg-color);
+}
+
+*::-webkit-scrollbar {
+  height: 12px;
+  width: 12px
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track:hover,
+*::-webkit-scrollbar-track:active {
+  background-color: var(--header-color);
+}
+
+*::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-color);
 }

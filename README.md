@@ -21,6 +21,6 @@ docker compose up -d
 * Generate prisma schema and migrate dev database
 
 ```bash
-npx prisma generate
-npx prisma migrate dev
+pnpx prisma generate
+pnpx prisma migrate dev
 ```

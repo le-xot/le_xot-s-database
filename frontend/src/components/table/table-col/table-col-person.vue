@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePersons } from '@src/composables/use-persons.ts'
 import { useUser } from '@src/composables/use-user.ts'
-import { PersonEntity, RolesEnum } from '@src/libs/api.ts'
+import { PersonEntity } from '@src/libs/api.ts'
 import { onClickOutside } from '@vueuse/core'
 import { NSelect } from 'naive-ui'
 import { SelectBaseOption } from 'naive-ui/es/select/src/interface'
@@ -9,7 +9,7 @@ import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{ person?: PersonEntity | null }>()
 const emit = defineEmits<{ update: [number] }>()
-const { user } = useUser()
+const user = useUser()
 const isEdit = ref(false)
 const model = ref()
 const { persons, create } = usePersons()
@@ -46,12 +46,10 @@ async function save() {
 
 const target = ref<HTMLDivElement | null>(null)
 
-onClickOutside(target, () => {
-  save()
-})
+onClickOutside(target, save)
 
 function handleClick() {
-  if (user.value?.role !== RolesEnum.ADMIN) return
+  if (!user.isAdmin) return
   isEdit.value = true
 }
 </script>

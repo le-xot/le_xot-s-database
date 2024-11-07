@@ -1,7 +1,25 @@
 <script setup lang="ts">
 import LoginForm from '@src/components/form/login-form.vue'
-import { ROUTES_PATHS } from '@src/libs/router/router-paths.ts'
+import { useTitle } from '@src/composables/use-title'
+import { ROUTER_PATHS } from '@src/libs/router/router-paths.ts'
 import { NButton } from 'naive-ui'
+import { onMounted } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
+
+const route = useRoute()
+const { updateTitle } = useTitle()
+
+const routes = [
+  { name: 'Главная', path: ROUTER_PATHS.home },
+  { name: 'Очередь', path: ROUTER_PATHS.dbQueue },
+  { name: 'Игры', path: ROUTER_PATHS.dbGames },
+  { name: 'Видео', path: ROUTER_PATHS.dbVideos },
+]
+
+onMounted(() => {
+  const routeData = routes.find((item) => item.path === route.path)
+  if (routeData) updateTitle(routeData.name)
+})
 </script>
 
 <template>
@@ -9,23 +27,26 @@ import { NButton } from 'naive-ui'
     <div class="header-container">
       <div class="header-nav">
         <div class="header-nav">
-          <router-link
-            v-for="route of ROUTES_PATHS"
+          <RouterLink
+            v-for="headerRoute of routes"
             v-slot="{ isActive, href, navigate }"
-            :key="route.name"
+            :key="headerRoute.name"
             custom
-            :to="route.path"
+            :to="headerRoute.path"
           >
             <NButton
               tag="a"
               :href="href"
               secondary
               :type="isActive ? 'success' : 'default'"
-              @click="navigate"
+              @click="(event) => {
+                navigate(event)
+                updateTitle(headerRoute.name)
+              }"
             >
-              {{ route.name }}
+              {{ headerRoute.name }}
             </NButton>
-          </router-link>
+          </RouterLink>
         </div>
       </div>
       <LoginForm />
@@ -37,8 +58,7 @@ import { NButton } from 'naive-ui'
 .header {
   display: flex;
   height: var(--header-height);
-  background-color: #0c0c0c;
-  width: 100%;
+  background-color: var(--header-color);
 }
 
 .header-container {

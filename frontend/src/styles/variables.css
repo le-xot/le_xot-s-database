@@ -8,5 +8,9 @@
   --color-orange: #8F5A3F;
   --color-lemon: #8F8A3F;
   --color-mint: #2A5F4E;
-  --header-height: 75px;
+
+  --bg-color: rgb(16, 16, 20);
+  --scrollbar-color: rgba(255, 255, 255, 0.2);
+  --header-color: rgb(24, 24, 28);
+  --header-height: 60px;
 }

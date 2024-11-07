@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useUser } from '@src/composables/use-user.ts'
-import { RolesEnum, StatusesEnum } from '@src/libs/api.ts'
+import { StatusesEnum } from '@src/libs/api.ts'
 import { onClickOutside } from '@vueuse/core'
 import { NSelect, NTag, NText, SelectOption } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
@@ -9,7 +9,7 @@ const props = defineProps<{ status?: StatusesEnum }>()
 const emit = defineEmits<{ update: [string] }>()
 const isEdit = ref(false)
 const model = ref()
-const { user } = useUser()
+const user = useUser()
 
 onMounted(() => {
   model.value = props.status
@@ -23,9 +23,7 @@ async function save() {
 
 const target = ref<HTMLDivElement | null>(null)
 
-onClickOutside(target, () => {
-  save()
-})
+onClickOutside(target, save)
 
 const statusLabels: Record<
   StatusesEnum,
@@ -56,7 +54,7 @@ function renderLabel(option: SelectOption) {
 }
 
 function handleClick() {
-  if (user.value?.role !== RolesEnum.ADMIN) return
+  if (!user.isAdmin) return
   isEdit.value = true
 }
 </script>

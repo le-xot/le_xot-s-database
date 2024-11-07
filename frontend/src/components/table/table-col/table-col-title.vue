@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useUser } from '@src/composables/use-user.ts'
-import { RolesEnum } from '@src/libs/api.ts'
 import { onClickOutside } from '@vueuse/core'
 import { NInput } from 'naive-ui'
 import { onMounted, ref } from 'vue'
@@ -9,7 +8,7 @@ const props = defineProps<{ title: string | null }>()
 const emit = defineEmits<{ update: [string] }>()
 const isEdit = ref(false)
 const model = ref()
-const { user } = useUser()
+const user = useUser()
 
 onMounted(() => {
   model.value = props.title
@@ -27,8 +26,7 @@ onClickOutside(target, () => {
 })
 
 function handleClick() {
-  if (user.value?.role !== RolesEnum.ADMIN) return
-
+  if (!user.isAdmin) return
   isEdit.value = true
 }
 </script>
