@@ -14,16 +14,23 @@ export const router = createRouter({
       ],
     },
     {
-      path: '/db/queue',
-      component: () => import('@src/pages/table-queue.vue'),
-    },
-    {
-      path: '/db/videos',
-      component: () => import('@src/pages/table-videos.vue'),
-    },
-    {
-      path: '/db/games',
-      component: () => import('@src/pages/table-games.vue'),
+      path: '/db',
+      component: () => import('@src/layout/db/layout-database.vue'),
+      children: [
+        {
+          path: '/db/queue',
+          alias: '/db',
+          component: () => import('@src/pages/table-queue.vue'),
+        },
+        {
+          path: '/db/videos',
+          component: () => import('@src/pages/table-videos.vue'),
+        },
+        {
+          path: '/db/games',
+          component: () => import('@src/pages/table-games.vue'),
+        },
+      ],
     },
   ],
 })
