@@ -1,43 +1,56 @@
-import { UserEntity } from '@src/libs/api.ts'
-import { createGlobalState } from '@vueuse/core'
-import { onMounted, ref } from 'vue'
-import { useApi } from './use-api.ts'
+import { useMutation, useQuery } from '@pinia/colada'
+import { RolesEnum } from '@src/libs/api'
+import { acceptHMRUpdate, defineStore } from 'pinia'
+import { computed } from 'vue'
+import { useApi } from './use-api'
 
-export const useUser = createGlobalState(() => {
+export const USER_QUERY_KEY = 'user'
+
+export const useUser = defineStore('globals/use-user', () => {
   const api = useApi()
-  const user = ref<UserEntity>()
 
-  async function login(username: string, password: string) {
-    const req = await api.auth.authControllerLogin({ username, password })
-    if (!req.ok) {
-      throw new Error(await req.text())
-    }
-    user.value = undefined
-    await fetchProfile()
-  }
-
-  async function logout() {
-    const req = await api.auth.authControllerLogout()
-    if (!req.ok) {
-      throw new Error(await req.text())
-    }
-    user.value = undefined
-  }
-
-  async function fetchProfile() {
-    if (user.value)
-      return
-
-    try {
+  const {
+    isLoading,
+    data: user,
+    refetch: refetchUser,
+  } = useQuery({
+    key: [USER_QUERY_KEY],
+    query: async () => {
       const { data } = await api.users.userControllerGetInfo()
-      user.value = data
-    } catch {
-      user.value = undefined
-    }
-  }
-
-  onMounted(async () => {
-    await fetchProfile()
+      return data
+    },
   })
-  return { user, login, logout, fetchProfile }
+
+  const isLoggedIn = computed(() => !!user.value)
+  const isAdmin = computed(() => user.value?.role === RolesEnum.ADMIN)
+
+  const { mutateAsync: userLogin } = useMutation({
+    key: [USER_QUERY_KEY, 'login'],
+    mutation: ({ username, password }: { username: string, password: string }) => {
+      return api.auth.authControllerLogin({
+        username,
+        password,
+      })
+    },
+    onSuccess: () => refetchUser(),
+  })
+
+  const { mutateAsync: userLogout } = useMutation({
+    key: [USER_QUERY_KEY, 'logout'],
+    mutation: () => api.auth.authControllerLogout(),
+    onSuccess: () => refetchUser(),
+  })
+
+  return {
+    isLoading,
+    user,
+    isLoggedIn,
+    isAdmin,
+    userLogin,
+    userLogout,
+  }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useUser, import.meta.hot))
+}

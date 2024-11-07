@@ -3,7 +3,7 @@ import { darkTheme, NConfigProvider } from 'naive-ui'
 </script>
 
 <template>
-  <NConfigProvider :theme="darkTheme" style="height: 100%;">
+  <NConfigProvider :theme="darkTheme">
     <RouterView />
   </NConfigProvider>
 </template>

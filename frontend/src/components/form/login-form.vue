@@ -2,6 +2,7 @@
 import { useUser } from '@src/composables/use-user.ts'
 import {
   FormInst,
+  FormRules,
   NButton,
   NCard,
   NForm,
@@ -12,8 +13,8 @@ import {
 } from 'naive-ui'
 import { ref } from 'vue'
 
+const user = useUser()
 const showModal = ref(false)
-const { login, logout, user } = useUser()
 const formRef = ref<FormInst | null>(null)
 const message = useMessage()
 const formValue = ref({
@@ -21,7 +22,7 @@ const formValue = ref({
   password: '',
 })
 
-const rules = {
+const rules: FormRules = {
   username: {
     required: true,
     message: 'Please input your username',
@@ -37,7 +38,7 @@ const rules = {
 async function saveCookie() {
   try {
     await formRef.value?.validate()
-    await login(formValue.value.username, formValue.value.password)
+    await user.userLogin(formValue.value)
     showModal.value = false
     message.success('Login success')
   } catch {
@@ -47,7 +48,7 @@ async function saveCookie() {
 
 async function deleteCookie() {
   try {
-    await logout()
+    await user.userLogout()
     message.success('Logout success')
   } catch {
     message.error('Logout error')
@@ -56,10 +57,20 @@ async function deleteCookie() {
 </script>
 
 <template>
-  <NButton v-if="user" quaternary type="error" @click="deleteCookie">
+  <NButton
+    v-if="user.isLoggedIn"
+    quaternary
+    type="error"
+    @click="deleteCookie"
+  >
     Logout
   </NButton>
-  <NButton v-else quaternary type="primary" @click="showModal = true">
+  <NButton
+    v-else
+    quaternary
+    type="primary"
+    @click="showModal = true"
+  >
     Login
   </NButton>
   <NModal v-model:show="showModal">

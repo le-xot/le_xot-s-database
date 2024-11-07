@@ -1,6 +1,10 @@
 {
   "name": "lists",
   "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "3.8.0"
   }

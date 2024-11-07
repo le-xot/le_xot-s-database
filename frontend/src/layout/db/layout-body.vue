@@ -1,25 +1,19 @@
-<script setup lang="ts">
-</script>
-
 <template>
-  <div class="content">
-    <div class="container">
-      <RouterView />
-    </div>
+  <div class="body">
+    <RouterView />
   </div>
 </template>
 
 <style scoped>
-.content {
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: auto;
+  scrollbar-width: none;
+  padding: 24px;
+  max-width: 1440px;
+  margin: 0 auto;
   width: 100%;
-}
-
-.container {
-  width: 80dvw;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 1rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
 }
 </style>
