@@ -7,23 +7,12 @@ import { VideoEntity } from './video.entity'
 @Injectable()
 export class VideoServices {
   constructor(private prisma: PrismaService) {}
-  async createVideo(video: CreateVideoDTO): Promise<Video> {
-    const foundedPerson = await this.prisma.person.findUnique({
-      where: { name: video.personName },
-    })
-
-    if (!foundedPerson) {
-      throw new Error('Person not found')
-    }
-
+  async createVideo(video: CreateVideoDTO): Promise<VideoEntity> {
     return this.prisma.video.create({
-      data: {
-        personId: foundedPerson.id,
-        title: video.title,
-        type: video.type,
-        status: video.status,
-        genre: video.genre,
-        grade: video.grade,
+      data:
+        video,
+      include: {
+        person: true,
       },
     })
   }

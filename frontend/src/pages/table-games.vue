@@ -8,13 +8,15 @@ import TableHeaderStatus from '@src/components/table/table-header/table-header-s
 import { useGames } from '@src/composables/use-games.ts'
 import { useUser } from '@src/composables/use-user.ts'
 import { GameEntity, RolesEnum } from '@src/libs/api.ts'
+import { useTitle } from '@vueuse/core'
 import { CirclePlus, Eraser } from 'lucide-vue-next'
 import { DataTableColumns, NDataTable } from 'naive-ui'
 import { computed, h } from 'vue'
 
+useTitle('Список игр')
+
 const { user } = useUser()
 const { games, update, createGame, deleteGame } = useGames()
-
 const tableColumns = computed(() => {
   const data: DataTableColumns<GameEntity> = [
     {

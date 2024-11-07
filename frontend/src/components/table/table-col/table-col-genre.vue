@@ -5,7 +5,7 @@ import { onClickOutside } from '@vueuse/core'
 import { NSelect, NTag, NText, SelectOption } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
 
-const props = defineProps<{ genre?: GenresEnum }>()
+const props = defineProps<{ genre?: GenresEnum | null }>()
 const emit = defineEmits<{ update: [string] }>()
 const isEdit = ref(false)
 const model = ref()

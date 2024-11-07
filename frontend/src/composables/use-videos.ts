@@ -40,5 +40,15 @@ export const useVideos = createGlobalState(() => {
     await fetchVideos()
   }
 
-  return { videos, videosQueue, update, isLoading }
+  async function deleteVideo(id: number) {
+    await api.videos.videoControllerDeleteVideo(id)
+    await fetchVideos()
+  }
+
+  async function createVideo() {
+    await api.videos.videoControllerCreateVideo({})
+    await fetchVideos()
+  }
+
+  return { videos, videosQueue, update, createVideo, deleteVideo, isLoading }
 })

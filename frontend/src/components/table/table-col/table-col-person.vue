@@ -7,7 +7,7 @@ import { NSelect } from 'naive-ui'
 import { SelectBaseOption } from 'naive-ui/es/select/src/interface'
 import { computed, onMounted, ref } from 'vue'
 
-const props = defineProps<{ person?: PersonEntity }>()
+const props = defineProps<{ person?: PersonEntity | null }>()
 const emit = defineEmits<{ update: [number] }>()
 const { user } = useUser()
 const isEdit = ref(false)
@@ -25,6 +25,7 @@ async function onSelect(_value: any, option: SelectBaseOption) {
   if (typeof option.value === 'string') {
     const person = await create(option.value)
     model.value = person.data.id
+    console.log(model.value)
     await save()
   } else {
     model.value = option.value

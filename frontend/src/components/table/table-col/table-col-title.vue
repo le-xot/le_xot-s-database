@@ -5,7 +5,7 @@ import { onClickOutside } from '@vueuse/core'
 import { NInput } from 'naive-ui'
 import { onMounted, ref } from 'vue'
 
-const props = defineProps<{ title: string }>()
+const props = defineProps<{ title: string | null }>()
 const emit = defineEmits<{ update: [string] }>()
 const isEdit = ref(false)
 const model = ref()

@@ -2,22 +2,22 @@ import { ApiProperty } from '@nestjs/swagger'
 import { $Enums } from '@prisma/client'
 
 export class CreateVideoDTO {
-  @ApiProperty({ example: 'Мадагаскар' })
-  title: string
+  @ApiProperty({ example: 'Мадагаскар', required: false })
+  title?: string
 
-  @ApiProperty({ example: 'le_xot' })
-  personName: string
+  @ApiProperty({ example: 1, required: false })
+  personId?: number
 
-  @ApiProperty({ example: $Enums.PrismaTypes.FREE })
-  type: $Enums.PrismaTypes
+  @ApiProperty({ example: $Enums.PrismaTypes.FREE, required: false })
+  type?: $Enums.PrismaTypes
 
-  @ApiProperty({ example: $Enums.PrismaStatuses.PROGRESS })
-  status: $Enums.PrismaStatuses
+  @ApiProperty({ example: $Enums.PrismaStatuses.PROGRESS, required: false })
+  status?: $Enums.PrismaStatuses
 
-  @ApiProperty({ example: $Enums.PrismaGenres.CARTOON })
-  genre: $Enums.PrismaGenres
+  @ApiProperty({ example: $Enums.PrismaGenres.CARTOON, required: false })
+  genre?: $Enums.PrismaGenres
 
-  @ApiProperty({ example: $Enums.PrismaGrades.DISLIKE })
+  @ApiProperty({ example: $Enums.PrismaGrades.DISLIKE, required: false })
   grade?: $Enums.PrismaGrades
 }
 

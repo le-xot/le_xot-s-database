@@ -10,7 +10,6 @@ export const useGames = createGlobalState(() => {
 
   async function fetchGames() {
     isLoading.value = true
-
     try {
       const { data } = await api.games.gameControllerGetAllGames()
       games.value = data
