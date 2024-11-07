@@ -4,7 +4,10 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      alias: ['/db'],
+      path: '/db',
+      component: () => import('@src/pages/home.vue'),
+    },
+    {
       path: '/db/queue',
       component: () => import('@src/pages/table-queue.vue'),
     },

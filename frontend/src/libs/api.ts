@@ -60,17 +60,17 @@ export interface PersonEntity {
 
 export interface CreateVideoDTO {
   /** @example "Мадагаскар" */
-  title: string;
+  title?: string;
   /** @example "le_xot" */
-  personName: string;
+  personName?: string;
   /** @example "FREE" */
-  type: string;
+  type?: string;
   /** @example "PROGRESS" */
-  status: string;
+  status?: string;
   /** @example "CARTOON" */
-  genre: string;
+  genre?: string;
   /** @example "DISLIKE" */
-  grade: string;
+  grade?: string;
 }
 
 export interface PatchVideoDTO {
