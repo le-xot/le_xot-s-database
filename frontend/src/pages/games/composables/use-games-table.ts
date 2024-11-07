@@ -2,8 +2,9 @@ import TableColGrade from '@src/components/table/table-col/table-col-grade.vue'
 import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
 import TableColStatus from '@src/components/table/table-col/table-col-status.vue'
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
-import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
+import TableHeaderButton from '@src/components/table/table-header/table-header-button.vue'
 
+import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
 import TableHeaderStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useUser } from '@src/composables/use-user'
 import { GameEntity } from '@src/libs/api'
@@ -89,25 +90,23 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
     ]
 
     if (isAdmin.value) {
-      columns.unshift(
-        {
-          title() {
-            return h(CirclePlus, {
-              style: 'width: 15px; height: 15px',
-              onClick: () => gamesStore.createGame(),
-            })
-          },
-          key: 'id',
-          align: 'center',
-          width: 50,
-          render(row) {
-            return h(Eraser, {
-              style: 'width: 15px; height: 15px',
-              onClick: () => gamesStore.deleteGame(row.id),
-            })
-          },
+      columns.unshift({
+        title() {
+          return h(TableHeaderButton, {
+            icon: CirclePlus,
+            onClick: () => gamesStore.createGame(),
+          })
         },
-      )
+        key: 'id',
+        align: 'center',
+        width: 50,
+        render(row) {
+          return h(TableHeaderButton, {
+            icon: Eraser,
+            onClick: () => gamesStore.deleteGame(row.id),
+          })
+        },
+      })
     }
 
     return columns

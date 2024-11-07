@@ -4,6 +4,7 @@ import TableColPerson from '@src/components/table/table-col/table-col-person.vue
 import TableColStatus from '@src/components/table/table-col/table-col-status.vue'
 
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
+import TableHeaderButton from '@src/components/table/table-header/table-header-button.vue'
 import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
 import TableHeaderStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useUser } from '@src/composables/use-user'
@@ -19,7 +20,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
   const videosStore = useVideos()
 
   const tableColumns = computed(() => {
-    const data: DataTableColumns<VideoEntity> = [
+    const columns: DataTableColumns<VideoEntity> = [
       {
         title: 'Название',
         key: 'title',
@@ -108,10 +109,10 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
     ]
 
     if (isAdmin.value) {
-      data.unshift({
+      columns.unshift({
         title() {
-          return h(CirclePlus, {
-            style: 'width: 15px; height: 15px',
+          return h(TableHeaderButton, {
+            icon: CirclePlus,
             onClick: () => videosStore.createVideo(),
           })
         },
@@ -119,15 +120,15 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         align: 'center',
         width: 50,
         render(row) {
-          return h(Eraser, {
-            style: 'width: 15px; height: 15px',
+          return h(TableHeaderButton, {
+            icon: Eraser,
             onClick: () => videosStore.deleteVideo(row.id),
           })
         },
       })
     }
 
-    return data
+    return columns
   })
 
   return {
