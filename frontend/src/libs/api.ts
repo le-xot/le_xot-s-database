@@ -61,8 +61,8 @@ export interface PersonEntity {
 export interface CreateVideoDTO {
   /** @example "Мадагаскар" */
   title?: string;
-  /** @example "le_xot" */
-  personName?: string;
+  /** @example 1 */
+  personId?: number;
   /** @example "FREE" */
   type?: string;
   /** @example "PROGRESS" */

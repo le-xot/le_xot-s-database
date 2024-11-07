@@ -4,8 +4,14 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/db',
-      component: () => import('@src/pages/home.vue'),
+      path: '/',
+      component: () => import('@src/layout/home/layout-home.vue'),
+      children: [
+        {
+          path: '/',
+          component: () => import('@src/pages/home.vue'),
+        },
+      ],
     },
     {
       path: '/db/queue',

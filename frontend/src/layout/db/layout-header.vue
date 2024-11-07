@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LoginForm from '@src/components/form/login-form.vue'
-import { ROUTES_PATHS } from '@src/libs/router/router-paths'
+import { ROUTES_PATHS } from '@src/libs/router/router-paths.ts'
 import { NButton } from 'naive-ui'
 </script>
 
