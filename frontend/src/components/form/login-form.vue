@@ -76,7 +76,7 @@ async function deleteCookie() {
   <NModal v-model:show="showModal">
     <NCard
       style="width: 600px"
-      title="Modal"
+      title="Login"
       :bordered="false"
       size="huge"
       role="dialog"

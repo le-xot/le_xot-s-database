@@ -16,8 +16,12 @@ export const useUser = defineStore('globals/use-user', () => {
   } = useQuery({
     key: [USER_QUERY_KEY],
     query: async () => {
-      const { data } = await api.users.userControllerGetInfo()
-      return data
+      try {
+        const { data } = await api.users.userControllerGetInfo()
+        return data
+      } catch {
+        return null
+      }
     },
   })
 
