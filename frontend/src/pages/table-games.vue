@@ -1,85 +1,105 @@
 <script setup lang="ts">
 import TableColGrade from '@src/components/table/table-col/table-col-grade.vue'
+import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
 import TableColStatus from '@src/components/table/table-col/table-col-status.vue'
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
-import TableHeadGrade from '@src/components/table/table-header/table-header-grade.vue'
-import TableHeadStatus from '@src/components/table/table-header/table-header-status.vue'
+import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
+import TableHeaderStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useGames } from '@src/composables/use-games.ts'
-import { GameEntity } from '@src/libs/api.ts'
-import { DataTableColumns, NDataTable, useMessage } from 'naive-ui'
-import { h } from 'vue'
+import { useUser } from '@src/composables/use-user.ts'
+import { GameEntity, RolesEnum } from '@src/libs/api.ts'
+import { CirclePlus, Eraser } from 'lucide-vue-next'
+import { DataTableColumns, NDataTable } from 'naive-ui'
+import { computed, h } from 'vue'
 
-const { games, update } = useGames()
-const message = useMessage()
+const { user } = useUser()
+const { games, update, createGame, deleteGame } = useGames()
 
-const tableColumns: DataTableColumns<GameEntity> = [
-  {
-    title: 'Название',
-    key: 'title',
-    align: 'center',
-    render(row) {
-      return h(TableColTitle, {
-        title: row.title,
-        onUpdate: (title: string) => update(row.id, { title }),
-      })
+const tableColumns = computed(() => {
+  const data: DataTableColumns<GameEntity> = [
+    {
+      title: 'Название',
+      key: 'title',
+      align: 'center',
+      render(row) {
+        return h(TableColTitle, {
+          title: row.title,
+          onUpdate: (title: string) => update(row.id, { title }),
+        })
+      },
     },
-  },
-  {
-    title: 'Заказчик',
-    key: 'person.name',
-    align: 'center',
-    width: 300,
-    render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по ячейке "Заказчик" для игры с id ${row.id}`)
+    {
+      title: 'Заказчик',
+      key: 'person.name',
+      align: 'center',
+      width: 300,
+      render(row) {
+        return h(TableColPerson, {
+          person: row.person,
+          onUpdate: (personId: number) => update(row.id, { personId }),
+        })
+      },
+    },
+    {
+      title() {
+        return h(TableHeaderStatus)
+      },
+      key: 'status',
+      align: 'center',
+      width: 200,
+      render(row) {
+        return h(TableColStatus, {
+          status: row.status,
+          onUpdate: (value: string) => {
+            update(row.id, { status: value })
           },
+        })
+      },
+    },
+    {
+      title() {
+        return h(TableHeaderGrade)
+      },
+      key: 'grade',
+      align: 'center',
+      width: 200,
+      render(row) {
+        return h(TableColGrade, {
+          grade: row.grade,
+          onUpdate: (value: string) => {
+            update(row.id, { grade: value })
+          },
+        })
+      },
+    },
+  ]
+  if (user.value?.role === RolesEnum.ADMIN) {
+    data.unshift(
+      {
+        title() {
+          return h(CirclePlus, {
+            style: 'width: 15px; height: 15px',
+            onClick: () => createGame(),
+          })
         },
-        row.person.name,
-      )
-    },
-  },
-  {
-    title() {
-      return h(TableHeadStatus)
-    },
-    key: 'status',
-    align: 'center',
-    width: 200,
-    render(row) {
-      return h(TableColStatus, {
-        status: row.status,
-        onUpdate: (value: string) => {
-          update(row.id, { status: value })
+        key: 'id',
+        align: 'center',
+        width: 50,
+        render(row) {
+          return h(Eraser, {
+            style: 'width: 15px; height: 15px',
+            onClick: () => deleteGame(row.id),
+          })
         },
-      })
-    },
-  },
-  {
-    title() {
-      return h(TableHeadGrade)
-    },
-    key: 'grade',
-    align: 'center',
-    width: 200,
-    render(row) {
-      return h(TableColGrade, {
-        grade: row.grade,
-        onUpdate: (value: string) => {
-          update(row.id, { grade: value })
-        },
-      })
-    },
-  },
-]
+      },
+    )
+  }
+  return data
+})
 </script>
 
 <template>
   <NDataTable
-    v-if="games.length > 0"
     :bordered="false"
     :bottom-bordered="false"
     :columns="tableColumns"

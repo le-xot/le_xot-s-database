@@ -8,7 +8,7 @@ import { defineConfig } from 'vite'
 export default defineConfig(async () => {
   await generateApi({
     name: 'api.ts',
-    url: 'http://localhost:3000/api-json',
+    url: 'http://localhost:3000/docs-json',
     output: fileURLToPath(new URL(`./src/libs`, import.meta.url)),
     generateClient: true,
     httpClientType: 'fetch',
@@ -30,7 +30,7 @@ export default defineConfig(async () => {
         '/api': {
           target: 'http://localhost:3000',
           changeOrigin: true,
-          rewrite: (path: string) => path.replace(/^\/api/, ''),
+          // rewrite: (path: string) => path.replace(/^\/api/, ''),
         },
       },
     },

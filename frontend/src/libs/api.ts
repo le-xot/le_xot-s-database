@@ -53,6 +53,11 @@ export interface CreatePersonDTO {
   name: string;
 }
 
+export interface PersonEntity {
+  name: string;
+  id: number;
+}
+
 export interface CreateVideoDTO {
   /** @example "Мадагаскар" */
   title: string;
@@ -81,11 +86,6 @@ export interface PatchVideoDTO {
   genre?: string;
   /** @example "DISLIKE" */
   grade?: string;
-}
-
-export interface PersonEntity {
-  name: string;
-  id: number;
 }
 
 export enum TypesEnum {
@@ -128,15 +128,15 @@ export interface VideoEntity {
 
 export interface CreateGameDTO {
   /** @example "minecraft" */
-  title: string;
-  /** @example "le_xot" */
-  personName: string;
+  title?: string;
+  /** @example 1 */
+  personId?: number;
   /** @example "FREE" */
-  type: string;
+  type?: string;
   /** @example "PROGRESS" */
-  status: string;
+  status?: string;
   /** @example "LIKE" */
-  grade: string;
+  grade?: string;
 }
 
 export interface PatchGameDTO {
@@ -565,11 +565,12 @@ export class Api<SecurityDataType extends unknown> {
      * @request POST:/persons
      */
     personControllerCreatePerson: (data: CreatePersonDTO, params: RequestParams = {}) =>
-      this.http.request<void, any>({
+      this.http.request<PersonEntity, any>({
         path: `/persons`,
         method: "POST",
         body: data,
         type: ContentType.Json,
+        format: "json",
         ...params,
       }),
 
@@ -581,9 +582,10 @@ export class Api<SecurityDataType extends unknown> {
      * @request GET:/persons
      */
     personControllerGetAllPersons: (params: RequestParams = {}) =>
-      this.http.request<void, any>({
+      this.http.request<PersonEntity[], any>({
         path: `/persons`,
         method: "GET",
+        format: "json",
         ...params,
       }),
 

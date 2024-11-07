@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { Person } from '@prisma/client'
 import { PrismaService } from '../../database/prisma.service'
 import { PersonEntity } from './person.entity'
 
@@ -7,7 +6,7 @@ import { PersonEntity } from './person.entity'
 export class PersonServices {
   constructor(private prisma: PrismaService) {}
 
-  async createPerson(name: string): Promise<Person> {
+  async createPerson(name: string): Promise<PersonEntity> {
     const existingPerson = await this.findPersonByName(name)
     if (existingPerson) {
       return
@@ -33,15 +32,15 @@ export class PersonServices {
     await this.prisma.person.delete({ where: { name } })
   }
 
-  async findPersonById(id: number): Promise<Person> {
+  async findPersonById(id: number): Promise<PersonEntity> {
     return this.prisma.person.findUnique({ where: { id } })
   }
 
-  async findPersonByName(name: string): Promise<Person> {
+  async findPersonByName(name: string): Promise<PersonEntity> {
     return this.prisma.person.findUnique({ where: { name } })
   }
 
-  async patchPerson(id: number, name: string): Promise<Person> {
+  async patchPerson(id: number, name: string): Promise<PersonEntity> {
     return this.prisma.person.update({
       where: { id },
       data: { name },

@@ -34,9 +34,7 @@ const rules = {
   },
 }
 
-async function saveCookie(e: MouseEvent) {
-  e.preventDefault()
-
+async function saveCookie() {
   try {
     await formRef.value?.validate()
     await login(formValue.value.username, formValue.value.password)
@@ -79,15 +77,16 @@ async function deleteCookie() {
         :label-width="80"
         :model="formValue"
         :rules="rules"
+        @submit.prevent="saveCookie"
       >
         <NFormItem label="Username" path="username">
           <NInput v-model:value="formValue.username" placeholder="Username" />
         </NFormItem>
         <NFormItem label="Password" path="password">
-          <NInput v-model:value="formValue.password" placeholder="Password" />
+          <NInput v-model:value="formValue.password" type="password" placeholder="Password" />
         </NFormItem>
         <NFormItem>
-          <NButton @click="saveCookie">
+          <NButton attr-type="submit">
             Save
           </NButton>
         </NFormItem>

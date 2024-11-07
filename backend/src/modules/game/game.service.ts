@@ -8,22 +8,8 @@ export class GameServices {
   constructor(private prisma: PrismaService) {}
 
   async createGame(game: CreateGameDTO): Promise<GameEntity> {
-    const foundedPerson = await this.prisma.person.findUnique({
-      where: { name: game.personName },
-    })
-
-    if (!foundedPerson) {
-      throw new Error('Person not found')
-    }
-
     return this.prisma.game.create({
-      data: {
-        personId: foundedPerson.id,
-        title: game.title,
-        type: game.type,
-        status: game.status,
-        grade: game.grade,
-      },
+      data: game,
       include: {
         person: true,
       },

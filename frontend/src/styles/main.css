@@ -1,1 +1,6 @@
-@import url('variables.css')
+@import url('variables.css');
+
+#app, body, html {
+    height: 100%;
+    background-color: rgb(24, 24, 28);
+}

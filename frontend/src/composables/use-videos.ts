@@ -6,13 +6,18 @@ import { useApi } from './use-api.ts'
 export const useVideos = createGlobalState(() => {
   const api = useApi()
   const videos = ref<VideoEntity[]>([])
+  const isLoading = ref(true)
 
   async function fetchVideos() {
+    isLoading.value = true
+
     try {
       const { data } = await api.videos.videoControllerGetAllVideos()
       videos.value = data
     } catch {
       console.log('ERROR')
+    } finally {
+      isLoading.value = false
     }
   }
 
@@ -35,5 +40,5 @@ export const useVideos = createGlobalState(() => {
     await fetchVideos()
   }
 
-  return { videos, videosQueue, update }
+  return { videos, videosQueue, update, isLoading }
 })

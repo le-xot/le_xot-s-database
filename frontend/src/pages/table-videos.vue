@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import TableColGenre from '@src/components/table/table-col/table-col-genre.vue'
 import TableColGrade from '@src/components/table/table-col/table-col-grade.vue'
+import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
 import TableColStatus from '@src/components/table/table-col/table-col-status.vue'
 import TableColName from '@src/components/table/table-col/table-col-title.vue'
 import TableHeadGrade from '@src/components/table/table-header/table-header-grade.vue'
 import TableHeadStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useVideos } from '@src/composables/use-videos.ts'
 import { VideoEntity } from '@src/libs/api.ts'
-import { DataTableColumns, NDataTable, useMessage } from 'naive-ui'
+import { DataTableColumns, NDataTable } from 'naive-ui'
 import { h } from 'vue'
 
 const { videos, update } = useVideos()
-const message = useMessage()
 
 const tableColumns: DataTableColumns<VideoEntity> = [
   {
@@ -26,24 +26,6 @@ const tableColumns: DataTableColumns<VideoEntity> = [
     },
   },
   {
-    title: 'Заказчик',
-    key: 'person.name',
-    align: 'center',
-    width: 300,
-    render(row) {
-      return h(
-        'div',
-        {
-          style: 'cursor: pointer;',
-          onClick: () => {
-            message.info(`Клик по ячейке "Заказчик" для игры с id ${row.id}`)
-          },
-        },
-        row.person.name,
-      )
-    },
-  },
-  {
     title: 'Жанр',
     key: 'genre',
     align: 'center',
@@ -54,6 +36,18 @@ const tableColumns: DataTableColumns<VideoEntity> = [
         onUpdate: (value: string) => {
           update(row.id, { genre: value })
         },
+      })
+    },
+  },
+  {
+    title: 'Заказчик',
+    key: 'person.name',
+    align: 'center',
+    width: 300,
+    render(row) {
+      return h(TableColPerson, {
+        person: row.person,
+        onUpdate: (personId: number) => update(row.id, { personId }),
       })
     },
   },

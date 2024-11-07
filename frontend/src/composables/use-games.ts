@@ -6,13 +6,18 @@ import { useApi } from './use-api.ts'
 export const useGames = createGlobalState(() => {
   const api = useApi()
   const games = ref<GameEntity[]>([])
+  const isLoading = ref(true)
 
   async function fetchGames() {
+    isLoading.value = true
+
     try {
       const { data } = await api.games.gameControllerGetAllGames()
       games.value = data
     } catch {
       console.log('ERROR')
+    } finally {
+      isLoading.value = false
     }
   }
 
@@ -35,5 +40,15 @@ export const useGames = createGlobalState(() => {
     await fetchGames()
   }
 
-  return { games, gamesQueue, update }
+  async function deleteGame(id: number) {
+    await api.games.gameControllerDeleteGame(id)
+    await fetchGames()
+  }
+
+  async function createGame() {
+    await api.games.gameControllerCreateGame({})
+    await fetchGames()
+  }
+
+  return { games, gamesQueue, update, createGame, deleteGame, isLoading }
 })

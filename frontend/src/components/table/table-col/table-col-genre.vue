@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useUser } from '@src/composables/use-user.ts'
-import { GenresEnum } from '@src/libs/api.ts'
+import { GenresEnum, RolesEnum } from '@src/libs/api.ts'
 import { onClickOutside } from '@vueuse/core'
 import { NSelect, NTag, NText, SelectOption } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
@@ -48,14 +48,18 @@ const selectOptions = Object.entries(genreLabels).map(([key, value]) => {
 
 function renderLabel(option: SelectOption) {
   if (!option.value) return
-  return h(NText, {
-    style: 'align-items: center',
-    type: genreLabels[option.value as GenresEnum].variant,
-  }, { default: () => option.label })
+  return h(
+    NText,
+    {
+      style: 'align-items: center',
+      type: genreLabels[option.value as GenresEnum].variant,
+    },
+    { default: () => option.label },
+  )
 }
 
 function handleClick() {
-  if (!user.value) return
+  if (user.value?.role !== RolesEnum.ADMIN) return
   isEdit.value = true
 }
 </script>
@@ -65,9 +69,12 @@ function handleClick() {
     <p v-if="!isEdit" class="status table-tag" @click="handleClick">
       <NTag
         v-if="genre"
-        style="width: 125px;   display: flex;
+        style="
+          width: 125px;
+          display: flex;
           justify-content: center;
-          align-items: center "
+          align-items: center;
+        "
         :type="genreLabels[genre].variant"
         round
         :bordered="false"
@@ -82,7 +89,6 @@ function handleClick() {
       :show-checkmark="false"
       size="small"
       :options="selectOptions"
-      :show="true"
       :render-label="renderLabel"
       @update:value="save"
     />
@@ -97,6 +103,7 @@ function handleClick() {
   width: 125px;
 }
 .status {
+  height: 20px;
   width: 100%;
   margin: auto 0;
 }

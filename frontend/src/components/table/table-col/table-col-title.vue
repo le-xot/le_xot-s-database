@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useUser } from '@src/composables/use-user.ts'
+import { RolesEnum } from '@src/libs/api.ts'
 import { onClickOutside } from '@vueuse/core'
 import { NInput } from 'naive-ui'
 import { onMounted, ref } from 'vue'
@@ -26,7 +27,7 @@ onClickOutside(target, () => {
 })
 
 function handleClick() {
-  if (!user.value) return
+  if (user.value?.role !== RolesEnum.ADMIN) return
 
   isEdit.value = true
 }
@@ -55,6 +56,7 @@ function handleClick() {
 }
 
 .title {
+  height: 20px;
   width: 100%;
   margin: auto 0;
 }

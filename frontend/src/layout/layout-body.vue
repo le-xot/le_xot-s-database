@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { NScrollbar } from 'naive-ui'
 </script>
 
 <template>
   <div class="content">
     <div class="container">
-      <NScrollbar>
-        <RouterView />
-      </NScrollbar>
+      <RouterView />
     </div>
   </div>
 </template>
@@ -15,15 +12,13 @@ import { NScrollbar } from 'naive-ui'
 <style scoped>
 .content {
   width: 100%;
-  height: calc(100dvh - var(--header-height));
-  background-color: rgb(24, 24, 28);
 }
 
 .container {
-  width: 75dvw;
+  width: 80dvw;
   margin-right: auto;
   margin-left: auto;
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-right: 2rem;
   padding-left: 2rem;
 }

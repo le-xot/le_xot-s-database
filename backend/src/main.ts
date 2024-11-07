@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { apiReference } from '@scalar/nestjs-api-reference'
 import cookieParser from 'cookie-parser'
-import env from 'src/utils/enviroments'
+import { env } from 'src/utils/enviroments'
 import { AppModule } from './app.module'
 
 declare const module: any
@@ -13,19 +13,23 @@ async function bootstrap() {
   app.enableCors()
   const config = new DocumentBuilder().setTitle('le_xot`s lists').build()
   const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, document)
+  SwaggerModule.setup('docs', app, document)
 
-  app.use(
-    '/reference',
-    apiReference({
-      spec: {
-        content: document,
-      },
-    }),
-  )
+  if (env) {
+    app.use(
+      '/reference',
+      apiReference({
+        spec: {
+          content: document,
+        },
+      }),
+    )
+  }
 
-  await app.listen(env.appPort)
-  console.log(`http://localhost:3000/reference`)
+  app.setGlobalPrefix('/api')
+
+  await app.listen(env.APP_PORT)
+  console.log(`http://localhost:${env.APP_PORT}/reference`)
 
   if (module.hot) {
     module.hot.accept()

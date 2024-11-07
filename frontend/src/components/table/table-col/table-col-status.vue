@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useUser } from '@src/composables/use-user.ts'
-import { StatusesEnum } from '@src/libs/api.ts'
+import { RolesEnum, StatusesEnum } from '@src/libs/api.ts'
 import { onClickOutside } from '@vueuse/core'
 import { NSelect, NTag, NText, SelectOption } from 'naive-ui'
 import { h, onMounted, ref } from 'vue'
@@ -56,7 +56,7 @@ function renderLabel(option: SelectOption) {
 }
 
 function handleClick() {
-  if (!user.value) return
+  if (user.value?.role !== RolesEnum.ADMIN) return
   isEdit.value = true
 }
 </script>
@@ -83,7 +83,6 @@ function handleClick() {
       :show-checkmark="false"
       size="small"
       :options="selectOptions"
-      :show="true"
       :render-label="renderLabel"
       @update:value="save"
     />
@@ -98,6 +97,7 @@ function handleClick() {
   width: 125px;
 }
 .status {
+  height: 20px;
   width: 100%;
   margin: auto 0;
 }
