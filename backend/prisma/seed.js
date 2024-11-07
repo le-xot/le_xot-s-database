@@ -9,10 +9,10 @@ async function seed() {
   const hashedPassword = await bcrypt.hash(process.env.DEFAULT_ADMIN_PASSWORD, 10)
   await prisma.user.upsert(
     {
-      where: { username: 'le_xot' },
+      where: { username: 'admin' },
       update: { },
       create: {
-        username: 'le_xot',
+        username: 'admin',
         password: hashedPassword,
         role: 'ADMIN',
       },
