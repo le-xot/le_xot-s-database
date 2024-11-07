@@ -106,6 +106,8 @@ export enum GenresEnum {
   MOVIE = "MOVIE",
   CARTOON = "CARTOON",
   SERIES = "SERIES",
+  GAMES = "GAMES",
+  NONE = "NONE",
 }
 
 export enum GradeEnum {

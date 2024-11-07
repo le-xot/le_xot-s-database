@@ -38,6 +38,8 @@ const genreLabels: Record<
   [GenresEnum.SERIES]: { name: 'Сериал', variant: 'info' },
   [GenresEnum.ANIME]: { name: 'Аниме', variant: 'error' },
   [GenresEnum.CARTOON]: { name: 'Мультфильм', variant: 'warning' },
+  [GenresEnum.GAMES]: { name: 'Игра', variant: 'primary' },
+  [GenresEnum.NONE]: { name: 'Без жанра', variant: 'default' },
 }
 const selectOptions = Object.entries(genreLabels).map(([key, value]) => {
   return {

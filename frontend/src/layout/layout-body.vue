@@ -15,7 +15,8 @@ import { NScrollbar } from 'naive-ui'
 <style scoped>
 .content {
   width: 100%;
-  height: calc(100dvh - var(--header-height));
+  height: 100%;
+  min-height: 92vh;
   background-color: rgb(24, 24, 28);
 }
 
