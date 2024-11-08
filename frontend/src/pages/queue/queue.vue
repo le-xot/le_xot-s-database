@@ -16,15 +16,18 @@ const videos = useVideos()
   <template v-else>
     <QueueCard kind="game" :items="games.gamesQueue">
       <template #title>
-        Поиграть: {{ games.gamesQueue.length }}
+        <div style="padding-bottom: 1.5rem">
+          Поиграть: {{ games.gamesQueue.length }}
+        </div>
       </template>
     </QueueCard>
 
     <QueueCard kind="video" :items="videos.videosQueue">
       <template #title>
-        Посмотреть: {{ videos.videosQueue.length }}
+        <div style="padding-bottom: 1.5rem">
+          Посмотреть: {{ videos.videosQueue.length }}
+        </div>
       </template>
-
       <template #footer="{ item }">
         <TableColGenre :genre="item.genre" style="justify-content: flex-start" />
       </template>
