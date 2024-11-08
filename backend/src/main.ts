@@ -28,7 +28,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('/api')
 
-  await app.listen(env.APP_PORT)
+  await app.listen(env.APP_PORT, '0.0.0.0')
   console.log(`http://localhost:${env.APP_PORT}/reference`)
 
   if (module.hot) {
