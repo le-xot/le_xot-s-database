@@ -59,14 +59,12 @@ const links: Link[] = [
   .container{
     overflow: hidden;
     width: 100%;
-    height: 100%;
-
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 3rem;
-
     color: #ffffff;
   }
 
@@ -104,21 +102,15 @@ const links: Link[] = [
     display: flex;
     align-items: center;
     gap: 1rem;
-
     fill: #ffffff;
-
     padding: .5rem 1rem;
-
     background: #209852;
-
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: .025em;
     text-align: center;
-
     border-radius: .5rem;
     border: 2px solid #ffffff3e;
-
     transition: .3s ease-in-out;
   }
 
