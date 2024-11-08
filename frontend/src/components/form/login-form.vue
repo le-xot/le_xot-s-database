@@ -63,7 +63,7 @@ async function deleteCookie() {
     type="error"
     @click="deleteCookie"
   >
-    Logout
+    Выйти
   </NButton>
   <NButton
     v-else
@@ -71,12 +71,12 @@ async function deleteCookie() {
     type="primary"
     @click="showModal = true"
   >
-    Login
+    Войти
   </NButton>
   <NModal v-model:show="showModal">
     <NCard
       style="width: 600px"
-      title="Login"
+      title="Вход"
       :bordered="false"
       size="huge"
       role="dialog"

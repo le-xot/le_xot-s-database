@@ -7,7 +7,7 @@ import { NPopover } from 'naive-ui'
 <template>
   <div class="head-status">
     Статус
-    <NPopover raw trigger="hover">
+    <NPopover raw trigger="hover" arrow-style="background-color: #0c0c0c">
       <template #trigger>
         <Info style="width: 1rem; height: 1rem" />
       </template>

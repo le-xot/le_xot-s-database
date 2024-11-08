@@ -21,8 +21,8 @@ input:-webkit-autofill {
   &:hover,
   &:focus,
   &:active {
-    transition-delay: 9999s;
-    transition-property: background-color, color;
+    transition-delay: 9999s !important;
+    transition-property: background-color, color !important;
   }
 }
 

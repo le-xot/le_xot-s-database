@@ -46,7 +46,4 @@ import { NH2 } from 'naive-ui'
   flex-direction: column;
   gap: 0.5rem;
 }
-p {
-  margin: 0;
-}
 </style>
