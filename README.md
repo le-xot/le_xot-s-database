@@ -24,3 +24,9 @@ docker compose up -d
 pnpx prisma generate
 pnpx prisma migrate dev
 ```
+
+* Start development
+
+```bash
+pnpm dev
+```
