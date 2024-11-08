@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ROUTER_PATHS } from '@src/libs/router/router-paths.ts'
 import { DiscordIcon, GitHubIcon, SteamIcon, TelegramIcon, TwitchIcon, YouTubeIcon } from 'vue3-simple-icons'
 
 interface Link {
@@ -41,14 +42,16 @@ const links: Link[] = [
           <span class="button_text">{{ link.name }}</span>
         </a>
       </div>
-      <a class="button button--large">
+      <router-link :to="ROUTER_PATHS.dbQueue" class="button button--large">
         Подвальчик Лешотика!
-      </a>
+      </router-link>
     </div>
   </div>
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+
   button{
     display: block;
     border: none;
@@ -57,6 +60,7 @@ const links: Link[] = [
   }
 
   .container{
+    font-family: "Comfortaa", sans-serif;
     background-color: rgb(24 24 28);
     overflow: hidden;
     width: 100%;
@@ -112,7 +116,6 @@ const links: Link[] = [
     text-align: center;
     border-radius: .5rem;
     border: 2px solid #ffffff3e;
-    transition: .3s ease-in-out;
   }
 
   .button:hover{
@@ -167,7 +170,6 @@ const links: Link[] = [
       text-align: center;
       border-radius: .5rem;
       border: 2px solid #ffffff3e;
-      transition: .3s ease-in-out;
     }
 
     .button_text {

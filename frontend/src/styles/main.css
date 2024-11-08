@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
-
 @import url('variables.css');
 
 *{
@@ -8,8 +6,6 @@
     box-sizing: border-box;
 }
 body {
-  background-color: rgb(24, 24, 28);
-  font-family: "Comfortaa", sans-serif;
   height: 100%;
   background-color: var(--bg-color);
 }
