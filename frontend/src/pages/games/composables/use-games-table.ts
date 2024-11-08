@@ -1,9 +1,9 @@
-import TableColGrade from '@src/components/table/table-col/table-col-grade.vue'
+import { usePersons } from '@src/components/table/composables/use-persons'
 import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
-import TableColStatus from '@src/components/table/table-col/table-col-status.vue'
+import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
+
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
 import TableHeaderButton from '@src/components/table/table-header/table-header-button.vue'
-
 import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
 import TableHeaderStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useUser } from '@src/composables/use-user'
@@ -17,6 +17,7 @@ import { useGames } from './use-games'
 export const useGamesTable = defineStore('games/use-games-table', () => {
   const { isAdmin } = storeToRefs(useUser())
   const gamesStore = useGames()
+  const { updateOrCreatePerson } = usePersons()
 
   const tableColumns = computed(() => {
     const columns: DataTableColumns<GameEntity> = [
@@ -26,8 +27,9 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
         align: 'center',
         render(row) {
           return h(TableColTitle, {
+            key: `title-${row.id}`,
             title: row.title,
-            onUpdate: (title: string) => gamesStore.updateGame({
+            onUpdate: (title) => gamesStore.updateGame({
               id: row.id,
               data: { title },
             }),
@@ -36,16 +38,14 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
       },
       {
         title: 'Заказчик',
-        key: 'person.name',
+        key: 'person',
         align: 'center',
         width: 300,
         render(row) {
           return h(TableColPerson, {
-            person: row.person,
-            onUpdate: (personId: number) => gamesStore.updateGame({
-              id: row.id,
-              data: { personId },
-            }),
+            key: `person-${row.id}`,
+            personId: row.person?.id,
+            onUpdate: (person) => updateOrCreatePerson(row, person),
           })
         },
       },
@@ -57,9 +57,11 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
         align: 'center',
         width: 200,
         render(row) {
-          return h(TableColStatus, {
-            status: row.status,
-            onUpdate: (value: string) => {
+          return h(TableColSelect, {
+            key: `status-${row.id}`,
+            value: row.status,
+            kind: 'status',
+            onUpdate: (value) => {
               gamesStore.updateGame({
                 id: row.id,
                 data: { status: value },
@@ -76,9 +78,11 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
         align: 'center',
         width: 200,
         render(row) {
-          return h(TableColGrade, {
-            grade: row.grade,
-            onUpdate: (value: string) => {
+          return h(TableColSelect, {
+            key: `grade-${row.id}`,
+            value: row.grade,
+            kind: 'grade',
+            onUpdate: (value) => {
               gamesStore.updateGame({
                 id: row.id,
                 data: { grade: value },
@@ -102,6 +106,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
         width: 50,
         render(row) {
           return h(TableHeaderButton, {
+            key: `id-${row.id}`,
             icon: Eraser,
             onClick: () => gamesStore.deleteGame(row.id),
           })

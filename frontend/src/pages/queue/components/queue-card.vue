@@ -3,39 +3,39 @@ import { GameEntity, VideoEntity } from '@src/libs/api'
 import { NCard } from 'naive-ui'
 
 defineProps<{ items: T[] }>()
+
+function isShow(item: T) {
+  return item.title && item.person
+}
 </script>
 
 <template>
-  <NCard
-    v-if="items.length > 0"
-    :bordered="false"
-    style="background-color: rgb(24, 24, 28)"
-  >
-    <span style="font-size: 25px">
+  <div>
+    <p class="title">
       <slot name="title" />
-    </span>
+    </p>
     <div class="grid">
-      <NCard
-        v-for="(item, index) in items" :key="index"
-        class="card"
-        :title="item.title"
-        size="huge"
-        hoverable
-        :segmented="{ footer: 'soft' }"
-      >
-        <template #header-extra />
-
-        <template #footer>
-          <div style="display: flex; justify-content: space-between">
-            <div v-if="item.person" style="display: flex; justify-content: flex-end">
-              {{ item.person.name }}
+      <template v-for="(item, index) in items" :key="index">
+        <NCard
+          v-if="isShow(item)"
+          class="card"
+          :title="item.title"
+          size="huge"
+          hoverable
+          :segmented="{ footer: 'soft' }"
+        >
+          <template #footer>
+            <div class="person">
+              <div v-if="item.person" class="person-name">
+                {{ item.person.name }}
+              </div>
+              <slot name="footer" :item="item" />
             </div>
-            <slot name="footer" :item="item" />
-          </div>
-        </template>
-      </NCard>
+          </template>
+        </NCard>
+      </template>
     </div>
-  </NCard>
+  </div>
 </template>
 
 <style scoped>
@@ -46,8 +46,24 @@ defineProps<{ items: T[] }>()
 }
 
 .card {
-  background-color: #1f1f1f;
+  background-color: var(--n-action-color);
   height: 100% ;
   justify-content: space-between;
+}
+
+.title {
+  padding-bottom: 1.5rem;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.person {
+  display: flex;
+  justify-content: space-between
+}
+
+.person-name {
+  display: flex;
+  justify-content: flex-end
 }
 </style>

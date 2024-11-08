@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TableColGenre from '@src/components/table/table-col/table-col-genre.vue'
+import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
 import { NSpin } from 'naive-ui'
 import { useGames } from '../games/composables/use-games'
 import { useVideos } from '../videos/composables/use-videos'
@@ -16,20 +16,20 @@ const videos = useVideos()
   <template v-else>
     <QueueCard kind="game" :items="games.gamesQueue">
       <template #title>
-        <div style="padding-bottom: 1.5rem">
-          Поиграть: {{ games.gamesQueue.length }}
-        </div>
+        Поиграть: {{ games.gamesQueue.length }}
       </template>
     </QueueCard>
 
     <QueueCard kind="video" :items="videos.videosQueue">
       <template #title>
-        <div style="padding-bottom: 1.5rem">
-          Посмотреть: {{ videos.videosQueue.length }}
-        </div>
+        Посмотреть: {{ videos.videosQueue.length }}
       </template>
       <template #footer="{ item }">
-        <TableColGenre :genre="item.genre" style="justify-content: flex-start" />
+        <TableColSelect
+          :value="item.genre"
+          kind="genre"
+          style="justify-content: flex-start"
+        />
       </template>
     </QueueCard>
   </template>

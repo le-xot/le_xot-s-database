@@ -1,8 +1,6 @@
-import TableColGenre from '@src/components/table/table-col/table-col-genre.vue'
-import TableColGrade from '@src/components/table/table-col/table-col-grade.vue'
 import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
-import TableColStatus from '@src/components/table/table-col/table-col-status.vue'
 
+import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
 import TableHeaderButton from '@src/components/table/table-header/table-header-button.vue'
 import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
@@ -27,8 +25,9 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         align: 'center',
         render(row) {
           return h(TableColTitle, {
+            key: `title-${row.id}`,
             title: row.title,
-            onTitleUpdate: (title: string) => videosStore.updateVideo({
+            onUpdate: (title) => videosStore.updateVideo({
               id: row.id,
               data: { title },
             }),
@@ -41,9 +40,11 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         align: 'center',
         width: 200,
         render(row) {
-          return h(TableColGenre, {
-            genre: row.genre,
-            onUpdate: (value: string) => {
+          return h(TableColSelect, {
+            key: `genre-${row.id}`,
+            value: row.genre,
+            kind: 'genre',
+            onUpdate: (value) => {
               videosStore.updateVideo({
                 id: row.id,
                 data: { genre: value },
@@ -54,13 +55,14 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
       },
       {
         title: 'Заказчик',
-        key: 'person.name',
+        key: 'person',
         align: 'center',
         width: 300,
         render(row) {
           return h(TableColPerson, {
-            person: row.person,
-            onUpdate: (personId: number) => videosStore.updateVideo({
+            key: `person-${row.id}`,
+            personId: row.person?.id,
+            onUpdate: (personId) => videosStore.updateVideo({
               id: row.id,
               data: { personId },
             }),
@@ -75,9 +77,11 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         align: 'center',
         width: 200,
         render(row) {
-          return h(TableColStatus, {
-            status: row.status,
-            onUpdate: (value: string) => {
+          return h(TableColSelect, {
+            key: `status-${row.id}`,
+            value: row.status,
+            kind: 'status',
+            onUpdate: (value) => {
               videosStore.updateVideo({
                 id: row.id,
                 data: { status: value },
@@ -95,9 +99,11 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         align: 'center',
         width: 200,
         render(row) {
-          return h(TableColGrade, {
-            grade: row.grade,
-            onUpdate: (value: string) => {
+          return h(TableColSelect, {
+            key: `grade-${row.id}`,
+            value: row.grade,
+            kind: 'grade',
+            onUpdate: (value) => {
               videosStore.updateVideo({
                 id: row.id,
                 data: { grade: value },
@@ -121,6 +127,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         width: 50,
         render(row) {
           return h(TableHeaderButton, {
+            key: `id-${row.id}`,
             icon: Eraser,
             onClick: () => videosStore.deleteVideo(row.id),
           })

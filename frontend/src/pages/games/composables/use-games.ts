@@ -27,7 +27,7 @@ export const useGames = defineStore('games/use-games', () => {
     mutation: ({ id, data }: { id: number, data: PatchGameDTO }) => {
       return api.games.gameControllerPatchGame(id, data)
     },
-    onSuccess: () => refetchGames(),
+    onSettled: () => refetchGames(),
   })
 
   const { mutateAsync: deleteGame } = useMutation({
@@ -35,7 +35,7 @@ export const useGames = defineStore('games/use-games', () => {
     mutation: (id: number) => {
       return api.games.gameControllerDeleteGame(id)
     },
-    onSuccess: () => refetchGames(),
+    onSettled: () => refetchGames(),
   })
 
   const { mutateAsync: createGame } = useMutation({
@@ -43,7 +43,7 @@ export const useGames = defineStore('games/use-games', () => {
     mutation: async () => {
       return await api.games.gameControllerCreateGame({})
     },
-    onSuccess: () => refetchGames(),
+    onSettled: () => refetchGames(),
   })
 
   const gamesQueue = computed(() => {

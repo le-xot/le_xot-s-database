@@ -1,61 +1,39 @@
 <script setup lang="ts">
-import { useUser } from '@src/composables/use-user.ts'
-import { onClickOutside } from '@vueuse/core'
 import { NInput } from 'naive-ui'
-import { onMounted, ref } from 'vue'
+import { toRef } from 'vue'
+import { useTableCol } from '../composables/use-table-col'
+import TableCol from './table-col.vue'
 
-const props = defineProps<{ title: string | null }>()
-const emit = defineEmits<{ update: [string] }>()
-const isEdit = ref(false)
-const model = ref()
-const user = useUser()
+type TitleType = string | undefined
 
-onMounted(() => {
-  model.value = props.title
-})
+const props = defineProps<{ title: TitleType }>()
+const emits = defineEmits<{ update: [TitleType] }>()
+const title = toRef(props, 'title')
 
-async function save() {
-  isEdit.value = false
-  if (model.value === props.title) return
-  emit('update', model.value)
-}
-const target = ref<HTMLDivElement | null>(null)
-
-onClickOutside(target, () => {
-  save()
-})
-
-function handleClick() {
-  if (!user.isAdmin) return
-  isEdit.value = true
-}
+const {
+  isEdit,
+  inputRef,
+  inputValue,
+  updateValue,
+  handleChange,
+  handleOpen,
+} = useTableCol<TitleType>(title, emits)
 </script>
 
 <template>
-  <div ref="target" style="padding: 0">
-    <p v-if="!isEdit" class="title" @click="handleClick">
-      {{ model }}
-    </p>
-    <NInput v-else-if="user" v-model:value="model" class="input no-padding" size="small" @keydown.enter="save" />
-    <p v-else class="title">
-      {{ model }}
-    </p>
-  </div>
+  <TableCol @click="handleOpen">
+    <NInput
+      v-if="isEdit"
+      ref="inputRef"
+      v-model:value="inputValue"
+      class="input"
+      size="medium"
+      @update-value="updateValue"
+      @blur="handleChange"
+      @keydown.enter="handleChange"
+    />
+    <template v-else>
+      {{ inputValue }}
+    </template>
+  </TableCol>
 </template>
-
-<style scoped>
-.input {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-}
-
-.title {
-  height: 20px;
-  width: 100%;
-  margin: auto 0;
-}
-</style>
