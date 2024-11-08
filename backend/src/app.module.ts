@@ -1,4 +1,6 @@
+import { join } from 'node:path'
 import { Module } from '@nestjs/common'
+import { ServeStaticModule } from '@nestjs/serve-static'
 import { PrismaModule } from './database/prisma.module'
 import { AdminsModule } from './modules/admin/admin.module'
 import { AuthModule } from './modules/auth/auth.module'
@@ -9,6 +11,9 @@ import { VideoModule } from './modules/video/video.module'
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'frontend', 'dist'),
+    }),
     AuthModule,
     AdminsModule,
     PersonModule,

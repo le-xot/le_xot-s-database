@@ -14,7 +14,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed": "node ./prisma/seed.js",
-    "prestart": "pnpm seed",
+    "prestart": "pnpm prisma migrate deploy && pnpm seed",
     "predev": "pnpm seed"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "@nestjs/jwt": "10.2.0",
     "@nestjs/passport": "10.0.3",
     "@nestjs/platform-express": "10.4.7",
+    "@nestjs/serve-static": "4.0.2",
     "@nestjs/swagger": "8.0.2",
     "@prisma/client": "5.22.0",
     "@scalar/nestjs-api-reference": "0.3.167",
