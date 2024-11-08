@@ -24,8 +24,8 @@ export class VideoController {
 
   @Post()
   @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
-  async createVideo(@Body() video: CreateVideoDTO): Promise<void> {
-    await this.videoServices.createVideo(video)
+  async createVideo(@Body() video: CreateVideoDTO): Promise<Video> {
+    return this.videoServices.createVideo(video)
   }
 
   @Get(':id')
@@ -40,7 +40,7 @@ export class VideoController {
     @Param('id', ParseIntPipe) id: number,
     @Body() video: PatchVideoDTO,
   ): Promise<Video> {
-    return await this.videoServices.patchVideo(id, video)
+    return this.videoServices.patchVideo(id, video)
   }
 
   @Delete(':id')
@@ -51,7 +51,7 @@ export class VideoController {
 
   @Get()
   @ApiResponse({ status: 200, type: VideoEntity, isArray: true })
-  async getAllVideos(): Promise<Video[]> {
+  async getAllVideos(): Promise<VideoEntity[]> {
     return await this.videoServices.getAllVideos()
   }
 }

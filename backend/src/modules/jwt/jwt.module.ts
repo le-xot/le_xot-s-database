@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { JwtModule, JwtService } from '@nestjs/jwt'
-import env from '../../utils/enviroments'
+import { env } from '../../utils/enviroments'
 
 const RegisteredJwtModule = JwtModule.register({
-  secret: env.jwtSecret,
-  signOptions: { expiresIn: '6h' },
+  secret: env.JWT_SECRET,
+  signOptions: { expiresIn: '30d' },
 })
 
 @Module({

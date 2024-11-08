@@ -1,5 +1,7 @@
-export const ROUTES_PATHS = [
-  { name: 'Очередь', path: '/db/queue' },
-  { name: 'Игры', path: '/db/games' },
-  { name: 'Видео', path: '/db/videos' },
-]
+export const ROUTER_PATHS = {
+  home: '/',
+  db: '/db',
+  dbQueue: '/db/queue',
+  dbGames: '/db/games',
+  dbVideos: '/db/videos',
+}

@@ -38,9 +38,9 @@ export class GameController {
   @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
   async patchGame(
     @Param('id', ParseIntPipe) id: number,
-    game: PatchGameDTO,
+    @Body() game: PatchGameDTO,
   ): Promise<Game> {
-    return this.gameServices.patchGameById(id, game)
+    return this.gameServices.patchGame(id, game)
   }
 
   @Delete(':id')
@@ -51,7 +51,7 @@ export class GameController {
 
   @Get()
   @ApiResponse({ status: 200, type: GameEntity, isArray: true })
-  async getAllGames(): Promise<Game[]> {
+  async getAllGames(): Promise<GameEntity[]> {
     return this.gameServices.getAllGames()
   }
 }

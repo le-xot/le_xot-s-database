@@ -53,39 +53,39 @@ export interface CreatePersonDTO {
   name: string;
 }
 
+export interface PersonEntity {
+  name: string;
+  id: number;
+}
+
 export interface CreateVideoDTO {
   /** @example "Мадагаскар" */
-  title: string;
+  title?: string;
   /** @example 1 */
-  personId: number;
+  personId?: number;
   /** @example "FREE" */
-  type: string;
+  type?: string;
   /** @example "PROGRESS" */
-  status: string;
+  status?: string;
   /** @example "CARTOON" */
-  genre: string;
+  genre?: string;
   /** @example "DISLIKE" */
-  grade: string;
+  grade?: string;
 }
 
 export interface PatchVideoDTO {
   /** @example "Боб строитель" */
-  title: string;
+  title?: string;
   /** @example 1 */
-  personId: number;
+  personId?: number;
   /** @example "FREE" */
-  type: string;
+  type?: string;
   /** @example "DONE" */
-  status: string;
+  status?: string;
   /** @example "MOVIE" */
-  genre: string;
+  genre?: string;
   /** @example "DISLIKE" */
-  grade: string;
-}
-
-export interface PersonEntity {
-  name: string;
-  id: number;
+  grade?: string;
 }
 
 export enum TypesEnum {
@@ -128,15 +128,28 @@ export interface VideoEntity {
 
 export interface CreateGameDTO {
   /** @example "minecraft" */
-  title: string;
-  /** @example "le_xot" */
-  personName: string;
+  title?: string;
+  /** @example 1 */
+  personId?: number;
   /** @example "FREE" */
-  type: string;
+  type?: string;
   /** @example "PROGRESS" */
-  status: string;
+  status?: string;
   /** @example "LIKE" */
-  grade: string;
+  grade?: string;
+}
+
+export interface PatchGameDTO {
+  /** @example "Dota 2" */
+  title?: string;
+  /** @example 1 */
+  personId?: number;
+  /** @example "FREE" */
+  type?: string;
+  /** @example "DONE" */
+  status?: string;
+  /** @example "DISLIKE" */
+  grade?: string;
 }
 
 export interface GameEntity {
@@ -552,11 +565,12 @@ export class Api<SecurityDataType extends unknown> {
      * @request POST:/persons
      */
     personControllerCreatePerson: (data: CreatePersonDTO, params: RequestParams = {}) =>
-      this.http.request<void, any>({
+      this.http.request<PersonEntity, any>({
         path: `/persons`,
         method: "POST",
         body: data,
         type: ContentType.Json,
+        format: "json",
         ...params,
       }),
 
@@ -568,9 +582,10 @@ export class Api<SecurityDataType extends unknown> {
      * @request GET:/persons
      */
     personControllerGetAllPersons: (params: RequestParams = {}) =>
-      this.http.request<void, any>({
+      this.http.request<PersonEntity[], any>({
         path: `/persons`,
         method: "GET",
+        format: "json",
         ...params,
       }),
 
@@ -775,10 +790,12 @@ export class Api<SecurityDataType extends unknown> {
      * @name GameControllerPatchGame
      * @request PATCH:/games/{id}
      */
-    gameControllerPatchGame: (id: number, params: RequestParams = {}) =>
+    gameControllerPatchGame: (id: number, data: PatchGameDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/games/${id}`,
         method: "PATCH",
+        body: data,
+        type: ContentType.Json,
         ...params,
       }),
 

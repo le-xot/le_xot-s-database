@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { Game } from '@prisma/client'
 import { PrismaService } from '../../database/prisma.service'
 import { CreateGameDTO, PatchGameDTO } from './game.dto'
 import { GameEntity } from './game.entity'
@@ -8,63 +7,48 @@ import { GameEntity } from './game.entity'
 export class GameServices {
   constructor(private prisma: PrismaService) {}
 
-  async createGame(game: CreateGameDTO): Promise<Game> {
-    const foundedPerson = await this.prisma.person.findUnique({
-      where: { name: game.personName },
-    })
-
-    if (!foundedPerson) {
-      throw new Error('Person not found')
-    }
-
+  async createGame(game: CreateGameDTO): Promise<GameEntity> {
     return this.prisma.game.create({
-      data: {
-        personId: foundedPerson.id,
-        title: game.title,
-        type: game.type,
-        status: game.status,
-        grade: game.grade,
+      data: game,
+      include: {
+        person: true,
       },
     })
   }
 
-  async patchGameById(id: number, game: PatchGameDTO): Promise<Game> {
+  async patchGame(id: number, game: PatchGameDTO): Promise<GameEntity> {
+    const foundedGame = await this.prisma.game.findUnique({
+      where: { id },
+    })
+    if (!foundedGame) {
+      throw new Error('Game not found')
+    }
     return this.prisma.game.update({
       where: { id },
       include: { person: true },
-      data: game,
+      data: { ...foundedGame, ...game },
     })
   }
-
-  // async patchGameByTitle(name: string, game: PatchGameDTO): Promise<Game> {
-  //   const foundedPerson = await this.prisma.person.findUnique({
-  //     where: { name: game.personName },
-  //   });
-  //
-  //   if (!foundedPerson) {
-  //     throw new Error('Person not found');
-  //   }
-  //
-  //   const foundedGame = await this.prisma.game.findUnique({
-  //     where: { title: game.title },
-  //   });
-  //
-  //   return this.prisma.game.update({
-  //     where: { title: game.title },
-  //     include: { person: true },
-  //     data: game,
-  //   });
-  // }
 
   async deleteGame(id: number): Promise<void> {
     await this.prisma.game.delete({ where: { id } })
   }
 
   async getAllGames(): Promise<GameEntity[]> {
-    return this.prisma.game.findMany({ include: { person: true } })
+    return this.prisma.game.findMany({
+      include: { person: true },
+      orderBy: {
+        id: 'desc',
+      },
+    })
   }
 
-  async findGameById(id: number): Promise<Game> {
-    return this.prisma.game.findUnique({ where: { id } })
+  async findGameById(id: number): Promise<GameEntity> {
+    return this.prisma.game.findUnique({
+      where: { id },
+      include: {
+        person: true,
+      },
+    })
   }
 }
