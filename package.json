@@ -9,6 +9,7 @@
     "build": "pnpm run \"/^build:.*/\"",
     "build:frontend": "pnpm --filter=./frontend run build",
     "build:backend": "pnpm --filter=./backend run build",
+    "start:backend": "pnpm --filter=./backend run start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
