@@ -1,11 +1,19 @@
 {
-  "name": "lists",
+  "name": "lexot-website",
   "type": "module",
+  "private": true,
   "scripts": {
+    "dev": "pnpm run \"/^dev:.*/\"",
+    "dev:frontend": "pnpm --filter=./frontend run dev",
+    "dev:backend": "pnpm --filter=./backend run dev",
+    "build": "pnpm run \"/^build:.*/\"",
+    "build:frontend": "pnpm --filter=./frontend run build",
+    "build:backend": "pnpm --filter=./backend run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "3.8.0"
+    "@antfu/eslint-config": "3.8.0",
+    "@types/node": "22.9.0"
   }
 }

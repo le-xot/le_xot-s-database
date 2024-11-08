@@ -43,7 +43,6 @@ export default antfu({
   },
   stylistic: {
     overrides: {
-
       'style/brace-style': ['warn', '1tbs'],
       'style/arrow-parens': 'off',
     },

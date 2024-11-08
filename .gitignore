@@ -62,9 +62,3 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # TS
 *.tsbuildinfo
-
-frontend/src/libs/api.ts
-
-# FREAKS
-.vscode
-

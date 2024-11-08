@@ -10,7 +10,7 @@ export const router = createRouter({
       children: [
         {
           path: ROUTER_PATHS.home,
-          component: () => import('@src/pages/home.vue'),
+          component: () => import('@src/pages/home/home.vue'),
         },
       ],
     },
