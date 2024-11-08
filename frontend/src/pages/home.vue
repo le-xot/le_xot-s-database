@@ -57,6 +57,7 @@ const links: Link[] = [
   }
 
   .container{
+    background-color: rgb(24 24 28);
     overflow: hidden;
     width: 100%;
     min-height: 100vh;
