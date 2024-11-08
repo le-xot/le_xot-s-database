@@ -2,7 +2,7 @@ import { useTitle as _useTitle } from '@vueuse/core'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useTitle = defineStore('global/use-title', () => {
-  const title = _useTitle('', { titleTemplate: '%s | Однушка Лешота' })
+  const title = _useTitle('', { titleTemplate: '%s | Кладовка Лешота' })
 
   function updateTitle(text: string) {
     title.value = text
