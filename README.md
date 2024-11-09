@@ -30,3 +30,5 @@ pnpx prisma migrate dev
 ```bash
 pnpm dev
 ```
+
+Please make sure that you pull request to DEV branch
