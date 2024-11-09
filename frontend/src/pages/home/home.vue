@@ -17,7 +17,7 @@ onMounted(() => title.value = 'le-xot.ru')
     <div class="container__items">
       <img
         class="logo"
-        src="/images/lexot.jpg"
+        src="/images/lexot.webp"
         alt="Пажилой енот на своей даче под Рублевкой"
       >
       <div class="buttons">
@@ -53,6 +53,7 @@ button {
 }
 
 .container {
+  padding: 3rem;
   font-family: "Comfortaa", sans-serif;
   background-color: rgb(24 24 28);
   overflow: hidden;
