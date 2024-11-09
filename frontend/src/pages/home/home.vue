@@ -11,9 +11,6 @@ onMounted(() => title.value = 'le-xot.ru')
 
 <template>
   <div class="container">
-    <h4 class="title">
-      Ссылочки Лешота
-    </h4>
     <div class="container__items">
       <img
         class="logo"
@@ -58,7 +55,7 @@ button {
   background-color: rgb(24 24 28);
   overflow: hidden;
   width: 100%;
-  min-height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,12 +69,6 @@ button {
   flex-direction: column;
   gap: 1rem;
   max-width: 25rem;
-}
-
-.title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
 }
 
 .logo {
@@ -136,10 +127,6 @@ button {
   .container__items {
     gap: 0.5rem;
     max-width: 100%;
-  }
-
-  .title {
-    font-size: 1.5rem;
   }
 
   .logo {
