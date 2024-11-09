@@ -10,7 +10,6 @@ export default defineConfig(({ isPreview, mode }) => {
   }
 
   return {
-    base: './',
     resolve: {
       alias: {
         '@src': fileURLToPath(new URL('./src', import.meta.url)),
