@@ -32,11 +32,11 @@ onUnmounted(() => {
         description="Сайт временно недоступен на мобильных устройствах"
       >
         <div class="button-place">
-          <NButton>
-            <router-link :to="ROUTER_PATHS.home" class="link">
+          <router-link :to="ROUTER_PATHS.home" class="link">
+            <NButton>
               На главную
-            </router-link>
-          </NButton>
+            </NButton>
+          </router-link>
         </div>
       </NResult>
       <div v-else>
