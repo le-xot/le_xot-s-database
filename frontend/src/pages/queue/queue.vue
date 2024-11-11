@@ -10,40 +10,46 @@ const videos = useVideos()
 </script>
 
 <template>
-  <div v-if="games.isLoading || videos.isLoading" class="loader">
-    <NSpin size="large" />
+  <div class="queue">
+    <div v-if="games.isLoading || videos.isLoading" class="loader">
+      <NSpin size="large" />
+    </div>
+    <template v-else>
+      <QueueCard v-if="games.gamesQueue.length > 0" kind="game" :items="games.gamesQueue">
+        <template #title>
+          Поиграть: {{ games.gamesQueue.length }}
+        </template>
+      </QueueCard>
+
+      <QueueCard v-if="videos.videosQueue.length > 0" kind="video" :items="videos.videosQueue">
+        <template #title>
+          Посмотреть: {{ videos.videosQueue.length }}
+        </template>
+        <template #footer="{ item }">
+          <TableColSelect
+            :value="item.genre"
+            kind="genre"
+            style="justify-content: flex-start"
+          />
+        </template>
+      </QueueCard>
+
+      <NResult
+        v-if="videos.videosQueue.length === 0 && games.gamesQueue.length === 0"
+        class="empty"
+        status="info"
+        title="Пока в очереди ничего нет :C"
+      />
+    </template>
   </div>
-  <template v-else>
-    <QueueCard v-if="games.gamesQueue.length > 0" kind="game" :items="games.gamesQueue">
-      <template #title>
-        Поиграть: {{ games.gamesQueue.length }}
-      </template>
-    </QueueCard>
-
-    <QueueCard v-if="videos.videosQueue.length > 0" kind="video" :items="videos.videosQueue">
-      <template #title>
-        Посмотреть: {{ videos.videosQueue.length }}
-      </template>
-      <template #footer="{ item }">
-        <TableColSelect
-          :value="item.genre"
-          kind="genre"
-          style="justify-content: flex-start"
-        />
-      </template>
-    </QueueCard>
-
-    <NResult
-      v-if="videos.videosQueue.length === 0 && games.gamesQueue.length === 0"
-      class="empty"
-      status="info"
-      title="Пока в очереди ничего нет :C"
-    />
-  </template>
 </template>
 
 <style scoped>
-.empty{
+.queue {
+  margin: 0 1rem;
+}
+
+.empty {
   width: 100%;
   height: 100dvh;
   display: flex;

@@ -2,23 +2,11 @@
 import LayoutBody from '@src/layout/db/layout-body.vue'
 import LayoutHeader from '@src/layout/db/layout-header.vue'
 import { ROUTER_PATHS } from '@src/libs/router/router-paths.ts'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { darkTheme, NButton, NConfigProvider, NMessageProvider, NResult } from 'naive-ui'
-import { onMounted, onUnmounted, ref } from 'vue'
 
-const isMobile = ref(false)
-
-function updateScreenSize() {
-  isMobile.value = window.innerWidth <= 768
-}
-
-onMounted(() => {
-  updateScreenSize()
-  window.addEventListener('resize', updateScreenSize)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateScreenSize)
-})
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isMobile = breakpoints.smallerOrEqual('sm')
 </script>
 
 <template>
@@ -26,18 +14,22 @@ onUnmounted(() => {
     <NMessageProvider>
       <NResult
         v-if="isMobile"
-        class="center"
-        status="warning"
         title="Внимание!"
-        description="Сайт временно недоступен на мобильных устройствах"
+        size="huge"
+        class="notif"
+        description="Кладовка Лешота временно недоступна на мобильных устройствах"
       >
-        <div class="button-place">
-          <router-link :to="ROUTER_PATHS.home" class="link">
+        <template #icon>
+          <img src="/images/aga.webp">
+        </template>
+
+        <template #footer>
+          <router-link :to="ROUTER_PATHS.home">
             <NButton>
               На главную
             </NButton>
           </router-link>
-        </div>
+        </template>
       </NResult>
       <template v-else>
         <LayoutHeader />
@@ -52,24 +44,10 @@ onUnmounted(() => {
   display: flex;
 }
 
-.link{
-  fill: #ffffff;
-  display: block;
-  border: none;
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.center{
-  width: 100%;
-  height: 100dvh;
+.notif {
+  height: inherit;
   display: flex;
-  font-size: 100px;
   justify-content: center;
-  align-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
   flex-direction: column;
 }
 
@@ -77,7 +55,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 100vh;
+  height: 100dvh;
   overflow: auto;
   scrollbar-width: none;
 }

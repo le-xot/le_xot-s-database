@@ -27,6 +27,7 @@ defineProps<{
   overflow-x: auto;
   height: 100%;
   white-space: nowrap;
+  margin: 0 1rem;
 }
 
 .n-data-table-base-table-header {
