@@ -12,7 +12,7 @@ model Game {
   title    String?         @unique
   personId Int?
   person   Person?         @relation(fields: [personId], references: [id])
-  type     PrismaTypes?
+  type     PrismaTypes?    @default(FREE)
   status   PrismaStatuses? @default(QUEUE)
   grade    PrismaGrades?
 
