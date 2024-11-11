@@ -18,7 +18,7 @@ pnpm i
 docker compose up -d
 ```
 
-* Generate prisma schema and migrate dev database
+* Generate prisma schema and migrate dev database in BACKEND folder
 
 ```bash
 pnpx prisma generate
