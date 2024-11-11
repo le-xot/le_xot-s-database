@@ -1,8 +1,8 @@
 import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
-
 import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
 import TableHeaderButton from '@src/components/table/table-header/table-header-button.vue'
+import TableHeaderButtonConfirm from '@src/components/table/table-header/table-header-button-confirm.vue'
 import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
 import TableHeaderStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useUser } from '@src/composables/use-user'
@@ -126,7 +126,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         align: 'center',
         width: 50,
         render(row) {
-          return h(TableHeaderButton, {
+          return h(TableHeaderButtonConfirm, {
             key: `id-${row.id}`,
             icon: Eraser,
             onClick: () => videosStore.deleteVideo(row.id),

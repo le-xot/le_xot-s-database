@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NButton, NPopconfirm } from 'naive-ui'
+import { NButton } from 'naive-ui'
 
 defineProps<{
   icon: any
@@ -7,16 +7,11 @@ defineProps<{
 </script>
 
 <template>
-  <NPopconfirm>
-    <template #activator>
-      <NButton quaternary circle>
-        <template #icon>
-          <component :is="icon" class="icon" />
-        </template>
-      </NButton>
+  <NButton quaternary circle>
+    <template #icon>
+      <component :is="icon" class="icon" />
     </template>
-    Are you sure?
-  </NPopconfirm>
+  </NButton>
 </template>
 
 <style scoped>

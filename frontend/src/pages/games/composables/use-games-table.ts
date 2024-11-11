@@ -1,9 +1,9 @@
 import { usePersons } from '@src/components/table/composables/use-persons'
 import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
 import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
-
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
 import TableHeaderButton from '@src/components/table/table-header/table-header-button.vue'
+import TableHeaderButtonConfirm from '@src/components/table/table-header/table-header-button-confirm.vue'
 import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
 import TableHeaderStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useUser } from '@src/composables/use-user'
@@ -105,7 +105,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
         align: 'center',
         width: 50,
         render(row) {
-          return h(TableHeaderButton, {
+          return h(TableHeaderButtonConfirm, {
             key: `id-${row.id}`,
             icon: Eraser,
             onClick: () => gamesStore.deleteGame(row.id),
