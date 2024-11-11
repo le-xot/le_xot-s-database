@@ -39,10 +39,10 @@ onUnmounted(() => {
           </router-link>
         </div>
       </NResult>
-      <div v-else>
+      <template v-else>
         <LayoutHeader />
         <LayoutBody />
-      </div>
+      </template>
     </NMessageProvider>
   </NConfigProvider>
 </template>
