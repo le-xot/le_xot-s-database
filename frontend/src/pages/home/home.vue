@@ -17,31 +17,36 @@ onMounted(() => title.value = 'le-xot.ru')
         src="/images/lexot.webp"
         alt="Пажилой енот на своей даче под Рублевкой"
       >
-      <div class="buttons">
-        <a
-          v-for="link in SOCIAL_LINKS"
-          :key="link.name"
-          :style="{ backgroundColor: link.color }"
-          class="button"
-          :href="link.url"
-          target="_blank"
-        >
-          <component
-            :is="link.icon"
-            class="button__logo"
-            size="32px"
-          />
-          <span class="button_text">{{ link.name }}</span>
-        </a>
+      <div class="buttons__wrap">
+        <div class="buttons">
+          <a
+            v-for="link in SOCIAL_LINKS"
+            :key="link.name"
+            :style="{ backgroundColor: link.color }"
+            class="button"
+            :href="link.url"
+            target="_blank"
+          >
+            <component
+              :is="link.icon"
+              class="button__logo"
+              size="32px"
+            />
+            <span class="button_text">{{ link.name }}</span>
+          </a>
+        </div>
+        <router-link :to="ROUTER_PATHS.dbQueue" class="button button--large">
+          Кладовка Лешота
+        </router-link>
       </div>
-      <router-link :to="ROUTER_PATHS.dbQueue" class="button button--large">
-        Кладовка Лешота
-      </router-link>
     </div>
   </div>
 </template>
 
 <style scoped>
+body{
+  background-color: rgb(24 24 28);
+}
 button {
   display: block;
   border: none;
@@ -52,8 +57,7 @@ button {
 .container {
   padding: 3rem;
   font-family: "Comfortaa", sans-serif;
-  background-color: rgb(24 24 28);
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 100%;
   height: 100dvh;
   display: flex;
@@ -88,6 +92,12 @@ button {
   gap: 1rem;
 }
 
+.buttons__wrap{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .button {
   min-height: 52px;
   color: white;
@@ -104,6 +114,9 @@ button {
   text-align: center;
   border-radius: 0.5rem;
   border: 2px solid #ffffff3e;
+}
+.buttons__wrap{
+    width: 100%;
 }
 
 .button:hover {
@@ -159,5 +172,15 @@ button {
   .button_text {
     font-size: 0.875rem;
   }
+}
+@media (height<= 760px) and (orientation: landscape ) {
+  .container__items{
+    max-width: 100%;
+    flex-direction: row;
+  }
+  .logo{
+    width: 50%;
+  }
+
 }
 </style>
