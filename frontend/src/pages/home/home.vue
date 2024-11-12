@@ -5,7 +5,6 @@ import { onMounted } from 'vue'
 import { SOCIAL_LINKS } from './constants/social-links'
 
 const title = useTitle()
-
 onMounted(() => title.value = 'le-xot.ru')
 </script>
 
@@ -84,6 +83,7 @@ button {
   border: 2px solid #ffffff3e;
   /* fix pixelation */
   overflow-clip-margin: unset;
+  flex-shrink: 0;
 }
 
 .buttons {
@@ -173,14 +173,22 @@ button {
     font-size: 0.875rem;
   }
 }
-@media (height<= 760px) and (orientation: landscape ) {
-  .container__items{
-    max-width: 100%;
-    flex-direction: row;
-  }
-  .logo{
-    width: 50%;
+
+@media (height<= 760px) and (orientation: landscape) {
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
   }
 
+  .container__items {
+    max-width: 100%;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .logo {
+    width: 50%;
+  }
 }
 </style>
