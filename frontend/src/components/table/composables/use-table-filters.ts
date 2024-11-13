@@ -7,7 +7,7 @@ import { genreTags, gradeTags, statusTags } from './use-select'
 const gradeFilters: TableBaseColumn<{ grade: string }> = {
   key: 'grade',
   filterOptions: Object.entries(gradeTags).map(([key, value]) => ({
-    label: value.name,
+    label: `${value.name} ${value.label}`,
     value: key,
   })),
   filter: 'default',

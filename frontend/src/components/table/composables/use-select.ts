@@ -6,6 +6,7 @@ import { h } from 'vue'
 
 export interface TagOptions {
   name: string
+  label?: string
   variant: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
 }
 
@@ -40,10 +41,10 @@ export const gradeTags: Record<
   GradeEnum,
   TagOptions
 > = {
-  [GradeEnum.RECOMMEND]: { name: '🔥', variant: 'info' },
-  [GradeEnum.LIKE]: { name: '👍', variant: 'success' },
-  [GradeEnum.BEER]: { name: '🍺', variant: 'warning' },
-  [GradeEnum.DISLIKE]: { name: '👎', variant: 'error' },
+  [GradeEnum.RECOMMEND]: { name: '🔥', label: 'Рекомендую', variant: 'info' },
+  [GradeEnum.LIKE]: { name: '👍', label: 'Понравилось', variant: 'success' },
+  [GradeEnum.BEER]: { name: '🍺', label: 'Под пивко', variant: 'warning' },
+  [GradeEnum.DISLIKE]: { name: '👎', label: 'Не рекомендую', variant: 'error' },
 }
 
 export const useSelect = defineStore('table/use-select', () => {
