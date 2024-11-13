@@ -106,15 +106,15 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
 
     if (isAdmin.value) {
       columns.unshift({
+        key: 'id',
+        align: 'center',
+        width: 50,
         title() {
           return h(TableHeaderButton, {
             icon: CirclePlus,
             onClick: () => videosStore.createVideo(),
           })
         },
-        key: 'id',
-        align: 'center',
-        width: 50,
         render(row) {
           return h(TableHeaderButtonConfirm, {
             key: `id-${row.id}`,

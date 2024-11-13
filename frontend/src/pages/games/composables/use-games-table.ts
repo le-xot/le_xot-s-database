@@ -87,15 +87,15 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
 
     if (isAdmin.value) {
       columns.unshift({
+        key: 'id',
+        align: 'center',
+        width: 50,
         title() {
           return h(TableHeaderButton, {
             icon: CirclePlus,
             onClick: () => gamesStore.createGame(),
           })
         },
-        key: 'id',
-        align: 'center',
-        width: 50,
         render(row) {
           return h(TableHeaderButtonConfirm, {
             key: `id-${row.id}`,
