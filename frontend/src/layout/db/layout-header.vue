@@ -13,7 +13,7 @@ const routes = [
   { name: 'Главная', path: ROUTER_PATHS.home },
   { name: 'Очередь', path: ROUTER_PATHS.dbQueue },
   { name: 'Игры', path: ROUTER_PATHS.dbGames },
-  { name: 'Видео', path: ROUTER_PATHS.dbVideos },
+  { name: 'Кино', path: ROUTER_PATHS.dbVideos },
 ]
 
 onMounted(() => {

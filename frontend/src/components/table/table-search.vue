@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import { NInput } from 'naive-ui'
+import { computed } from 'vue'
+
+const searchValue = defineModel<string>('value', { required: true })
+
+const placeholder = computed(() => `Искать по названию или заказчику`)
+</script>
+
 <template>
   <div class="table-search">
     <NInput
@@ -7,30 +16,8 @@
       :placeholder="placeholder"
       clearable
     />
-
-    <NSelect
-      v-model:value="searchType"
-      class="select-type"
-      :options="options"
-    />
   </div>
 </template>
-
-<script setup lang="ts">
-import { SEARCH_TYPES, SearchType } from '@src/components/table/composables/use-table-search'
-import { NInput, NSelect } from 'naive-ui'
-import { SelectMixedOption } from 'naive-ui/es/select/src/interface'
-import { computed } from 'vue'
-
-defineProps<{
-  options: SelectMixedOption[]
-}>()
-
-const searchValue = defineModel<string>('value', { required: true })
-const searchType = defineModel<SearchType>('type', { required: true })
-
-const placeholder = computed(() => `Искать по ${SEARCH_TYPES[searchType.value]}`)
-</script>
 
 <style scoped lang="scss">
 .table-search {
@@ -40,10 +27,6 @@ const placeholder = computed(() => `Искать по ${SEARCH_TYPES[searchType.
 
   .input {
     width: 100%;
-  }
-
-  .select-type {
-    width: 200px;
   }
 }
 </style>
