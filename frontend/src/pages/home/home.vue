@@ -75,7 +75,7 @@ button {
 }
 
 .logo {
-  border-radius: 2rem;
+  border-radius: 1rem;
   display: block;
   width: 100%;
   aspect-ratio: 1/1;
@@ -112,7 +112,7 @@ button {
   font-weight: 700;
   letter-spacing: 0.025em;
   text-align: center;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   border: 2px solid #ffffff3e;
 }
 .buttons__wrap{
