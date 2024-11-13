@@ -1,8 +1,9 @@
 import { TableBaseColumn } from 'naive-ui/es/data-table/src/interface'
 import { h } from 'vue'
-import TableHeaderGrade from '../table-header/table-header-grade.vue'
-import TableHeaderStatus from '../table-header/table-header-status.vue'
-import { genreTags, gradeTags, statusTags } from './use-select'
+import TableInfo from '../table-info/table-info.vue'
+import TableInfoGrade from '../table-info/table-info-grade.vue'
+import TableInfoStatus from '../table-info/table-info-status.vue'
+import { genreTags, gradeTags, statusTags } from './use-table-select'
 
 const gradeFilters: TableBaseColumn<{ grade: string }> = {
   key: 'grade',
@@ -13,7 +14,7 @@ const gradeFilters: TableBaseColumn<{ grade: string }> = {
   filter: 'default',
   align: 'center',
   title() {
-    return h(TableHeaderGrade)
+    return h(TableInfo, { title: 'Оценка' }, { default: () => h(TableInfoGrade) })
   },
 }
 
@@ -26,7 +27,7 @@ const statusFilters: TableBaseColumn<{ status: string }> = {
   filter: 'default',
   align: 'center',
   title() {
-    return h(TableHeaderStatus)
+    return h(TableInfo, { title: 'Статус' }, { default: () => h(TableInfoStatus) })
   },
 }
 

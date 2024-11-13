@@ -1,8 +1,8 @@
 <template>
-  <div class="search-bar">
+  <div class="table-search">
     <NInput
       v-model:value="searchValue"
-      class="search-input"
+      class="input"
       type="text"
       :placeholder="placeholder"
       clearable
@@ -10,14 +10,14 @@
 
     <NSelect
       v-model:value="searchType"
-      class="search-select-type"
+      class="select-type"
       :options="options"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { SEARCH_TYPES, SearchType } from '@src/composables/use-search-bar'
+import { SEARCH_TYPES, SearchType } from '@src/components/table/composables/use-table-search'
 import { NInput, NSelect } from 'naive-ui'
 import { SelectMixedOption } from 'naive-ui/es/select/src/interface'
 import { computed } from 'vue'
@@ -33,19 +33,17 @@ const placeholder = computed(() => `Искать по ${SEARCH_TYPES[searchType.
 </script>
 
 <style scoped lang="scss">
-.search {
-  &-input {
+.table-search {
+  display: flex;
+  gap: 1rem;
+  margin: 0 1rem;
+
+  .input {
     width: 100%;
   }
 
-  &-select-type {
+  .select-type {
     width: 200px;
-  }
-
-  &-bar {
-    display: flex;
-    gap: 1rem;
-    margin: 0 1rem;
   }
 }
 </style>

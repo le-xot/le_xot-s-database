@@ -2,8 +2,8 @@
 import { GenresEnum, GradeEnum, StatusesEnum } from '@src/libs/api.ts'
 import { NSelect, NTag } from 'naive-ui'
 import { computed, toRef } from 'vue'
-import { SelectKind, TagOptions, useSelect } from '../composables/use-select'
 import { useTableCol } from '../composables/use-table-col'
+import { SelectKind, TagOptions, useTableSelect } from '../composables/use-table-select'
 import TableCol from './table-col.vue'
 
 type SelectValue = T | undefined
@@ -23,7 +23,7 @@ const {
   handleClose,
 } = useTableCol<T>(selectValue, emits)
 
-const select = useSelect()
+const select = useTableSelect()
 const data = computed(() => {
   return {
     tag: select[`${props.kind}Tags`][selectValue.value] as TagOptions,
@@ -52,7 +52,7 @@ const data = computed(() => {
       :bordered="false"
       round
     >
-      {{ data.tag.name }}
+      {{ data.tag.name }} {{ data.tag.label }}
     </NTag>
   </TableCol>
 </template>
@@ -62,6 +62,6 @@ const data = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 125px;
+  width: 150px;
 }
 </style>

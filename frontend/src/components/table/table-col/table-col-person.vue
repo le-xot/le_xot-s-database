@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { NSelect } from 'naive-ui'
 import { computed, toRef } from 'vue'
-import { usePersons } from '../composables/use-persons'
 import { useTableCol } from '../composables/use-table-col'
+import { useTablePersons } from '../composables/use-table-persons'
 import TableCol from './table-col.vue'
 
 type PersonValue = number | undefined
@@ -11,7 +11,7 @@ const props = defineProps<{ personId: PersonValue }>()
 const emits = defineEmits<{ update: [PersonValue] }>()
 const personId = toRef(props, 'personId')
 
-const persons = usePersons()
+const persons = useTablePersons()
 
 const {
   isEdit,
