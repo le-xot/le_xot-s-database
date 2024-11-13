@@ -157,7 +157,7 @@ button {
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 3rem;
+    gap: 1rem;
     fill: #ffffff;
     padding: 0.5rem 1rem;
     background: #209852;
