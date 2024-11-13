@@ -1,45 +1,26 @@
-import { SelectBaseOption } from 'naive-ui/es/select/src/interface'
+import { refDebounced } from '@vueuse/core'
 import { ref } from 'vue'
 import type { GameEntity, VideoEntity } from '@src/libs/api'
 
-export const SEARCH_TYPES = {
-  title: 'названию',
-  person: 'заказчику',
-} as const
-
-export type SearchType = keyof typeof SEARCH_TYPES
-
 export function useTableSearch() {
   const searchValue = ref('')
-  const searchType = ref<SearchType>('title')
-
-  const searchTypeOptions: SelectBaseOption[] = Object.entries(SEARCH_TYPES).map(([key, value]) => {
-    const label = value.charAt(0).toUpperCase() + value.slice(1)
-    return {
-      label,
-      value: key,
-    }
-  })
+  const debouncedSearchValue = refDebounced(searchValue, 200)
 
   function filterData<T extends GameEntity | VideoEntity>(data: T[]): T[] {
-    if (!searchValue.value) return data
+    if (!debouncedSearchValue.value) return data
 
-    const searchTerm = searchValue.value.toLowerCase()
+    const searchTerm = debouncedSearchValue.value.toLowerCase()
 
     return data.filter((item) => {
-      const field = item[searchType.value]
-      if (!field) return false
-      if (typeof field !== 'string') {
-        return field.name.toLowerCase().includes(searchTerm)
-      }
-      return field.toLowerCase().includes(searchTerm)
+      const titleMatch = typeof item.title === 'string' && item.title.toLowerCase().includes(searchTerm)
+      const personMatch = item.person && typeof item.person.name === 'string' && item.person.name.toLowerCase().includes(searchTerm)
+
+      return titleMatch || personMatch
     })
   }
 
   return {
     searchValue,
-    searchType,
-    searchTypeOptions,
     filterData,
   }
 }
