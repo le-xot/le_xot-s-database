@@ -1,12 +1,12 @@
 # Development
 
 * [Node.js: v20](https://nodejs.org/en)
-* [Pnpm: v9](https://pnpm.io/)
+* [PNPM: v9](https://pnpm.io/)
 * [Docker](https://docs.docker.com/engine/)
 
 ## Cli
 
-* Install dependencies for **frontend** and **backend** folder
+* Install dependencies
 
 ```bash
 pnpm i
@@ -31,4 +31,8 @@ pnpx prisma migrate dev
 pnpm dev
 ```
 
-Please make sure that you pull request to DEV branch
+* Visit http://localhost:5173
+
+## Contributing
+
+* Please make sure that you pull request to [dev](/tree/dev) branch.

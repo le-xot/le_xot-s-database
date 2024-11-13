@@ -57,7 +57,6 @@ onMounted(() => {
 <style scoped>
 .header {
   display: flex;
-  height: var(--header-height);
   background-color: var(--header-color);
 }
 
@@ -72,6 +71,7 @@ onMounted(() => {
 
 .header-nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
 }
