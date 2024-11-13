@@ -38,7 +38,7 @@ export const statusTags: Record<
   },
   [StatusesEnum.PROGRESS]: {
     name: 'В процессе',
-    description: 'заказ находится а стадииолнения.',
+    description: 'заказ находится а стадии выполнения.',
     variant: 'warning',
   },
   [StatusesEnum.DROP]: {
