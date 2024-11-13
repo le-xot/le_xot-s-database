@@ -33,12 +33,12 @@ export const statusTags: Record<
   },
   [StatusesEnum.DONE]: {
     name: 'Готово',
-    description: 'игра выполнена, а кинолента посмотрена.',
+    description: 'игра выполнена, кинолента посмотрена.',
     variant: 'success',
   },
   [StatusesEnum.PROGRESS]: {
     name: 'В процессе',
-    description: 'заказ находится а стадии выполнения.',
+    description: 'заказ находится на стадии выполнения.',
     variant: 'warning',
   },
   [StatusesEnum.DROP]: {
