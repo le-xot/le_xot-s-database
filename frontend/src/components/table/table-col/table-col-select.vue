@@ -52,7 +52,7 @@ const data = computed(() => {
       :bordered="false"
       round
     >
-      {{ data.tag.name }} {{ data.tag.label }}
+      {{ data.tag.name }}
     </NTag>
   </TableCol>
 </template>
