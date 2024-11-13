@@ -12,8 +12,8 @@ export function useTableSearch() {
     const searchTerm = debouncedSearchValue.value.toLowerCase()
 
     return data.filter((item) => {
-      const titleMatch = typeof item.title === 'string' && item.title.toLowerCase().includes(searchTerm)
-      const personMatch = item.person && typeof item.person.name === 'string' && item.person.name.toLowerCase().includes(searchTerm)
+      const titleMatch = item.title?.toLowerCase().includes(searchTerm)
+      const personMatch = item.person?.name.toLowerCase().includes(searchTerm)
 
       return titleMatch || personMatch
     })
