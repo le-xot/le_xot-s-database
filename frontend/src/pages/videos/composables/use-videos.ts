@@ -1,32 +1,26 @@
 import { useMutation, useQuery } from '@pinia/colada'
 import { useApi } from '@src/composables/use-api'
-import { PatchVideoDTO, StatusesEnum } from '@src/libs/api'
+import { type PatchVideoDTO, StatusesEnum, type VideoEntity } from '@src/libs/api'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed } from 'vue'
+import { useVideosFilters } from './use-videos-filters'
 
 export const VIDEOS_QUERY_KEY = 'videos'
 
 export const useVideos = defineStore('videos/use-videos', () => {
   const api = useApi()
+  const filters = useVideosFilters()
 
   const {
     isLoading,
-    data: videos,
+    data,
     refetch: refetchVideos,
-  } = useQuery({
+  } = useQuery<VideoEntity[]>({
     key: [VIDEOS_QUERY_KEY],
     query: async () => {
       const { data } = await api.videos.videoControllerGetAllVideos()
       return data
     },
-  })
-
-  const videosQueue = computed(() => {
-    if (!videos.value) return []
-    return videos.value.filter((video) => {
-      return video.status === StatusesEnum.QUEUE
-        || video.status === StatusesEnum.PROGRESS
-    })
   })
 
   const { mutateAsync: updateVideo } = useMutation({
@@ -51,6 +45,18 @@ export const useVideos = defineStore('videos/use-videos', () => {
       return await api.videos.videoControllerCreateVideo({})
     },
     onSuccess: () => refetchVideos(),
+  })
+
+  const videosQueue = computed(() => {
+    if (!data.value) return []
+    return data.value.filter((video) => {
+      return video.status === StatusesEnum.QUEUE
+        || video.status === StatusesEnum.PROGRESS
+    })
+  })
+
+  const videos = computed(() => {
+    return filters.filterData(data.value ?? [])
   })
 
   return {

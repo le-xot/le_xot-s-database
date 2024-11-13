@@ -1,10 +1,9 @@
+import { useTableFilters } from '@src/components/table/composables/use-table-filters'
 import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
 import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
 import TableHeaderButton from '@src/components/table/table-header/table-header-button.vue'
 import TableHeaderButtonConfirm from '@src/components/table/table-header/table-header-button-confirm.vue'
-import TableHeaderGrade from '@src/components/table/table-header/table-header-grade.vue'
-import TableHeaderStatus from '@src/components/table/table-header/table-header-status.vue'
 import { useUser } from '@src/composables/use-user'
 import { VideoEntity } from '@src/libs/api'
 import { CirclePlus, Eraser } from 'lucide-vue-next'
@@ -16,6 +15,7 @@ import { useVideos } from './use-videos'
 export const useVideosTable = defineStore('videos/use-videos-table', () => {
   const { isAdmin } = storeToRefs(useUser())
   const videosStore = useVideos()
+  const filters = useTableFilters()
 
   const tableColumns = computed(() => {
     const columns: DataTableColumns<VideoEntity> = [
@@ -35,9 +35,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         },
       },
       {
-        title: 'Жанр',
-        key: 'genre',
-        align: 'center',
+        ...filters.genreFilters,
         width: 200,
         render(row) {
           return h(TableColSelect, {
@@ -70,11 +68,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
         },
       },
       {
-        title() {
-          return h(TableHeaderStatus)
-        },
-        key: 'status',
-        align: 'center',
+        ...filters.statusFilters,
         width: 200,
         render(row) {
           return h(TableColSelect, {
@@ -92,11 +86,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
       },
 
       {
-        title() {
-          return h(TableHeaderGrade)
-        },
-        key: 'grade',
-        align: 'center',
+        ...filters.gradeFilters,
         width: 200,
         render(row) {
           return h(TableColSelect, {

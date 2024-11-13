@@ -15,7 +15,7 @@ type StatusesOptions = SelectBaseOption<StatusesEnum>
 type GradesOptions = SelectBaseOption<GradeEnum>
 type GenresOptions = SelectBaseOption<GenresEnum>
 
-const statusTags: Record<
+export const statusTags: Record<
   StatusesEnum,
   TagOptions
 > = {
@@ -26,7 +26,7 @@ const statusTags: Record<
   [StatusesEnum.DROP]: { name: 'Дроп', variant: 'error' },
 }
 
-const genreTags: Record<
+export const genreTags: Record<
   GenresEnum,
   TagOptions
 > = {
@@ -36,7 +36,7 @@ const genreTags: Record<
   [GenresEnum.CARTOON]: { name: 'Мультфильм', variant: 'warning' },
 }
 
-const gradeTags: Record<
+export const gradeTags: Record<
   GradeEnum,
   TagOptions
 > = {

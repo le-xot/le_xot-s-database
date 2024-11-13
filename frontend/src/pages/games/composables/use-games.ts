@@ -1,17 +1,19 @@
 import { useMutation, useQuery } from '@pinia/colada'
 import { useApi } from '@src/composables/use-api'
-import { GameEntity, PatchGameDTO, StatusesEnum } from '@src/libs/api'
+import { type GameEntity, type PatchGameDTO, StatusesEnum } from '@src/libs/api'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed } from 'vue'
+import { useGamesFilters } from './use-games-filters'
 
 export const GAMES_QUERY_KEY = 'games'
 
 export const useGames = defineStore('games/use-games', () => {
   const api = useApi()
+  const filters = useGamesFilters()
 
   const {
     isLoading,
-    data: games,
+    data,
     refetch: refetchGames,
   } = useQuery<GameEntity[]>({
     key: [GAMES_QUERY_KEY],
@@ -47,12 +49,16 @@ export const useGames = defineStore('games/use-games', () => {
   })
 
   const gamesQueue = computed(() => {
-    if (!games.value) return []
+    if (!data.value) return []
 
-    return games.value.filter((games) => {
+    return data.value.filter((games) => {
       return games.status === StatusesEnum.QUEUE
         || games.status === StatusesEnum.PROGRESS
     })
+  })
+
+  const games = computed(() => {
+    return filters.filterData(data.value ?? [])
   })
 
   return {
