@@ -35,11 +35,11 @@ const placeholder = computed(() => `Искать по ${SEARCH_TYPES[searchType.
 <style scoped lang="scss">
 .search {
   &-input {
-    width: 80%;
+    width: 100%;
   }
 
   &-select-type {
-    width: 20%;
+    width: 200px;
   }
 
   &-bar {
