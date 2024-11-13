@@ -42,3 +42,7 @@ input:-webkit-autofill {
 *::-webkit-scrollbar-thumb:active {
   background-color: var(--scrollbar-color);
 }
+
+.n-data-table-th__title {
+  user-select: none;
+}

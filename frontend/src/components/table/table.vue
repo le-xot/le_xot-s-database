@@ -18,6 +18,8 @@ defineProps<{
       :data="data"
       :loading="isLoading"
       max-height="100%"
+      scroll-x="1000px"
+      size="small"
     />
   </div>
 </template>
