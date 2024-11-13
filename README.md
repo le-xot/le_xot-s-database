@@ -31,12 +31,8 @@ pnpx prisma migrate dev
 pnpm dev
 ```
 
-
 * Visit http://localhost:5173
 
 ## Contributing
 
 * Please make sure that you pull request to [dev](/tree/dev) branch.
-
-Please make sure that you pull request to **dev** branch
-
