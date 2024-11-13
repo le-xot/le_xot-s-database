@@ -12,8 +12,6 @@ const table = useVideosTable()
 <template>
   <TableSearch
     v-model:value="table.search.searchValue"
-    v-model:type="table.search.searchType"
-    :options="table.search.searchTypeOptions"
   />
 
   <Table
