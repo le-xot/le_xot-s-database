@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import Table from '@src/components/table/table.vue'
-import TableSearchBar from '@src/components/table/table-search-bar.vue'
+import TableSearch from '@src/components/table/table-search.vue'
 import { storeToRefs } from 'pinia'
 import { useGames } from '../composables/use-games'
-import { useGamesFilters } from '../composables/use-games-filters'
 import { useGamesTable } from '../composables/use-games-table'
 
 const { isLoading, games } = storeToRefs(useGames())
 const table = useGamesTable()
-const filters = useGamesFilters()
 </script>
 
 <template>
-  <TableSearchBar
-    v-model:value="filters.searchValue"
-    v-model:type="filters.searchType"
-    :options="filters.searchTypeOptions"
+  <TableSearch
+    v-model:value="table.search.searchValue"
+    v-model:type="table.search.searchType"
+    :options="table.search.searchTypeOptions"
   />
 
   <Table

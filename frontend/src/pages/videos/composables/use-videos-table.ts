@@ -14,7 +14,7 @@ import { useVideos } from './use-videos'
 
 export const useVideosTable = defineStore('videos/use-videos-table', () => {
   const { isAdmin } = storeToRefs(useUser())
-  const videosStore = useVideos()
+  const videos = useVideos()
   const filters = useTableFilters()
 
   const tableColumns = computed(() => {
@@ -27,7 +27,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
           return h(TableColTitle, {
             key: `title-${row.id}`,
             title: row.title,
-            onUpdate: (title) => videosStore.updateVideo({
+            onUpdate: (title) => videos.updateVideo({
               id: row.id,
               data: { title },
             }),
@@ -43,7 +43,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
             value: row.genre,
             kind: 'genre',
             onUpdate: (value) => {
-              videosStore.updateVideo({
+              videos.updateVideo({
                 id: row.id,
                 data: { genre: value },
               })
@@ -60,7 +60,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
           return h(TableColPerson, {
             key: `person-${row.id}`,
             personId: row.person?.id,
-            onUpdate: (personId) => videosStore.updateVideo({
+            onUpdate: (personId) => videos.updateVideo({
               id: row.id,
               data: { personId },
             }),
@@ -76,7 +76,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
             value: row.status,
             kind: 'status',
             onUpdate: (value) => {
-              videosStore.updateVideo({
+              videos.updateVideo({
                 id: row.id,
                 data: { status: value },
               })
@@ -94,7 +94,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
             value: row.grade,
             kind: 'grade',
             onUpdate: (value) => {
-              videosStore.updateVideo({
+              videos.updateVideo({
                 id: row.id,
                 data: { grade: value },
               })
@@ -106,20 +106,20 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
 
     if (isAdmin.value) {
       columns.unshift({
-        title() {
-          return h(TableHeaderButton, {
-            icon: CirclePlus,
-            onClick: () => videosStore.createVideo(),
-          })
-        },
         key: 'id',
         align: 'center',
         width: 50,
+        title() {
+          return h(TableHeaderButton, {
+            icon: CirclePlus,
+            onClick: () => videos.createVideo(),
+          })
+        },
         render(row) {
           return h(TableHeaderButtonConfirm, {
             key: `id-${row.id}`,
             icon: Eraser,
-            onClick: () => videosStore.deleteVideo(row.id),
+            onClick: () => videos.deleteVideo(row.id),
           })
         },
       })
@@ -130,6 +130,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
 
   return {
     tableColumns,
+    search: videos.search,
   }
 })
 

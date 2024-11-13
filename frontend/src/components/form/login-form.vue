@@ -77,7 +77,6 @@ async function deleteCookie() {
     <NCard
       style="width: 600px"
       title="Вход"
-      :bordered="false"
       size="huge"
       role="dialog"
       aria-modal="true"
@@ -90,15 +89,15 @@ async function deleteCookie() {
         :rules="rules"
         @submit.prevent="saveCookie"
       >
-        <NFormItem label="Username" path="username">
+        <NFormItem label="Логин" path="username">
           <NInput v-model:value="formValue.username" placeholder="Username" />
         </NFormItem>
-        <NFormItem label="Password" path="password">
+        <NFormItem label="Пароль" path="password">
           <NInput v-model:value="formValue.password" type="password" placeholder="Password" />
         </NFormItem>
         <NFormItem>
           <NButton attr-type="submit">
-            Save
+            Войти
           </NButton>
         </NFormItem>
       </NForm>

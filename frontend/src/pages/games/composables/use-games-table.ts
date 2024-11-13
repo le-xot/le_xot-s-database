@@ -1,5 +1,5 @@
-import { usePersons } from '@src/components/table/composables/use-persons'
 import { useTableFilters } from '@src/components/table/composables/use-table-filters'
+import { useTablePersons } from '@src/components/table/composables/use-table-persons'
 import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
 import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
@@ -15,8 +15,8 @@ import { useGames } from './use-games'
 
 export const useGamesTable = defineStore('games/use-games-table', () => {
   const { isAdmin } = storeToRefs(useUser())
-  const gamesStore = useGames()
-  const { updateOrCreatePerson } = usePersons()
+  const games = useGames()
+  const persons = useTablePersons()
   const filters = useTableFilters()
 
   const tableColumns = computed(() => {
@@ -29,7 +29,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
           return h(TableColTitle, {
             key: `title-${row.id}`,
             title: row.title,
-            onUpdate: (title) => gamesStore.updateGame({
+            onUpdate: (title) => games.updateGame({
               id: row.id,
               data: { title },
             }),
@@ -45,7 +45,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
           return h(TableColPerson, {
             key: `person-${row.id}`,
             personId: row.person?.id,
-            onUpdate: (person) => updateOrCreatePerson(row, person),
+            onUpdate: (person) => persons.updateOrCreatePerson(row, person),
           })
         },
       },
@@ -58,7 +58,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
             value: row.status,
             kind: 'status',
             onUpdate: (value) => {
-              gamesStore.updateGame({
+              games.updateGame({
                 id: row.id,
                 data: { status: value },
               })
@@ -75,7 +75,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
             value: row.grade,
             kind: 'grade',
             onUpdate: (value) => {
-              gamesStore.updateGame({
+              games.updateGame({
                 id: row.id,
                 data: { grade: value },
               })
@@ -87,20 +87,20 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
 
     if (isAdmin.value) {
       columns.unshift({
-        title() {
-          return h(TableHeaderButton, {
-            icon: CirclePlus,
-            onClick: () => gamesStore.createGame(),
-          })
-        },
         key: 'id',
         align: 'center',
         width: 50,
+        title() {
+          return h(TableHeaderButton, {
+            icon: CirclePlus,
+            onClick: () => games.createGame(),
+          })
+        },
         render(row) {
           return h(TableHeaderButtonConfirm, {
             key: `id-${row.id}`,
             icon: Eraser,
-            onClick: () => gamesStore.deleteGame(row.id),
+            onClick: () => games.deleteGame(row.id),
           })
         },
       })
@@ -111,6 +111,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
 
   return {
     tableColumns,
+    search: games.search,
   }
 })
 

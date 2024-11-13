@@ -1,15 +1,15 @@
 import { useMutation, useQuery } from '@pinia/colada'
+import { useTableSearch } from '@src/components/table/composables/use-table-search'
 import { useApi } from '@src/composables/use-api'
 import { type PatchVideoDTO, StatusesEnum, type VideoEntity } from '@src/libs/api'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed } from 'vue'
-import { useVideosFilters } from './use-videos-filters'
 
 export const VIDEOS_QUERY_KEY = 'videos'
 
 export const useVideos = defineStore('videos/use-videos', () => {
   const api = useApi()
-  const filters = useVideosFilters()
+  const search = useTableSearch()
 
   const {
     isLoading,
@@ -56,13 +56,14 @@ export const useVideos = defineStore('videos/use-videos', () => {
   })
 
   const videos = computed(() => {
-    return filters.filterData(data.value ?? [])
+    return search.filterData(data.value ?? [])
   })
 
   return {
     isLoading,
     videos,
     videosQueue,
+    search,
     refetchVideos,
     updateVideo,
     deleteVideo,

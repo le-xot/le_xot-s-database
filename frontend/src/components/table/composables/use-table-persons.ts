@@ -8,7 +8,7 @@ import { computed } from 'vue'
 
 export const PERSONS_QUERY_KEY = 'persons'
 
-export const usePersons = defineStore('table/use-persons', () => {
+export const useTablePersons = defineStore('use-table-persons', () => {
   const api = useApi()
   const { updateGame } = useGames()
 
@@ -74,5 +74,5 @@ export const usePersons = defineStore('table/use-persons', () => {
 })
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(usePersons, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useTablePersons, import.meta.hot))
 }

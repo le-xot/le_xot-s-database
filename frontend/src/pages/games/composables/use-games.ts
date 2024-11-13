@@ -1,15 +1,15 @@
 import { useMutation, useQuery } from '@pinia/colada'
+import { useTableSearch } from '@src/components/table/composables/use-table-search'
 import { useApi } from '@src/composables/use-api'
 import { type GameEntity, type PatchGameDTO, StatusesEnum } from '@src/libs/api'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed } from 'vue'
-import { useGamesFilters } from './use-games-filters'
 
 export const GAMES_QUERY_KEY = 'games'
 
 export const useGames = defineStore('games/use-games', () => {
   const api = useApi()
-  const filters = useGamesFilters()
+  const search = useTableSearch()
 
   const {
     isLoading,
@@ -58,13 +58,14 @@ export const useGames = defineStore('games/use-games', () => {
   })
 
   const games = computed(() => {
-    return filters.filterData(data.value ?? [])
+    return search.filterData(data.value ?? [])
   })
 
   return {
     isLoading,
     games,
     gamesQueue,
+    search,
     refetchGames,
     updateGame,
     deleteGame,

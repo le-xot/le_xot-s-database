@@ -5,14 +5,11 @@ import type { GameEntity, VideoEntity } from '@src/libs/api'
 export const SEARCH_TYPES = {
   title: 'названию',
   person: 'заказчику',
-  // status: 'статусу',
-  // grade: 'оценке',
-  // genre: 'жанру',
 } as const
 
 export type SearchType = keyof typeof SEARCH_TYPES
 
-export function useSearchBar() {
+export function useTableSearch() {
   const searchValue = ref('')
   const searchType = ref<SearchType>('title')
 
@@ -35,7 +32,7 @@ export function useSearchBar() {
       if (typeof field !== 'string') {
         return field.name.toLowerCase().includes(searchTerm)
       }
-      return field.includes(searchTerm)
+      return field.toLowerCase().includes(searchTerm)
     })
   }
 
