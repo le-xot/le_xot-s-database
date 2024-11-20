@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ROUTER_PATHS } from '@src/libs/router/router-paths.ts'
 import { hardware } from '@src/pages/pc/constants/parts-links.ts'
 import { useTitle } from '@vueuse/core'
 import { NH2 } from 'naive-ui'
@@ -26,6 +27,15 @@ onMounted(() => title.value = 'Железки Лешота')
           </a>
         </div>
       </template>
+      <div style="margin-top: 20px" class="buttons buttons--grid">
+        <router-link
+          class="button"
+          style="background-color: #209852"
+          :to="ROUTER_PATHS.db"
+        >
+          Назад
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -55,7 +65,7 @@ onMounted(() => title.value = 'Железки Лешота')
   gap: 1rem;
   fill: #ffffff;
   padding: 0.4rem 1rem;
-  background: #209852;
+  background: #1f1f27;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.025em;
