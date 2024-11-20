@@ -143,8 +143,8 @@ const DEVICES: PartLink[] = [
 ]
 
 export const hardware: Record<string, PartLink[]> = {
-  'Operating systems': OS,
-  'System parts': SYSTEM_PARTS,
-  'Monitors': MONITORS,
-  'Devices': DEVICES,
+  'Операционные системы': OS,
+  'Железки': SYSTEM_PARTS,
+  'Мониторы': MONITORS,
+  'Девайсы': DEVICES,
 }
