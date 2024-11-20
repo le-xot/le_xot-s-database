@@ -7,14 +7,14 @@ import {
   YouTubeIcon,
 } from 'vue3-simple-icons'
 
-interface Link {
+interface SocialLink {
   name: string
   icon: any
   color: string
   url: string
 }
 
-export const SOCIAL_LINKS: Link[] = [
+export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: 'Telegram',
     icon: TelegramIcon,

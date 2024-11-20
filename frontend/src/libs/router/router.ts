@@ -12,6 +12,10 @@ export const router = createRouter({
           path: ROUTER_PATHS.home,
           component: () => import('@src/pages/home/home.vue'),
         },
+        {
+          path: ROUTER_PATHS.pc,
+          component: () => import('@src/pages/pc/pc.vue'),
+        },
       ],
     },
     {
