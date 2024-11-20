@@ -5,7 +5,7 @@ import { NH2 } from 'naive-ui'
 import { onMounted } from 'vue'
 
 const title = useTitle()
-onMounted(() => title.value = 'My devices')
+onMounted(() => title.value = 'Железки Лешота')
 </script>
 
 <template>
