@@ -59,6 +59,7 @@ async function handleColorChange(newColor: string) {
         show-on-focus
         filterable
         size="small"
+        style="background-color: #18181C"
         :options="persons.personOptions"
         @update:value="updateValue"
         @keydown.enter="handleChange"

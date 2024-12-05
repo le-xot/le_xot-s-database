@@ -38,10 +38,13 @@ export const useTablePersons = defineStore('use-table-persons', () => {
 
   const personOptions = computed<SelectBaseOption[]>(() => {
     if (!persons.value) return []
-    return persons.value.map((item) => ({
-      value: item.id,
-      label: item.name,
-    }))
+    return persons.value.map((item) => {
+      return {
+        value: item.id,
+        label: item.name,
+        style: { color: '#ffffff', backgroundColor: item.color },
+      }
+    })
   })
 
   async function updateSelectOrCreatePerson(
