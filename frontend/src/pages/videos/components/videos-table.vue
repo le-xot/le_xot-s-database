@@ -54,7 +54,7 @@ const options = [{ key: 'checkboxes', type: 'render', render: () => {
             Столбцы
           </NButton>
         </template>
-        <div>
+        <div class="column-checkboxes">
           <NCheckbox
             v-for="column of filteredColumnOptions"
             :key="column.key"
@@ -68,7 +68,6 @@ const options = [{ key: 'checkboxes', type: 'render', render: () => {
     </div>
   </div>
   <Table
-
     :columns="table.tableColumns"
     :data="videos"
     :is-loading="isLoading"
@@ -91,5 +90,11 @@ const options = [{ key: 'checkboxes', type: 'render', render: () => {
 .column-button {
   width: 120px;
   margin-left: 1rem;
+}
+
+.column-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 </style>
