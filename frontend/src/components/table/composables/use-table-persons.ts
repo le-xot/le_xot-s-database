@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from '@pinia/colada'
 import { useApi } from '@src/composables/use-api'
+import { refDebounced } from '@vueuse/core'
 import { SelectBaseOption } from 'naive-ui/es/select/src/interface'
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 export const PERSONS_QUERY_KEY = 'persons'
 
@@ -29,19 +30,36 @@ export const useTablePersons = defineStore('use-table-persons', () => {
     onSettled: () => refetchPersons(),
   })
 
+  const patchQueue = ref<{ id: number, data: { name?: string, color?: string } } | null>(null)
+  const debouncedPatchQueue = refDebounced(patchQueue, 200)
+
   const { mutateAsync: patchPerson } = useMutation({
     key: [PERSONS_QUERY_KEY, 'patch'],
     mutation: async (opts: { id: number, data: { name?: string, color?: string } }) => {
       return await api.persons.personControllerPatchPerson(opts.id, opts.data)
     },
+    onSettled: () => refetchPersons(),
   })
+
+  watch(debouncedPatchQueue, async (value) => {
+    if (value) {
+      await patchPerson(value)
+    }
+  })
+
+  const updatePerson = (id: number, data: { name?: string, color?: string }) => {
+    patchQueue.value = { id, data }
+  }
 
   const personOptions = computed<SelectBaseOption[]>(() => {
     if (!persons.value) return []
-    return persons.value.map((item) => ({
-      value: item.id,
-      label: item.name,
-    }))
+    return persons.value.map((item) => {
+      return {
+        value: item.id,
+        label: item.name,
+        style: { color: '#ffffff', backgroundColor: item.color },
+      }
+    })
   })
 
   async function updateSelectOrCreatePerson(
@@ -64,7 +82,7 @@ export const useTablePersons = defineStore('use-table-persons', () => {
     persons,
     personOptions,
     createPerson,
-    patchPerson,
+    updatePerson,
     updateSelectOrCreatePerson,
   }
 })

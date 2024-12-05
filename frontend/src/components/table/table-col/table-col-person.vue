@@ -27,7 +27,7 @@ const currentPerson = computed(() => {
 })
 
 async function updatePerson(id: number, data: { name?: string, color?: string }) {
-  await persons.patchPerson({ id, data })
+  persons.updatePerson(id, data)
 }
 
 async function handleColorChange(newColor: string) {
@@ -41,8 +41,6 @@ async function handleColorChange(newColor: string) {
   <TableCol @click="handleOpen">
     <div v-if="isEdit">
       <NColorPicker
-        :show-preview="true"
-        :actions="['confirm']"
         size="small"
         placement="right"
         :modes="['hex']"
@@ -59,6 +57,7 @@ async function handleColorChange(newColor: string) {
         show-on-focus
         filterable
         size="small"
+        style="background-color: #18181C"
         :options="persons.personOptions"
         @update:value="updateValue"
         @keydown.enter="handleChange"
