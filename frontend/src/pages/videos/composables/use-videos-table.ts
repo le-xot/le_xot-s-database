@@ -9,13 +9,15 @@ import { VideoEntity } from '@src/libs/api'
 import { CirclePlus, Eraser } from 'lucide-vue-next'
 import { DataTableColumns } from 'naive-ui'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
-import { computed, h } from 'vue'
+import { computed, h, ref } from 'vue'
 import { useVideos } from './use-videos'
 
 export const useVideosTable = defineStore('videos/use-videos-table', () => {
   const { isAdmin } = storeToRefs(useUser())
   const videos = useVideos()
   const filters = useTableFilters()
+
+  const visibleColumns = ref(new Set(['id', 'title', 'person', 'genre', 'status', 'grade']))
 
   const tableColumns = computed(() => {
     const columns: DataTableColumns<VideoEntity> = [
@@ -84,7 +86,6 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
           })
         },
       },
-
       {
         ...filters.gradeFilters,
         width: 200,
@@ -125,12 +126,18 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
       })
     }
 
-    return columns
+    return columns.filter((col) => {
+      if ('key' in col && col.key) {
+        return visibleColumns.value.has(col.key as string)
+      }
+      return true
+    })
   })
 
   return {
     tableColumns,
     search: videos.search,
+    visibleColumns,
   }
 })
 

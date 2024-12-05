@@ -51,11 +51,21 @@ export interface UserEntity {
 export interface CreatePersonDTO {
   /** @example "le_xot" */
   name: string;
+  /** @example "#333333" */
+  color?: string;
 }
 
 export interface PersonEntity {
   name: string;
   id: number;
+  color: string;
+}
+
+export interface PatchPersonDTO {
+  /** @example "le_xot" */
+  name?: string;
+  /** @example "#333333" */
+  color?: string;
 }
 
 export interface CreateVideoDTO {
@@ -610,7 +620,7 @@ export class Api<SecurityDataType extends unknown> {
      * @name PersonControllerPatchPerson
      * @request PATCH:/persons/{id}
      */
-    personControllerPatchPerson: (id: number, data: CreatePersonDTO, params: RequestParams = {}) =>
+    personControllerPatchPerson: (id: number, data: PatchPersonDTO, params: RequestParams = {}) =>
       this.http.request<void, any>({
         path: `/persons/${id}`,
         method: "PATCH",

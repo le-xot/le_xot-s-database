@@ -13,7 +13,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { PrismaRoles } from '@prisma/client'
 import { AuthGuard } from '../auth/auth.guard'
 import { RolesGuard } from '../auth/auth.roles.guard'
-import { CreatePersonDTO } from './person.dto'
+import { CreatePersonDTO, PatchPersonDTO } from './person.dto'
 import { PersonEntity } from './person.entity'
 import { PersonServices } from './person.service'
 
@@ -52,9 +52,9 @@ export class PersonController {
   @Patch(':id')
   async patchPerson(
     @Param('id', ParseIntPipe) id: number,
-    @Body() person: CreatePersonDTO,
+    @Body() person: PatchPersonDTO,
   ): Promise<PersonEntity> {
-    return await this.personServices.patchPerson(id, person.name)
+    return await this.personServices.patchPerson(id, person)
   }
 
   @UseGuards(AuthGuard, new RolesGuard([PrismaRoles.ADMIN]))
