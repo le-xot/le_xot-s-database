@@ -40,60 +40,61 @@ const options = [{ key: 'checkboxes', type: 'render', render: () => {
 </script>
 
 <template>
-  <div>
-    <div class="table-manage">
-      <div class="search-and-button">
-        <TableSearch v-model:value="table.search.searchValue" />
-        <NPopover
-          trigger="click"
-          placement="bottom-start"
-          :show-arrow="true"
-          :options="options"
-        >
-          <template #trigger>
-            <NButton class="column-button">
-              Столбцы
-            </NButton>
-          </template>
-          <div>
-            <NCheckbox
-              v-for="column of filteredColumnOptions"
-              :key="column.key"
-              :checked="table.visibleColumns.has(column.key)"
-              @update:checked="toggleColumnVisibility(column.key, $event)"
-            >
-              {{ column.label }}
-            </NCheckbox>
-          </div>
-        </NPopover>
-      </div>
+  <div class="table-manage">
+    <div class="search-and-button">
+      <TableSearch v-model:value="table.search.searchValue" />
+      <NPopover
+        trigger="click"
+        placement="bottom-start"
+        :show-arrow="true"
+        :options="options"
+      >
+        <template #trigger>
+          <NButton class="column-button">
+            Столбцы
+          </NButton>
+        </template>
+        <div class="column-checkboxes">
+          <NCheckbox
+            v-for="column of filteredColumnOptions"
+            :key="column.key"
+            :checked="table.visibleColumns.has(column.key)"
+            @update:checked="toggleColumnVisibility(column.key, $event)"
+          >
+            {{ column.label }}
+          </NCheckbox>
+        </div>
+      </NPopover>
     </div>
-    <Table
-      :columns="table.tableColumns"
-      :data="videos"
-      :is-loading="isLoading"
-    />
   </div>
+  <Table
+    :columns="table.tableColumns"
+    :data="videos"
+    :is-loading="isLoading"
+  />
 </template>
 
 <style scoped>
 .table-manage {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 16px;
+  margin: 0 1rem;
 }
 
 .search-and-button {
   display: flex;
   align-items: center;
-  width: 100%;
-}
-
-.search-and-button {
   flex-grow: 1;
 }
 
 .column-button {
   width: 120px;
+  margin-left: 1rem;
+}
+
+.column-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 </style>

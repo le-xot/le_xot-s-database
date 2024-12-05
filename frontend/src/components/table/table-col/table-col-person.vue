@@ -48,7 +48,7 @@ async function handleColorChange(newColor: string) {
         :modes="['hex']"
         :show-alpha="false"
         :value="currentPerson?.color"
-        :swatches="['#731212', '#0e5c32', '#0e3360', '#5a400e']"
+        :swatches="['#603B2C', '#854C1D', '#89632A', '#2B593F', '#28456C', '#492F64', '#69314C', '#8f332a']"
         @update:value="handleColorChange"
       />
       <NSelect
@@ -70,9 +70,19 @@ async function handleColorChange(newColor: string) {
         size="medium"
         round
         :color="{ color: currentPerson?.color }"
+        class="tag"
       >
         {{ currentPerson?.name }}
       </NTag>
     </template>
   </TableCol>
 </template>
+
+<style scoped>
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+}
+</style>
