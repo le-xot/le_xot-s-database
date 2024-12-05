@@ -46,6 +46,7 @@ export class AuthController {
     const token = await this.authService.login(username, password)
     response.cookie('token', token, {
       httpOnly: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
     })
     return token
   }
