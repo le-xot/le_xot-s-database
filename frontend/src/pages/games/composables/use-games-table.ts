@@ -1,5 +1,4 @@
 import { useTableFilters } from '@src/components/table/composables/use-table-filters'
-import { useTablePersons } from '@src/components/table/composables/use-table-persons'
 import TableColPerson from '@src/components/table/table-col/table-col-person.vue'
 import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
 import TableColTitle from '@src/components/table/table-col/table-col-title.vue'
@@ -10,17 +9,18 @@ import { GameEntity } from '@src/libs/api'
 import { CirclePlus, Eraser } from 'lucide-vue-next'
 import { DataTableColumns } from 'naive-ui'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
-import { computed, h } from 'vue'
+import { computed, h, ref } from 'vue'
 import { useGames } from './use-games'
 
 export const useGamesTable = defineStore('games/use-games-table', () => {
   const { isAdmin } = storeToRefs(useUser())
   const games = useGames()
-  const persons = useTablePersons()
   const filters = useTableFilters()
 
+  const visibleColumns = ref(new Set(['id', 'title', 'person', 'status', 'grade']))
+
   const tableColumns = computed(() => {
-    const columns: DataTableColumns<GameEntity> = [
+    const allColumns: DataTableColumns<GameEntity> = [
       {
         title: 'Название',
         key: 'title',
@@ -45,7 +45,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
           return h(TableColPerson, {
             key: `person-${row.id}`,
             personId: row.person?.id,
-            onUpdate: (person) => persons.updateOrCreatePerson(row, person),
+            onUpdate: (personId) => games.updateGame({ id: row.id, data: { personId } }),
           })
         },
       },
@@ -86,7 +86,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
     ]
 
     if (isAdmin.value) {
-      columns.unshift({
+      allColumns.unshift({
         key: 'id',
         align: 'center',
         width: 50,
@@ -106,12 +106,18 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
       })
     }
 
-    return columns
+    return allColumns.filter((col) => {
+      if ('key' in col && col.key) {
+        return visibleColumns.value.has(col.key as string)
+      }
+      return true
+    })
   })
 
   return {
     tableColumns,
     search: games.search,
+    visibleColumns,
   }
 })
 

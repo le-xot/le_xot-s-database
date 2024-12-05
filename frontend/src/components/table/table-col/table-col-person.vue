@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NSelect } from 'naive-ui'
+import { NColorPicker, NSelect, NTag } from 'naive-ui'
 import { computed, toRef } from 'vue'
 import { useTableCol } from '../composables/use-table-col'
 import { useTablePersons } from '../composables/use-table-persons'
@@ -22,31 +22,57 @@ const {
   handleOpen,
 } = useTableCol(personId, emits)
 
-const personName = computed(() => {
-  if (!persons.persons) return
-  const person = persons.persons.find((p) => p.id === personId.value)
-  if (!person) return
-  return person.name
+const currentPerson = computed(() => {
+  return persons.persons?.find((p) => p.id === personId.value)
 })
+
+async function updatePerson(id: number, data: { name?: string, color?: string }) {
+  await persons.patchPerson({ id, data })
+}
+
+async function handleColorChange(newColor: string) {
+  if (currentPerson.value) {
+    await updatePerson(currentPerson.value.id, { color: newColor })
+  }
+}
 </script>
 
 <template>
   <TableCol @click="handleOpen">
-    <NSelect
-      v-if="isEdit"
-      ref="inputRef"
-      v-model:value="inputValue"
-      tag
-      show
-      show-on-focus
-      filterable
-      size="small"
-      :options="persons.personOptions"
-      @update:value="updateValue"
-      @keydown.enter="handleChange"
-    />
+    <div v-if="isEdit">
+      <NColorPicker
+        :show-preview="true"
+        :actions="['confirm']"
+        size="small"
+        placement="right"
+        :modes="['hex']"
+        :show-alpha="false"
+        :value="currentPerson?.color"
+        :swatches="['#731212', '#0e5c32', '#0e3360', '#5a400e']"
+        @update:value="handleColorChange"
+      />
+      <NSelect
+        ref="inputRef"
+        v-model:value="inputValue"
+        tag
+        show
+        show-on-focus
+        filterable
+        size="small"
+        :options="persons.personOptions"
+        @update:value="updateValue"
+        @keydown.enter="handleChange"
+      />
+    </div>
     <template v-else>
-      {{ personName }}
+      <NTag
+        :bordered="false"
+        size="medium"
+        round
+        :color="{ color: currentPerson?.color }"
+      >
+        {{ currentPerson?.name }}
+      </NTag>
     </template>
   </TableCol>
 </template>

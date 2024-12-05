@@ -4,7 +4,7 @@ import { computed } from 'vue'
 
 const searchValue = defineModel<string>('value', { required: true })
 
-const placeholder = computed(() => `Искать по названию или заказчику`)
+const placeholder = computed(() => 'Искать по названию или заказчику')
 </script>
 
 <template>
@@ -22,11 +22,10 @@ const placeholder = computed(() => `Искать по названию или з
 <style scoped lang="scss">
 .table-search {
   display: flex;
-  gap: 1rem;
-  margin: 0 1rem;
+  flex-grow: 1;
+}
 
-  .input {
-    width: 100%;
-  }
+.input {
+  width: 100%;
 }
 </style>

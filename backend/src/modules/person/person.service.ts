@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../../database/prisma.service'
+import { PatchPersonDTO } from './person.dto'
 import { PersonEntity } from './person.entity'
 
 @Injectable()
 export class PersonServices {
   constructor(private prisma: PrismaService) {}
 
-  async createPerson(name: string): Promise<PersonEntity> {
+  async createPerson(name: string, color?: string): Promise<PersonEntity> {
     const existingPerson = await this.findPersonByName(name)
     if (existingPerson) {
       return
     }
     return this.prisma.person.create({
-      data: { name },
+      data: { name, color },
     })
   }
 
@@ -40,10 +41,10 @@ export class PersonServices {
     return this.prisma.person.findUnique({ where: { name } })
   }
 
-  async patchPerson(id: number, name: string): Promise<PersonEntity> {
+  async patchPerson(id: number, body: PatchPersonDTO): Promise<PersonEntity> {
     return this.prisma.person.update({
       where: { id },
-      data: { name },
+      data: body,
     })
   }
 

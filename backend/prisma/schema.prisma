@@ -35,6 +35,7 @@ model Video {
 model Person {
   id           Int     @id @default(autoincrement())
   name         String  @unique
+  color        String  @default("#333333")
   RecordGames  Game[]
   RecordMovies Video[]
 

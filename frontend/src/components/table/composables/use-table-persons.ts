@@ -1,7 +1,5 @@
 import { useMutation, useQuery } from '@pinia/colada'
 import { useApi } from '@src/composables/use-api'
-import { GameEntity } from '@src/libs/api'
-import { useGames } from '@src/pages/games/composables/use-games'
 import { SelectBaseOption } from 'naive-ui/es/select/src/interface'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed } from 'vue'
@@ -10,8 +8,6 @@ export const PERSONS_QUERY_KEY = 'persons'
 
 export const useTablePersons = defineStore('use-table-persons', () => {
   const api = useApi()
-  const { updateGame } = useGames()
-
   const {
     isLoading,
     data: persons,
@@ -27,16 +23,16 @@ export const useTablePersons = defineStore('use-table-persons', () => {
 
   const { mutateAsync: createPerson } = useMutation({
     key: [PERSONS_QUERY_KEY, 'create'],
-    mutation: async (name: string) => {
-      return await api.persons.personControllerCreatePerson({ name })
+    mutation: async (opts: { name: string, color?: string }) => {
+      return await api.persons.personControllerCreatePerson(opts)
     },
     onSettled: () => refetchPersons(),
   })
 
   const { mutateAsync: patchPerson } = useMutation({
     key: [PERSONS_QUERY_KEY, 'patch'],
-    mutation: async ({ id, name }: { id: number, name: string }) => {
-      return await api.persons.personControllerPatchPerson(id, { name })
+    mutation: async (opts: { id: number, data: { name?: string, color?: string } }) => {
+      return await api.persons.personControllerPatchPerson(opts.id, opts.data)
     },
   })
 
@@ -48,19 +44,19 @@ export const useTablePersons = defineStore('use-table-persons', () => {
     }))
   })
 
-  async function updateOrCreatePerson(
-    row: GameEntity,
+  async function updateSelectOrCreatePerson(
     person: string | number | undefined,
   ) {
     if (!person) return
+    const personId = person
 
-    let personId = person
+    // Это костыль для NaiveUI. Идёт несовпадение в NSelect типа string и number
     if (typeof personId === 'string') {
-      const { data } = await createPerson(personId)
-      personId = data.id
+      const { data } = await createPerson({ name: personId })
+      return data.id
+    } else {
+      return personId
     }
-
-    updateGame({ id: row.id, data: { personId } })
   }
 
   return {
@@ -69,7 +65,7 @@ export const useTablePersons = defineStore('use-table-persons', () => {
     personOptions,
     createPerson,
     patchPerson,
-    updateOrCreatePerson,
+    updateSelectOrCreatePerson,
   }
 })
 

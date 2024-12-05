@@ -7,4 +7,7 @@ export class PersonEntity implements Person {
 
   @ApiProperty()
   id: number
+
+  @ApiProperty()
+  color: string
 }
