@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { NInput } from 'naive-ui'
 import { computed } from 'vue'
+import { Input } from '../ui/input'
 
 const searchValue = defineModel<string>('value', { required: true })
 const placeholder = computed(() => 'Искать по названию или заказчику')
@@ -8,12 +8,9 @@ const placeholder = computed(() => 'Искать по названию или з
 
 <template>
   <div class="table-search">
-    <NInput
-      v-model:value="searchValue"
-      class="input"
-      type="text"
+    <Input
+      v-model:model-value="searchValue"
       :placeholder="placeholder"
-      clearable
     />
   </div>
 </template>
