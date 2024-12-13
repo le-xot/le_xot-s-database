@@ -31,7 +31,7 @@ const isLoading = computed(() => games.isLoading || videos.isLoading)
           <TableColSelect
             :value="item.genre"
             kind="genre"
-            style="justify-content: flex-start"
+            style="justify-content: flex-start; width: 100px"
           />
         </template>
       </QueueCard>
