@@ -49,12 +49,12 @@ async function logout() {
 </script>
 
 <template>
-  <Button v-if="user.isLoggedIn" @click="logout">
+  <Button v-if="user.isLoggedIn" variant="destructive" @click="logout">
     Выйти
   </Button>
   <Dialog v-else>
     <DialogTrigger as-child>
-      <Button variant="outline">
+      <Button>
         Войти
       </Button>
     </DialogTrigger>

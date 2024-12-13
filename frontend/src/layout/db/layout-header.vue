@@ -37,6 +37,7 @@ onMounted(() => {
             :to="headerRoute.path"
           >
             <Button
+              variant="link"
               :href="href"
               @click="(event) => {
                 navigate(event)

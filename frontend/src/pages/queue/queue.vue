@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Spinner from '@/components/spinner.vue'
+import Spinner from '@/components/utils/spinner.vue'
 import { computed } from 'vue'
 import { useGames } from '../games/composables/use-games'
 import { useVideos } from '../videos/composables/use-videos'
