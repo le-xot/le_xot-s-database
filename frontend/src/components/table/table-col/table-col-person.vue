@@ -65,6 +65,7 @@ async function handleColorChange(newColor: string) {
     </div>
     <template v-else>
       <NTag
+        v-if="currentPerson?.name"
         :bordered="false"
         size="medium"
         round
