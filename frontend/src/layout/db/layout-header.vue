@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoginForm from '@/components/form/login-form.vue'
 import { useTitle } from '@/composables/use-title'
-import { ROUTER_PATHS } from '@/libs/router/router-paths.ts'
+import { ROUTER_PATHS } from '@/lib/router/router-paths.ts'
 import { NButton } from 'naive-ui'
 import { onMounted } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'

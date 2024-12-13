@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T extends GameEntity | VideoEntity">
-import { GameEntity, VideoEntity } from '@/libs/api'
-import { NCard } from 'naive-ui'
+import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { GameEntity, VideoEntity } from '@/lib/api.ts'
 
 defineProps<{ items: T[] }>()
 
@@ -16,23 +16,22 @@ function isShow(item: T) {
     </p>
     <div class="grid">
       <template v-for="(item, index) in items" :key="index">
-        <NCard
+        <Card
           v-if="isShow(item)"
           class="card"
-          :title="item.title"
-          size="huge"
-          hoverable
-          :segmented="{ footer: 'soft' }"
         >
-          <template #footer>
+          <CardHeader>
+            <CardTitle>{{ item.title }}</CardTitle>
+          </CardHeader>
+          <CardFooter>
             <div class="person">
-              <div v-if="item.person" class="person-name">
+              <div class="person-name">
                 {{ item.person.name }}
               </div>
               <slot name="footer" :item="item" />
             </div>
-          </template>
-        </NCard>
+          </CardFooter>
+        </Card>
       </template>
     </div>
   </div>
@@ -58,7 +57,9 @@ function isShow(item: T) {
 }
 
 .person {
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between
 }
 

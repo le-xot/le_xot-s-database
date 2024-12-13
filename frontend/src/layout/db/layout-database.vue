@@ -5,7 +5,7 @@ import { darkTheme, NConfigProvider, NMessageProvider } from 'naive-ui'
 </script>
 
 <template>
-  <NConfigProvider :theme="darkTheme" class="layout-database">
+  <NConfigProvider :theme="darkTheme" class="layout-database" preflight-style-disabled>
     <NMessageProvider>
       <LayoutHeader />
       <LayoutBody />

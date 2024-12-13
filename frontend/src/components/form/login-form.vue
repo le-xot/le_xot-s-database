@@ -12,6 +12,7 @@ import {
   useMessage,
 } from 'naive-ui'
 import { ref } from 'vue'
+import { Button } from '../ui/button'
 
 const user = useUser()
 const showModal = ref(false)
@@ -99,6 +100,7 @@ async function deleteCookie() {
           <NButton attr-type="submit">
             Войти
           </NButton>
+          <Button>123</Button>
         </NFormItem>
       </NForm>
     </NCard>

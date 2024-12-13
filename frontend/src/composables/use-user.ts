@@ -1,4 +1,4 @@
-import { RolesEnum } from '@/libs/api'
+import { RolesEnum } from '@/lib/api.ts'
 import { useMutation, useQuery } from '@pinia/colada'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed } from 'vue'

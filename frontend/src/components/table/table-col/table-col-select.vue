@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends StatusesEnum | GradeEnum | GenresEnum">
-import { GenresEnum, GradeEnum, StatusesEnum } from '@/libs/api.ts'
+import { GenresEnum, GradeEnum, StatusesEnum } from '@/lib/api.ts'
 import { NSelect, NTag } from 'naive-ui'
 import { computed, toRef } from 'vue'
 import { useTableCol } from '../composables/use-table-col'

@@ -1,6 +1,6 @@
 import { refDebounced } from '@vueuse/core'
 import { ref } from 'vue'
-import type { GameEntity, VideoEntity } from '@/libs/api'
+import type { GameEntity, VideoEntity } from '@/lib/api.ts'
 
 export function useTableSearch() {
   const searchValue = ref('')
