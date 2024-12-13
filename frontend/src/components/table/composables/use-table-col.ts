@@ -1,4 +1,4 @@
-import { useUser } from '@src/composables/use-user'
+import { useUser } from '@/composables/use-user'
 import { useMagicKeys } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { nextTick, Ref, ref, unref, watch } from 'vue'

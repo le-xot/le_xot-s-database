@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends GameEntity | VideoEntity">
-import { GameEntity, VideoEntity } from '@src/libs/api'
+import { GameEntity, VideoEntity } from '@/libs/api'
 import { NCard } from 'naive-ui'
 
 defineProps<{ items: T[] }>()

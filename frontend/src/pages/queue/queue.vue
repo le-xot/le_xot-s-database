@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
+import TableColSelect from '@/components/table/table-col/table-col-select.vue'
 import { NResult, NSpin } from 'naive-ui'
 import { computed } from 'vue'
 import { useGames } from '../games/composables/use-games'

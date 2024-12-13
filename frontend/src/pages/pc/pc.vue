@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ROUTER_PATHS } from '@src/libs/router/router-paths.ts'
-import { hardware } from '@src/pages/pc/constants/parts-links.ts'
+import { ROUTER_PATHS } from '@/libs/router/router-paths.ts'
+import { hardware } from '@/pages/pc/constants/parts-links.ts'
 import { useTitle } from '@vueuse/core'
 import { NH2 } from 'naive-ui'
 import { onMounted } from 'vue'

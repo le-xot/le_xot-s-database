@@ -1,4 +1,4 @@
-import { GenresEnum, GradeEnum, StatusesEnum } from '@src/libs/api'
+import { GenresEnum, GradeEnum, StatusesEnum } from '@/libs/api'
 import { NText } from 'naive-ui'
 import { SelectBaseOption } from 'naive-ui/es/select/src/interface'
 import { acceptHMRUpdate, defineStore } from 'pinia'

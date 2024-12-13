@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Table from '@src/components/table/table.vue'
-import TableSearch from '@src/components/table/table-search.vue'
-import { useUser } from '@src/composables/use-user.ts'
+import Table from '@/components/table/table.vue'
+import TableSearch from '@/components/table/table-search.vue'
+import { useUser } from '@/composables/use-user.ts'
 import { NButton, NCheckbox, NPopover } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import { h } from 'vue'

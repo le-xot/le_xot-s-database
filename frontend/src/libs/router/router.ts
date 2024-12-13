@@ -6,34 +6,34 @@ export const router = createRouter({
   routes: [
     {
       path: ROUTER_PATHS.home,
-      component: () => import('@src/layout/home/layout-home.vue'),
+      component: () => import('@/layout/home/layout-home.vue'),
       children: [
         {
           path: ROUTER_PATHS.home,
-          component: () => import('@src/pages/home/home.vue'),
+          component: () => import('@/pages/home/home.vue'),
         },
         {
           path: ROUTER_PATHS.pc,
-          component: () => import('@src/pages/pc/pc.vue'),
+          component: () => import('@/pages/pc/pc.vue'),
         },
       ],
     },
     {
       path: ROUTER_PATHS.db,
-      component: () => import('@src/layout/db/layout-database.vue'),
+      component: () => import('@/layout/db/layout-database.vue'),
       redirect: { path: ROUTER_PATHS.dbQueue },
       children: [
         {
           path: ROUTER_PATHS.dbQueue,
-          component: () => import('@src/pages/queue/queue.vue'),
+          component: () => import('@/pages/queue/queue.vue'),
         },
         {
           path: ROUTER_PATHS.dbVideos,
-          component: () => import('@src/pages/videos/videos.vue'),
+          component: () => import('@/pages/videos/videos.vue'),
         },
         {
           path: ROUTER_PATHS.dbGames,
-          component: () => import('@src/pages/games/games.vue'),
+          component: () => import('@/pages/games/games.vue'),
         },
       ],
     },

@@ -1,7 +1,8 @@
 import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
-
+import autoprefixer from 'autoprefixer'
 import { generateApi } from 'swagger-typescript-api'
+import tailwind from 'tailwindcss'
 import { defineConfig } from 'vite'
 import svgLoader from 'vite-svg-loader'
 
@@ -13,7 +14,7 @@ export default defineConfig(({ isPreview, mode }) => {
   return {
     resolve: {
       alias: {
-        '@src': fileURLToPath(new URL('./src', import.meta.url)),
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
     css: {
@@ -21,6 +22,9 @@ export default defineConfig(({ isPreview, mode }) => {
         scss: {
           api: 'modern-compiler',
         },
+      },
+      postcss: {
+        plugins: [tailwind(), autoprefixer()],
       },
     },
     plugins: [vue(), svgLoader()],
