@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUser } from '@/composables/use-user.ts'
+import { useUser } from '@/composables/use-user'
 import {
   FormInst,
   FormRules,
