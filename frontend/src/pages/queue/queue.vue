@@ -1,15 +1,21 @@
 <script setup lang="ts">
+import Spinner from '@/components/spinner.vue'
+import { computed } from 'vue'
 import { useGames } from '../games/composables/use-games'
 import { useVideos } from '../videos/composables/use-videos'
 import QueueCard from './components/queue-card.vue'
 
 const games = useGames()
 const videos = useVideos()
+const isLoading = computed(() => games.isLoading || videos.isLoading)
 </script>
 
 <template>
   <div class="queue">
-    <QueueCard v-if="games.gamesQueue.length > 0" kind="game" :items="games.gamesQueue">
+    <div v-if="isLoading" class="loaded">
+      <Spinner />
+    </div>
+    <QueueCard v-if="games.gamesQueue.length > 0 && !isLoading" kind="game" :items="games.gamesQueue">
       <template #title>
         Поиграть: {{ games.gamesQueue.length }}
       </template>
@@ -27,7 +33,7 @@ const videos = useVideos()
     </QueueCard>
 
     <div
-      v-if="videos.videosQueue.length === 0 && games.gamesQueue.length === 0"
+      v-if="videos.videosQueue.length === 0 && games.gamesQueue.length === 0 && !isLoading"
       class="empty"
     >
       Пока в очереди ничего нет :C
@@ -53,5 +59,11 @@ const videos = useVideos()
   align-items: center;
   flex-wrap: nowrap;
   flex-direction: column;
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
