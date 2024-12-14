@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import TableColSelect from '@src/components/table/table-col/table-col-select.vue'
-import { NResult, NSpin } from 'naive-ui'
+import Spinner from '@/components/utils/spinner.vue'
 import { computed } from 'vue'
 import { useGames } from '../games/composables/use-games'
 import { useVideos } from '../videos/composables/use-videos'
@@ -13,36 +12,32 @@ const isLoading = computed(() => games.isLoading || videos.isLoading)
 
 <template>
   <div class="queue">
-    <div v-if="isLoading" class="loader">
-      <NSpin size="large" />
+    <div v-if="isLoading" class="loaded">
+      <Spinner />
     </div>
-    <template v-else>
-      <QueueCard v-if="games.gamesQueue.length > 0" kind="game" :items="games.gamesQueue">
-        <template #title>
-          Поиграть: {{ games.gamesQueue.length }}
-        </template>
-      </QueueCard>
+    <QueueCard v-if="games.gamesQueue.length > 0 && !isLoading" kind="game" :items="games.gamesQueue">
+      <template #title>
+        Поиграть: {{ games.gamesQueue.length }}
+      </template>
+    </QueueCard>
 
-      <QueueCard v-if="videos.videosQueue.length > 0" kind="video" :items="videos.videosQueue">
-        <template #title>
-          Посмотреть: {{ videos.videosQueue.length }}
-        </template>
-        <template #footer="{ item }">
-          <TableColSelect
-            :value="item.genre"
-            kind="genre"
-            style="justify-content: flex-start; width: 100px"
-          />
-        </template>
-      </QueueCard>
+    <QueueCard v-if="videos.videosQueue.length > 0" kind="video" :items="videos.videosQueue">
+      <template #title>
+        Посмотреть: {{ videos.videosQueue.length }}
+      </template>
+      <template #footer="{ item }">
+        <div>
+          {{ item.genre }}
+        </div>
+      </template>
+    </QueueCard>
 
-      <NResult
-        v-if="videos.videosQueue.length === 0 && games.gamesQueue.length === 0"
-        class="empty"
-        status="info"
-        title="Пока в очереди ничего нет :C"
-      />
-    </template>
+    <div
+      v-if="videos.videosQueue.length === 0 && games.gamesQueue.length === 0 && !isLoading"
+      class="empty"
+    >
+      Пока в очереди ничего нет :C
+    </div>
   </div>
 </template>
 

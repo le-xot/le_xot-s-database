@@ -3,7 +3,6 @@ import { NInput } from 'naive-ui'
 import { computed } from 'vue'
 
 const searchValue = defineModel<string>('value', { required: true })
-
 const placeholder = computed(() => 'Искать по названию или заказчику')
 </script>
 

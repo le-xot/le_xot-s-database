@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import LoginForm from '@src/components/form/login-form.vue'
-import { useTitle } from '@src/composables/use-title'
-import { ROUTER_PATHS } from '@src/libs/router/router-paths.ts'
-import { NButton } from 'naive-ui'
+import LoginForm from '@/components/form/login-form.vue'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+import { useTitle } from '@/composables/use-title'
+import { ROUTER_PATHS } from '@/lib/router/router-paths.ts'
 import { onMounted } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
@@ -30,35 +31,33 @@ onMounted(() => {
         <div class="header-nav">
           <RouterLink
             v-for="headerRoute of routes"
-            v-slot="{ isActive, href, navigate }"
+            v-slot="{ href, navigate }"
             :key="headerRoute.name"
             custom
             :to="headerRoute.path"
           >
-            <NButton
-              tag="a"
+            <Button
+              variant="link"
               :href="href"
-              secondary
-              :type="isActive ? 'success' : 'default'"
               @click="(event) => {
                 navigate(event)
                 updateTitle(headerRoute.name)
               }"
             >
               {{ headerRoute.name }}
-            </NButton>
+            </Button>
           </RouterLink>
         </div>
       </div>
       <LoginForm />
     </div>
   </div>
+  <Separator />
 </template>
 
 <style scoped>
 .header {
   display: flex;
-  background-color: var(--header-color);
 }
 
 .header-container {
