@@ -1,8 +1,8 @@
+import { useDialog } from '@/components/dialog/composables/use-dialog'
+import DialogButton from '@/components/dialog/dialog-button.vue'
 import TableColPerson from '@/components/table/table-col/table-col-person.vue'
 import TableColSelect from '@/components/table/table-col/table-col-select.vue'
 import TableColTitle from '@/components/table/table-col/table-col-title.vue'
-import TableHeaderButton from '@/components/table/table-header/table-header-button.vue'
-import TableHeaderButtonConfirm from '@/components/table/table-header/table-header-button-confirm.vue'
 import { useUser } from '@/composables/use-user'
 import { GameEntity } from '@/lib/api.ts'
 import { ColumnDef } from '@tanstack/vue-table'
@@ -14,6 +14,7 @@ import { useGames } from './use-games'
 export const useGamesTable = defineStore('games/use-games-table', () => {
   const { isAdmin } = storeToRefs(useUser())
   const games = useGames()
+  const dialog = useDialog()
   const tableColumns = computed(() => {
     const columns: ColumnDef<GameEntity>[] = [
       {
@@ -83,16 +84,24 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
       columns.unshift({
         accessorKey: 'id',
         header: () => {
-          return h(TableHeaderButton, {
+          return h(DialogButton, {
             icon: CirclePlus,
-            onClick: () => games.createGame(),
+            onClick: () => dialog.openDialog({
+              title: `Создать игру?`,
+              description: '',
+              onSubmit: () => games.createGame(),
+            }),
           })
         },
         cell: ({ row }) => {
-          return h(TableHeaderButtonConfirm, {
+          return h(DialogButton, {
             key: `id-${row.original.id}`,
             icon: Eraser,
-            onClick: () => games.deleteGame(row.original.id),
+            onClick: () => dialog.openDialog({
+              title: `Удалить игру?`,
+              description: `Вы уверены, что хотите удалить "${row.original.title}"?`,
+              onSubmit: () => games.deleteGame(row.original.id),
+            }),
           })
         },
       })
@@ -101,6 +110,7 @@ export const useGamesTable = defineStore('games/use-games-table', () => {
   })
   return {
     tableColumns,
+    search: games.search,
   }
 })
 

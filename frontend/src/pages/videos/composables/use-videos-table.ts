@@ -1,8 +1,8 @@
+import { useDialog } from '@/components/dialog/composables/use-dialog'
+import DialogButton from '@/components/dialog/dialog-button.vue'
 import TableColPerson from '@/components/table/table-col/table-col-person.vue'
 import TableColSelect from '@/components/table/table-col/table-col-select.vue'
 import TableColTitle from '@/components/table/table-col/table-col-title.vue'
-import TableHeaderButton from '@/components/table/table-header/table-header-button.vue'
-import TableHeaderButtonConfirm from '@/components/table/table-header/table-header-button-confirm.vue'
 import { useUser } from '@/composables/use-user'
 import { VideoEntity } from '@/lib/api.ts'
 import { ColumnDef } from '@tanstack/vue-table'
@@ -14,6 +14,7 @@ import { useVideos } from './use-videos'
 export const useVideosTable = defineStore('videos/use-videos-table', () => {
   const { isAdmin } = storeToRefs(useUser())
   const videos = useVideos()
+  const dialog = useDialog()
   const tableColumns = computed(() => {
     const columns: ColumnDef<VideoEntity>[] = [
       {
@@ -100,16 +101,24 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
       columns.unshift({
         accessorKey: 'id',
         header: () => {
-          return h(TableHeaderButton, {
+          return h(DialogButton, {
             icon: CirclePlus,
-            onClick: () => videos.createVideo(),
+            onClick: () => dialog.openDialog({
+              title: `Создать киношку?`,
+              description: '',
+              onSubmit: () => videos.createVideo(),
+            }),
           })
         },
         cell: ({ row }) => {
-          return h(TableHeaderButtonConfirm, {
+          return h(DialogButton, {
             key: `id-${row.original.id}`,
             icon: Eraser,
-            onClick: () => videos.deleteVideo(row.original.id),
+            onClick: () => dialog.openDialog({
+              title: `Удалить киношку?`,
+              description: `Вы уверены, что хотите удалить "${row.original.title}"?`,
+              onSubmit: () => videos.deleteVideo(row.original.id),
+            }),
           })
         },
       })
@@ -118,6 +127,7 @@ export const useVideosTable = defineStore('videos/use-videos-table', () => {
   })
   return {
     tableColumns,
+    search: videos.search,
   }
 })
 

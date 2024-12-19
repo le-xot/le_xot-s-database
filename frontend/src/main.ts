@@ -20,8 +20,4 @@ PiniaColada(app, {
   // staleTime: 1000 * 60 * 1,
 })
 
-const meta = document.createElement('meta')
-meta.name = 'naive-ui-style'
-document.head.appendChild(meta)
-
 app.mount('#app')

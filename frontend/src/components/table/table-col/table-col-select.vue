@@ -1,18 +1,19 @@
 <script setup lang="ts" generic="T extends StatusesEnum | GradeEnum | GenresEnum">
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Tag } from '@/components/ui/tag'
 import { GenresEnum, GradeEnum, StatusesEnum } from '@/lib/api.ts'
-import { NSelect, NTag } from 'naive-ui'
 import { computed, toRef } from 'vue'
 import { useTableCol } from '../composables/use-table-col'
-import { SelectKind, TagOptions, useTableSelect } from '../composables/use-table-select'
+import { BadgeOptions, SelectKind, useTableSelect } from '../composables/use-table-select'
 import TableCol from './table-col.vue'
 
-type SelectValue = T | undefined
+type ValueSelect = T | undefined
 
 const props = defineProps<{
   kind: SelectKind
-  value: SelectValue
+  value: ValueSelect
 }>()
-const emits = defineEmits<{ update: [SelectValue] }>()
+const emits = defineEmits<{ update: [ValueSelect] }>()
 const selectValue = toRef(props, 'value')
 
 const {
@@ -25,43 +26,39 @@ const {
 
 const select = useTableSelect()
 const data = computed(() => {
+  const tag = select[`${props.kind}Tags`]?.[selectValue.value] as BadgeOptions
   return {
-    tag: select[`${props.kind}Tags`][selectValue.value] as TagOptions,
+    tag: tag || null,
     options: select.options[props.kind],
   }
 })
 </script>
 
 <template>
-  <TableCol v-if="data" @click="handleOpen">
-    <NSelect
+  <TableCol @click="handleOpen">
+    <Select
       v-if="isEdit"
-      v-model:value="inputValue"
-      size="small"
-      show
-      :options="data.options"
-      :render-label="(option) => select.renderLabel(option, kind)"
-      @update:value="handleChange"
       @keydown.enter="handleChange"
       @click.stop="handleClose"
-    />
-    <NTag
-      v-else-if="data.tag"
-      class="tag"
-      :type="data.tag.variant"
-      :bordered="false"
-      round
     >
+      <SelectTrigger class="w-[180px]">
+        <SelectValue :placeholder="data.tag.name" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem
+          v-for="option in data.options"
+          ref="inputValue"
+          :key="option.value"
+          :value="option.value"
+        >
+          <Tag>
+            {{ option.label }}
+          </Tag>
+        </SelectItem>
+      </SelectContent>
+    </Select>
+    <Tag v-else-if="data.tag" :class="data.tag.class">
       {{ data.tag.name }}
-    </NTag>
+    </Tag>
   </TableCol>
 </template>
-
-<style scoped>
-.tag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 150px;
-}
-</style>

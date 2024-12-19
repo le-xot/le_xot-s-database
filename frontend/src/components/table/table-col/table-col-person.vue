@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { NColorPicker, NSelect, NTag } from 'naive-ui'
-import { computed, toRef } from 'vue'
+import { Button } from '@/components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Tag } from '@/components/ui/tag'
+import { computed, ref, toRef } from 'vue'
 import { useTableCol } from '../composables/use-table-col'
 import { useTablePersons } from '../composables/use-table-persons'
 import TableCol from './table-col.vue'
@@ -35,54 +37,48 @@ async function handleColorChange(newColor: string) {
     await updatePerson(currentPerson.value.id, { color: newColor })
   }
 }
+
+const color = ref('#ff0000')
+const isPopoverOpen = ref(false)
+
+function onColorChange(event: any) {
+  color.value = event.target.value
+}
 </script>
+
+// TODO https://www.shadcn-vue.com/docs/components/context-menu.html
 
 <template>
   <TableCol @click="handleOpen">
     <div v-if="isEdit">
-      <NColorPicker
-        size="small"
-        placement="right"
-        :modes="['hex']"
-        :show-alpha="false"
-        :value="currentPerson?.color"
-        :swatches="['#603B2C', '#854C1D', '#89632A', '#2B593F', '#28456C', '#492F64', '#69314C', '#8f332a']"
-        @update:value="handleColorChange"
-      />
-      <NSelect
-        ref="inputRef"
-        v-model:value="inputValue"
-        tag
-        show
-        show-on-focus
-        filterable
-        size="small"
-        style="background-color: #18181C"
-        :options="persons.personOptions"
-        @update:value="updateValue"
-        @keydown.enter="handleChange"
-      />
+      <div class="flex items-center space-x-4">
+        <Popover v-model:open="isPopoverOpen">
+          <PopoverTrigger>
+            <div :style="{ backgroundColor: currentPerson?.color }">
+              {{ currentPerson?.name }}
+            </div>
+            <Button variant="ghost">
+              <div
+                :style="{ backgroundColor: color }"
+                class="w-5 h-5 rounded-full"
+              />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <input
+              v-model="color"
+              type="color"
+              class="w-full h-10 p-0 border-0 outline-none bg-transparent"
+              @input="onColorChange"
+            >
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
     <template v-else>
-      <NTag
-        v-if="currentPerson?.name"
-        :bordered="false"
-        size="medium"
-        round
-        :color="{ color: currentPerson?.color }"
-        class="tag"
-      >
+      <Tag class="truncate w-48" :style="{ backgroundColor: currentPerson?.color }">
         {{ currentPerson?.name }}
-      </NTag>
+      </Tag>
     </template>
   </TableCol>
 </template>
-
-<style scoped>
-.tag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 250px;
-}
-</style>

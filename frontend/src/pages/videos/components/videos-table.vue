@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Table from '@/components/table/table.vue'
+import TableSearch from '@/components/table/table-search.vue'
 import { storeToRefs } from 'pinia'
 import { useVideos } from '../composables/use-videos'
 import { useVideosTable } from '../composables/use-videos-table'
@@ -9,6 +10,7 @@ const table = useVideosTable()
 </script>
 
 <template>
+  <TableSearch v-model:value="table.search.searchValue" />
   <Table
     :columns="table.tableColumns"
     :data="videos"
